@@ -22,7 +22,19 @@ Diseñar e implementar toda la electrónica y eléctrica de la v3: alimentación
 
 > Registrar aquí cada sesión de trabajo con fecha: qué se hizo, qué salió mal, qué se aprendió, fotos (URLs). Este material es el corazón del tutorial de electrónica.
 
-*(Sin entradas todavía — agregar la primera cuando arranque el cableado.)*
+### 2026-07-04 — Preparando la subida de GRBL al Arduino
+
+- **Qué se hizo**: antes de compilar y subir el firmware GRBL al Arduino de la v3, se recuperó un `config.h` heredado de una máquina anterior (v1 o v2 — sin confirmar cuál) y se comparó línea por línea contra el `config.h` de stock de GRBL ([gnea/grbl, rama master](https://github.com/gnea/grbl/blob/master/grbl/config.h), consultado 2026-07-04).
+- **Hallazgo — 3 diferencias funcionales respecto al stock** (el resto del diff es solo espacios en blanco, sin efecto):
+  1. `HOMING_INIT_LOCK` desactivado (comentado) → la máquina no exige homing (`$H`) al encender; arranca directo en Idle en vez de entrar en ALARM.
+  2. `HOMING_CYCLE_0` reasignado a `X+Y` y `HOMING_CYCLE_1` (que en el stock homea X+Y) quedó comentado → **el eje Z nunca se referenciaba en el ciclo de homing** de la máquina anterior.
+  3. `HOMING_FORCE_SET_ORIGIN` activado → el origen máquina queda fijo en el punto de home, en vez de la convención de stock de dejar todo el espacio de trabajo en coordenadas negativas.
+- **Por qué importa para la v3**: la v3 estrena eje Z motorizado (ver [control-grbl.md](../../maquina/subsistemas/control-grbl.md)). El `config.h` heredado asume que Z no se homea — si se reutiliza tal cual, el nuevo Z quedaría fuera del ciclo `$H`.
+- **Queda pendiente** (sin resolver, a discutir en la próxima sesión):
+  - ¿Se agrega Z al ciclo de homing (típicamente `HOMING_CYCLE_0`, para que suba y despeje el área antes de mover X/Y) o se mantiene sin homear como antes?
+  - ¿Se conservan `HOMING_INIT_LOCK` desactivado y `HOMING_FORCE_SET_ORIGIN` activado, o se vuelve al comportamiento por defecto de GRBL ahora que la máquina cambió?
+- **Lección**: ninguno de estos 3 cambios quedó documentado cuando se hicieron originalmente — se perdió el motivo. Para la v3, todo cambio a `config.h` se anota aquí (o en el changelog de GRBL) con su fecha y su porqué apenas se decida.
+- **Decisión adicional de la sesión**: los tres drivers DRV8825 (X, Y, Z) se configuran a **1/8 de paso (octavo)**. Tabla de jumpers MODE0/1/2 y detalle en [parametros/drivers/microstepping.yaml](../../maquina/parametros/drivers/microstepping.yaml). Con esto más el avance mecánico de cada eje (aún pendiente) se podrán calcular los `$100`/`$101`/`$102` de GRBL.
 
 ## Salidas esperadas de este paso
 

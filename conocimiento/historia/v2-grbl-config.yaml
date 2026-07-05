@@ -1,0 +1,55 @@
+# Configuración GRBL de la CNC Magia Roja v2 (2024–2026) — snapshot histórico
+# Regla 11 de AGENTS.md: v1/v2 son historia congelada. Este archivo NO genera pendientes
+# nuevos sobre v2; se conserva como referencia para las decisiones de configuración de la v3.
+#
+# Procedencia: tabla con nombres/unidades/descripciones oficiales de GRBL, transcrita de
+# memoria/registro propio por Nicolas Velasquez el 2026-07-04. No se conserva el dump crudo
+# `$$` original de la controladora (se perdió junto con la máquina, que ya se vendió).
+# Referencia oficial de cada parámetro: https://github.com/gnea/grbl/blob/master/doc/markdown/settings.md
+
+maquina: magia-roja-v2
+fecha_registro_en_repo: "2026-07-04"   # fecha en que se documentó aquí; la fecha original de esta config en la controladora es desconocida
+controladora: "Arduino + CNC Shield + GRBL, drivers TMC2209 refrigerados"
+validado: true   # dato tal cual lo recuerda/registra el operador de la v2, no requiere validación cruzada
+
+parametros:
+  $0:   {valor: 10,      unidad: "microsegundos", nombre: "Step pulse time"}
+  $1:   {valor: 18,      unidad: "milisegundos",  nombre: "Step idle delay"}
+  $2:   {valor: 0,       unidad: "mask",          nombre: "Step pulse invert"}
+  $3:   {valor: 2,       unidad: "mask",          nombre: "Step direction invert", nota: "binario 010 (bits ZYX) → eje Y invertido"}
+  $4:   {valor: 0,       unidad: "boolean",       nombre: "Invert step enable pin"}
+  $5:   {valor: 0,       unidad: "boolean",       nombre: "Invert limit pins"}
+  $6:   {valor: 0,       unidad: "boolean",       nombre: "Invert probe pin"}
+  $10:  {valor: 0,       unidad: "mask",          nombre: "Status report options"}
+  $11:  {valor: 0.010,   unidad: "mm",            nombre: "Junction deviation"}
+  $12:  {valor: 0.020,   unidad: "mm",            nombre: "Arc tolerance"}
+  $13:  {valor: 0,       unidad: "boolean",       nombre: "Report in inches"}
+  $20:  {valor: 0,       unidad: "boolean",       nombre: "Soft limits enable"}
+  $21:  {valor: 1,       unidad: "boolean",       nombre: "Hard limits enable"}
+  $22:  {valor: 1,       unidad: "boolean",       nombre: "Homing cycle enable"}
+  $23:  {valor: 3,       unidad: "mask",          nombre: "Homing direction invert", nota: "binario 011 (bits ZYX) → X e Y buscan el switch en dirección negativa; Z en dirección positiva (bit en 0)"}
+  $24:  {valor: 200,     unidad: "mm/min",        nombre: "Homing locate feed rate"}
+  $25:  {valor: 1000,    unidad: "mm/min",        nombre: "Homing search seek rate"}
+  $26:  {valor: 250,     unidad: "milisegundos",  nombre: "Homing switch debounce delay"}
+  $27:  {valor: 1.000,   unidad: "mm",            nombre: "Homing switch pull-off distance"}
+  $30:  {valor: 1000,    unidad: "RPM",           nombre: "Maximum spindle speed"}
+  $31:  {valor: 0,       unidad: "RPM",           nombre: "Minimum spindle speed"}
+  $32:  {valor: 1,       unidad: "boolean",       nombre: "Laser-mode enable"}
+  $100: {valor: 25.000,  unidad: "pasos/mm",  nombre: "X-axis travel resolution"}
+  $101: {valor: 100.000, unidad: "pasos/mm",  nombre: "Y-axis travel resolution"}
+  $102: {valor: 50.000,  unidad: "pasos/mm",  nombre: "Z-axis travel resolution"}
+  $110: {valor: 2000.000, unidad: "mm/min",   nombre: "X-axis maximum rate"}
+  $111: {valor: 2000.000, unidad: "mm/min",   nombre: "Y-axis maximum rate"}
+  $112: {valor: 1000.000, unidad: "mm/min",   nombre: "Z-axis maximum rate"}
+  $120: {valor: 100.000, unidad: "mm/s²",     nombre: "X-axis acceleration"}
+  $121: {valor: 100.000, unidad: "mm/s²",     nombre: "Y-axis acceleration"}
+  $122: {valor: 200.000, unidad: "mm/s²",     nombre: "Z-axis acceleration"}
+  $130: {valor: 420.000, unidad: "mm",        nombre: "X-axis maximum travel"}
+  $131: {valor: 400.000, unidad: "mm",        nombre: "Y-axis maximum travel"}
+  $132: {valor: 10.000,  unidad: "mm",        nombre: "Z-axis maximum travel"}
+
+observaciones:
+  - "⚠️ Inconsistencia a resolver con el operador: esta config trae $102/$112/$122/$132 (resolución, velocidad, aceleración y recorrido de Z) con valores no nulos, y $132=10mm sugiere un eje Z de recorrido muy corto. Esto contrasta con lo documentado en AGENTS.md y control-grbl.md: 'la v3 usa por primera vez el eje Z motorizado'. Posibles explicaciones sin confirmar: (a) la v2 tenía un tornillo de ajuste de foco motorizado de recorrido corto registrado como eje Z en GRBL, (b) estos valores son remanentes de fábrica/default nunca usados realmente, o (c) el eje Z de v2 sí se usaba de forma limitada. No inventar la respuesta — confirmar con Nicolas y anotar aquí o en historia/v2.md."
+  - "El ciclo de homing SÍ tenía $22=1 (homing habilitado) para los tres ejes según esta tabla, lo cual en principio requiere finales de carrera en X, Y y Z — dato a cruzar con el hallazgo de config.h del paso 02 (HOMING_CYCLE_1 comentado, Z fuera del ciclo de homing). Puede que $22/$23 quedaran configurados pero sin uso real si compile-time el homing de Z estaba deshabilitado."
+
+uso_para_v3: "Sirve como punto de partida orientativo (no como valores a copiar): la v3 cambia de drivers (DRV8825 vs TMC2209), de microstepping (ver parametros/drivers/microstepping.yaml) y probablemente de paso de tornillo/transmisión, así que $100-$102, $110-$112 y $120-$122 deben recalcularse para v3, no heredarse."

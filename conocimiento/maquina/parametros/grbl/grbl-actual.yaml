@@ -6,6 +6,9 @@ maquina: magia-roja-v3
 fecha: null            # fecha del último cambio aplicado
 version_grbl: null     # ⏳ PENDIENTE: versión de firmware a instalar
 
+# Microstepping decidido: 1/8 en los tres ejes — ver ../drivers/microstepping.yaml.
+# Falta el avance mecánico (paso de tornillo/polea) de cada eje para calcular $100/$101/$102.
+
 # Parámetros $$ de GRBL, anotados. Referencia oficial:
 # https://github.com/gnea/grbl/blob/master/doc/markdown/settings.md
 parametros:

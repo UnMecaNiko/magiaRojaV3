@@ -1,0 +1,37 @@
+# Configuración de microstepping de los drivers DRV8825 — CNC Magia Roja v3
+# Formato: YAML (regla del repo: datos en YAML, narrativa en Markdown) — ver D-0002
+
+maquina: magia-roja-v3
+driver: DRV8825
+resolucion_elegida: "1/8 (octavo de paso)"
+fecha_decision: "2026-07-04"
+decidido_por: Nicolas Velasquez
+validado: false   # ⏳ PENDIENTE: confirmar físicamente los jumpers MODE0/1/2 en la CNC Shield de cada eje y verificar sin pérdida de pasos
+
+# Tabla oficial de selección de microstepping del DRV8825 (pines MODE0, MODE1, MODE2).
+# Fuente: https://www.pololu.com/product/2133 (consultada 2026-07-04)
+tabla_modo:
+  full_step:   {MODE0: low,  MODE1: low,  MODE2: low}
+  half_step:   {MODE0: high, MODE1: low,  MODE2: low}
+  cuarto_paso: {MODE0: low,  MODE1: high, MODE2: low}
+  octavo_paso: {MODE0: high, MODE1: high, MODE2: low}   # <- resolución elegida
+  dieciseisavo_paso: {MODE0: low, MODE1: low, MODE2: high}
+  treintaidosavo_paso: {MODE0: high, MODE1: low, MODE2: high}  # también high/high/high y low/high/high dan 1/32
+nota_pines: "Los tres pines MODE tienen pull-down interno de 100kΩ: si se dejan desconectados, el driver queda en full-step. En la CNC Shield, insertar el jumper típicamente pone el pin en HIGH — ⏳ PENDIENTE confirmar en la serigrafía de esta shield específica antes de instalar los jumpers."
+
+ejes:
+  x:
+    microstepping: "1/8"
+    pasos_motor_por_rev: 200   # 1.8°/paso, ver motor-nema17.md
+    pasos_por_rev_efectivos: 1600
+  y:
+    microstepping: "1/8"
+    pasos_motor_por_rev: 200
+    pasos_por_rev_efectivos: 1600
+  z:
+    microstepping: "1/8"
+    pasos_motor_por_rev: 200   # ⏳ PENDIENTE confirmar en etiqueta (ver motor-nema17.md), se asume 1.8° estándar
+    pasos_por_rev_efectivos: 1600
+
+impacto: "El microstepping es un factor directo en el cálculo de pasos/mm ($100/$101/$102 en GRBL): pasos/mm = pasos_por_rev_efectivos / avance_mm_por_rev (paso de tornillo o polea+correa). Ese avance mecánico por eje todavía no está registrado — ver grbl-actual.yaml."
+siguiente_paso: "Con el avance mecánico (paso de tornillo helicoidal o dientes de polea) de cada eje, calcular $100/$101/$102 y registrar la prueba en conocimiento/maquina/pruebas/ una vez validado sin pérdida de pasos."

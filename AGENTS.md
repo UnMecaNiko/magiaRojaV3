@@ -66,9 +66,9 @@ Aquí **no se desarrolla código de producto**: se organiza información del mun
 - No se documenta trabajo nuevo, no se presupuestan, no se les crean pendientes. Todo el trabajo activo es **v3**.
 
 ### 12. Flujo de git
-- **Correcciones pequeñas** (typos, ajustes de un archivo, actualizar un pendiente): commit **directo sobre `main`**.
+- **Los commits se hacen de forma automática, sin pedir autorización** — tanto sobre `main` directamente como dentro de una rama. No esperar confirmación del usuario para commitear.
 - **Trabajos grandes** (nueva sección, investigación extensa, generación de salidas): rama con **nombre que describa su propósito**, en formato `tipo/proposito` — ej. `doc/fase-electronica`, `web/pagina-inicial`, `skill/investigar-componente`, `presupuesto/reconstruccion-mecanica`. Si la sesión arranca en una rama autogenerada (worktree `claude/...`), renombrarla con `git branch -m` apenas quede claro el propósito.
-- Al **marcar un trabajo como finalizado**: integrar a `main` de inmediato (fast-forward directo, **sin pull request** — trabaja una sola persona) y **borrar la rama del remoto**. Los PRs se reservan para cuando haya colaboradores o se quiera auto-revisión de un cambio grande.
+- **Mergear una rama a `main` sí requiere autorización explícita del usuario** — nunca se integra por iniciativa propia. Una vez autorizado: fast-forward directo (**sin pull request** — trabaja una sola persona) y **borrar la rama del remoto**. Los PRs se reservan para cuando haya colaboradores o se quiera auto-revisión de un cambio grande.
 - Identidad de commits en este repo: `Nicolas Velasquez Lopez <unmecaniko@gmail.com>` (configurada a nivel de repo).
 
 ## Mapa del repositorio

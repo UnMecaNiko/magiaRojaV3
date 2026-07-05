@@ -33,7 +33,7 @@ Al iniciar el repo, el láser de la v3 se recordaba como "tri-j30". Una búsqued
 
 Lista viva — agregar aquí lo que surja:
 
-- [ ] Atenuación del acrílico rojo a 450 nm / 30W (⚠️ **seguridad ocular** — prioridad)
+- [x] ~~Atenuación del acrílico rojo a 450 nm / 30W~~ → **resuelto 2026-07-04**: el rojo genérico no certifica; se requiere acrílico naranja con OD para 405–450 nm. Hallazgo en [seguridad.md](../../conocimiento/maquina/subsistemas/seguridad.md)
 - [ ] Pinout y niveles PWM/TTL del K30 (manual del fabricante)
 - [ ] Calibres de cable AWG para 12V/10A y 24V/5A
 - [ ] Modo láser GRBL (`$32`, M3 vs M4) con módulos de diodo

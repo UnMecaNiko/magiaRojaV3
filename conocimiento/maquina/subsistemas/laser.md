@@ -33,7 +33,7 @@ Resumen operativo:
 
 - **Air assist integrado**: la v2 usaba bomba de aire externa; el K30 lo trae en el módulo. ⏳ PENDIENTE: evaluar si el flujo integrado basta para corte grueso o si se complementa con la bomba externa.
 - **Fuente separada de 24V**: ver [electrica.md](electrica.md) y [D-0005](../decisiones/D-0005-fuentes-separadas.md).
-- Mayor potencia → repensar seguridad: el domo acrílico de la v2 debe validarse para 30W ópticos a 450 nm. ⏳ PENDIENTE: investigar atenuación del acrílico rojo a 450 nm con fuentes citadas — **crítico de seguridad**.
+- Mayor potencia → repensar seguridad: ⚠️ la investigación del 2026-07-04 concluyó que **el acrílico rojo genérico no es protección certificada para 450 nm** — se requiere acrílico naranja con OD especificada. Ver hallazgo completo en [seguridad.md](seguridad.md).
 
 ## Integración pendiente
 

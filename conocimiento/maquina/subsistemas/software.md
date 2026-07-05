@@ -22,65 +22,52 @@ Fuentes sobre configuración GRBL en LightBurn (consultadas 2026-07-04):
 - https://docs.lightburnsoftware.com/2.1/Guides/GRBLConfiguration/
 - https://docs.lightburnsoftware.com/latest/Reference/MachineSettings/
 
-## Tutorial: botones de macro personalizados en LightBurn
+## Tutorial: botones de subir/bajar Z en LaserGRBL
 
-En la máquina anterior se habían agregado botones personalizados en LightBurn (comandos G-code de un clic, ej. disparo de prueba del láser). Al revisar esta instalación no se encontraron guardados — ver "Dónde vive esta configuración" abajo. Este tutorial documenta cómo **crearlos de nuevo**, porque es un flujo bastante personalizado a la operación de esta máquina y vale la pena tenerlo en el repo en vez de reconstruirlo de memoria cada vez.
+Corrección sobre una nota anterior de esta misma sesión: esto **no es de LightBurn** — son los botones de eje Z de **LaserGRBL** (`C:\Program Files (x86)\LaserGRBL`), que Nicolas borró y ahora necesita recrear.
 
 ### Dónde vive esta configuración (hallazgo de la exploración)
 
-- `C:\Program Files\LightBurn\` solo contiene el ejecutable y sus librerías — **no** guarda configuración de usuario ni botones.
-- Los botones (macros) se guardan por perfil de dispositivo dentro de `prefs.ini`, en `%LOCALAPPDATA%\LightBurn\` (en este equipo: `C:\Users\DELL\AppData\Local\LightBurn\prefs.ini`), como un arreglo `"Macros": [...]` dentro del bloque del dispositivo (en esta instalación el perfil se llama `"GRBL"`).
-- Se revisaron `prefs.ini` y los 29 backups fechados en `backup/prefs/` (nov. 2025 – ene. 2026): en **todos** el arreglo `Macros` está vacío. Los botones de la máquina anterior no quedaron guardados en esta instalación — hay que recrearlos desde cero. ⏳ PENDIENTE: si Nicolas recuerda los comandos exactos que tenía cada botón, anotarlos aquí para no perder ese conocimiento otra vez.
+- `C:\Program Files (x86)\LaserGRBL\` solo tiene el ejecutable y librerías — no guarda configuración de usuario. Sí trae `StandardButtons.zbn`, un set de botones de ejemplo de fábrica, en el formato binario propio de LaserGRBL ("RemotingBase" serializer, comprimido) — no legible ni editable como texto.
+- La config de usuario vive en `%APPDATA%\LaserGRBL\` (en este equipo: `C:\Users\DELL\AppData\Roaming\LaserGRBL\`). Los botones personalizados están en `CustomButtons.bin` ahí mismo, en el mismo formato binario propio.
+- Se revisó `CustomButtons.bin`: hoy tiene botones de framing, foco de láser y encendido/apagado — pero **ningún botón de Z**, consistente con que se hayan borrado.
+- ⚠️ No se editó `CustomButtons.bin` a mano para reinsertar los botones: es un formato binario serializado propio sin librería disponible aquí para escribirlo de forma segura. Un error de un byte arriesga corromper también los botones que sí funcionan hoy (framing, foco, láser on/off). Recrearlos desde la interfaz (abajo) toma lo mismo y no tiene ese riesgo.
 
-### Panel de Macros — dónde está
+### Opción 1 (la más simple — probablemente esto es lo que se borró)
 
-Va por **Window → Macros**. El panel solo aparece con un perfil de dispositivo basado en G-code seleccionado, y por defecto queda acoplado en la esquina superior derecha, detrás de la ventana Cuts/Layers.
+Antes de crear botones personalizados: el control de Z de LaserGRBL es en realidad una función **nativa** que viene oculta por defecto, no una macro. Si "se borraron los botones de Z", lo más probable es que se haya desmarcado esta casilla:
 
-Fuente: [Macros Window — LightBurn Documentation](https://docs.lightburnsoftware.com/2.1/Reference/MacrosWindow/) (consultada 2026-07-04).
+1. Menú **Grbl → Settings**.
+2. Pestaña **Jog Control**.
+3. Marcar **"Show Z up/down control"**.
+4. Guardar.
 
-### Procedimiento para crear un botón
+Esto agrega junto al panel de jog un set de controles de Z (movimiento grueso y fino) — es, de hecho, la única forma en que LaserGRBL mueve el eje Z fuera de ejecutar un archivo G-code cargado.
 
-1. Abrir el panel **Macros** (Window → Macros) y hacer clic en **Manage** (esquina inferior derecha).
-2. En el diálogo, clic en **Add** → se abre "New Macro".
-3. Llenar:
-   - **Button Label**: el nombre que va a aparecer en el botón.
-   - **Macro Content**: uno o más comandos G-code, uno por línea.
-4. **OK** para guardar.
-5. Para editar: seleccionar la macro en "Manage Macros" → **Edit**. Para borrar: **Delete**. Para reordenar: **Move Up/Down** o arrastrar.
+Fuente: [SainSmart — Introduction to CNC for a Total Novice: Setting up a Laser](https://docs.sainsmart.com/article/9t96srkawt-introduction-to-cnc-for-a-total-novice-setting-up-a-laser) (consultada 2026-07-04).
 
-Recomendación de la propia documentación: probar los comandos primero en la ventana **Console** antes de meterlos en un botón.
+### Opción 2 — si eran botones personalizados (macros) de verdad
 
-Fuente: igual que arriba.
+1. Clic derecho en el área de **botones personalizados** (parte inferior de la ventana principal) → **New**.
+2. Tipo **Button** (ejecuta un bloque de G-code al hacer clic; también existen `TwoStateButton` y `PushButton` para alternar/mantener presionado).
+3. Llenar **Caption** (ej. "Z+" / "Z-") y **ToolTip** opcional.
+4. G-code recomendado — comando de jog oficial de GRBL (`$J=`), cancelable y que no altera el estado del parser:
+   - Subir: `$J= G91 Z[jogstep] F[jogspeed]`
+   - Bajar: `$J= G91 Z[0-jogstep] F[jogspeed]`
 
-### Ejemplo concreto: botón de "disparo de prueba" (test fire)
+   `[jogstep]` y `[jogspeed]` son variables de LaserGRBL que toman el paso y la velocidad ya configurados en el panel de jog, para que el botón se comporte igual que el resto de controles.
 
-Útil para alinear el foco del K30 sin lanzar un trabajo completo — un pulso corto de láser a baja potencia:
+   Variante alternativa vista en la comunidad (sin `$J=`, con G-code clásico):
+   ```
+   G91
+   G0 Z[jogstep] F[jogspeed]
+   G90
+   ```
+5. Guardar. Para editar o borrar más adelante: clic derecho sobre el botón.
 
-```gcode
-$32=0
-M4
-S200
-G4 P0.25
-M5
-$32=1
-```
-
-| Línea | Qué hace |
-|---|---|
-| `$32=0` | Sale temporalmente del modo láser (modo CNC) solo para este pulso de prueba |
-| `M4` | Enciende el láser (modo dinámico, ligado a velocidad) |
-| `S200` | Fija la potencia del pulso (ajustar según escala de potencia del K30 — ⏳ PENDIENTE calibrar valor apropiado, `S200` es el ejemplo de la fuente para otro controlador) |
-| `G4 P0.25` | Espera 0.25 s — duración del pulso |
-| `M5` | Apaga el láser |
-| `$32=1` | Vuelve a modo láser permanente |
-
-⚠️ Este `$32=0`/`$32=1` es un toggle **dentro del macro**, distinto del `$32` permanente que se registrará en [grbl-actual.yaml](../parametros/grbl/grbl-actual.yaml) — no confundir uno con otro al leer la config de la máquina.
-
-Fuente: [Making a Test Fire Button with LightBurn Macros](https://awesome.tech/test-fire-button-in-lightburn/) (consultada 2026-07-04).
-
-### Para botones más avanzados
-
-El "Custom G-code" de LightBurn expone variables como `x`/`y`/`z`, `p`/`power`, `s`/`speed`, `dwell`, `tool`, y los modificadores `|REL|`/`|ABS|`/`|RESTORE|` para cambiar temporalmente el modo de posicionamiento dentro de un macro. Fuente: [Custom GCode — LightBurn Documentation](https://docs.lightburnsoftware.com/CustomGCode.html) (consultada 2026-07-04).
+Fuentes:
+- [Custom buttons — LaserGRBL](https://lasergrbl.com/usage/custom-buttons/) (tipos de botón y variables `[jogstep]`/`[jogspeed]`, consultada 2026-07-04).
+- [arkypita/LaserGRBL, issue #306 "Share your custom buttons Here!"](https://github.com/arkypita/LaserGRBL/issues/306) — comentarios de Arhimed-Ru (versión `$J=`) y 1estrider (versión G91/G0/G90), consultada 2026-07-04.
 
 ## Pendientes
 
@@ -89,4 +76,4 @@ El "Custom G-code" de LightBurn expone variables como `x`/`y`/`z`, `p`/`power`, 
 1. Definir el software del flujo de fresado (UGS u otro sender; CAM para generar G-code de fresado — investigar opciones y citar).
 2. Script YAML → librería de materiales LightBurn.
 3. Versión de GRBL a usar y su configuración de modo láser (`$32`).
-4. Recrear en LightBurn los botones de macro personalizados que tenía la máquina anterior — no quedaron guardados en esta instalación (ver tutorial arriba). Recuperar de memoria cuáles existían y qué comando exacto tenía cada uno.
+4. Recrear en LaserGRBL los botones de Z (ver tutorial arriba) — probar primero la opción 1 (casilla nativa); si no era eso, crear los botones de la opción 2 y confirmar que el comportamiento (paso, velocidad, dirección) es el esperado.

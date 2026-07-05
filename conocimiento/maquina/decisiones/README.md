@@ -18,3 +18,4 @@ Cada decisión relevante — técnica de la máquina o estructural del repositor
 | [D-0004](D-0004-laser-tree-k30.md) | Láser Laser Tree K30 para la v3 | Máquina | ✅ Vigente |
 | [D-0005](D-0005-fuentes-separadas.md) | Dos rieles de alimentación (24V láser / 12V control) | Máquina | ✅ Vigente |
 | [D-0006](D-0006-mantener-plataforma-grbl.md) | Mantener Arduino + CNC Shield + GRBL | Máquina | ✅ Vigente |
+| [D-0007](D-0007-drivers-drv8825.md) | Drivers DRV8825 para los tres ejes | Máquina | ✅ Vigente |

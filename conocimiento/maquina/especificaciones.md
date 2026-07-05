@@ -33,7 +33,7 @@
 | Especificación | Valor |
 |---|---|
 | Controladora | Arduino + CNC Shield, firmware GRBL |
-| Drivers | Los de la controladora — ⏳ PENDIENTE: confirmar modelo (v2 usaba TMC2209 refrigerados) |
+| Drivers | **DRV8825** (ver [D-0007](decisiones/D-0007-drivers-drv8825.md)); v2 usaba TMC2209 refrigerados |
 | Fuente principal | 12 V / 10 A (control, motores, ventilación) |
 | Fuente del láser | Propia del K30: 24 V / 5 A |
 | Software | LightBurn, LaserGRBL, UGS (por confirmar el flujo de fresado) |
@@ -47,4 +47,4 @@
 | Láser (óptico) | ~10W | 10W (FAC) | **30W** |
 | Fresado | Motor rotativo | — | Cabezal intercambiable |
 | Transmisión | Correas | Tornillo helicoidal | ⏳ (por confirmar) |
-| Controladora | Arduino Uno + Shield V3 + A4988 | GRBL + TMC2209 | Arduino + CNC Shield |
+| Controladora | Arduino Uno + Shield V3 + A4988 | GRBL + TMC2209 | Arduino + CNC Shield + **DRV8825** |

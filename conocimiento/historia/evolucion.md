@@ -21,7 +21,7 @@ Qué cambió entre versiones y **por qué** — la narrativa del linaje. Útil p
 | Ejes | X/Y (Y dual) | X/Y | **X/Y/Z** |
 | Transmisión | Correas | Tornillo helicoidal + bujes | ⏳ por confirmar |
 | Controladora | Arduino Uno + Shield V3 | GRBL board | Arduino + CNC Shield |
-| Drivers | A4988 | TMC2209 refrigerados | ⏳ por confirmar |
+| Drivers | A4988 | TMC2209 refrigerados | **DRV8825** |
 | Láser (óptico) | ~10W (80W head) | 10W FAC + air assist externo | **30W (K30), air assist integrado** |
 | Fresado | Motor rotativo | ✗ | **Cabezal intercambiable** |
 | Alimentación | Única | Única | **Dos rieles (12V + 24V)** |

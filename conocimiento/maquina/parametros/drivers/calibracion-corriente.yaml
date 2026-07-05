@@ -1,0 +1,32 @@
+# Calibración de corriente (Vref) de los drivers DRV8825 — CNC Magia Roja v3
+# Formato: YAML (regla del repo: datos en YAML, narrativa en Markdown) — ver D-0002
+
+maquina: magia-roja-v3
+driver: DRV8825
+rsense_ohm: 0.1              # confirmado físicamente: resistencias marcadas "R100" en la placa
+formula: "Vref = Ilimite_A / 2   (válida para Rsense = 0.1 ohm)"
+fuente_formula: "conocimiento/maquina/componentes/fichas/driver-drv8825.md"
+fecha_calculo: "2026-07-04"
+validado: false               # ⏳ PENDIENTE: medir en banco con multímetro (via marcado, respecto a GND) y confirmar sin pérdida de pasos ni sobrecalentamiento
+
+ejes:
+  x:
+    motor_ficha: "../../componentes/fichas/motor-nema17.md"
+    corriente_nominal_a: 1.7
+    vref_max_v: 0.85          # 100% de la corriente nominal (tope recomendado por Pololu)
+    vref_recomendado_v: 0.80  # punto de partida conservador (~1.6 A) hasta confirmar refrigeración
+    nota: "Por encima de 1.5A sin refrigeración — requiere disipador/ventilación activa en el driver."
+  y:
+    motor_ficha: "../../componentes/fichas/motor-nema17.md"
+    corriente_nominal_a: 1.7
+    vref_max_v: 0.85
+    vref_recomendado_v: 0.80
+    nota: "Mismo motor y misma nota que el eje X."
+  z:
+    motor_ficha: "../../componentes/fichas/motor-nema17.md"
+    corriente_nominal_a: 2.0
+    vref_max_v: 1.00
+    vref_recomendado_v: 0.90  # punto de partida (~1.8 A); subir a 1.00V solo si la temperatura del driver se mantiene controlada
+    nota: "Cerca del máximo del DRV8825 con refrigeración (2.2A) — refrigeración activa obligatoria."
+
+siguiente_paso: "Registrar una prueba en conocimiento/maquina/pruebas/ una vez calibrado físicamente cada eje, con temperatura del driver y comportamiento bajo carga (con y sin pérdida de pasos)."

@@ -12,6 +12,8 @@ parametros/
 │   ├── grbl-actual.yaml     Config vigente, ANOTADA
 │   ├── historico/           Snapshots fechados (dump $$ crudo + YAML)
 │   └── CHANGELOG.md         Qué cambió, cuándo y POR QUÉ
+├── drivers/             Calibración de corriente (Vref) de los drivers de motor
+│   └── calibracion-corriente.yaml
 └── perfiles/            Combinaciones por tarea/modo (ej: modo láser vs. modo fresado)
 ```
 

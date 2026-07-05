@@ -34,29 +34,35 @@ componentes:
     notas: "⏳ PENDIENTE: modelo exacto de Arduino y versión de shield"
 
   - id: drivers-steppers
-    nombre: Drivers de motores paso a paso
+    nombre: DRV8825
     categoria: electronica
-    descripcion: Drivers de la controladora
+    descripcion: Drivers de motores paso a paso (Rsense 0.1 Ω, marcado "R100", confirmado)
     cantidad: 3   # X, Y, Z — ⏳ confirmar si Y es dual como en v1 (serían 4)
-    estado: por-definir
-    notas: "⏳ PENDIENTE: confirmar modelo (v2 usó TMC2209 refrigerados)"
+    estado: instalado
+    ficha: fichas/driver-drv8825.md
+    notas: "Modelo confirmado, ver decisiones/D-0007-drivers-drv8825.md. Calibración de corriente: parametros/drivers/calibracion-corriente.yaml"
 
   - id: nema17-x
     nombre: Motor NEMA 17 (eje X)
     categoria: movimiento
     cantidad: 1
     estado: instalado
+    ficha: fichas/motor-nema17.md
+    notas: "1.7 A nominal, 0.45 Nm"
   - id: nema17-y
     nombre: Motor NEMA 17 (eje Y)
     categoria: movimiento
     cantidad: 1   # ⏳ PENDIENTE: ¿Y dual como en v1?
     estado: instalado
+    ficha: fichas/motor-nema17.md
+    notas: "1.7 A nominal, 0.45 Nm — mismo motor que X"
   - id: nema17-z
     nombre: Motor NEMA 17 (eje Z)
     categoria: movimiento
     cantidad: 1
     estado: instalado
-    notas: Nuevo en v3 — eje Z motorizado
+    ficha: fichas/motor-nema17.md
+    notas: "Nuevo en v3 — eje Z motorizado. 2 A nominal, 59 Ncm"
 
   - id: motor-fresado
     nombre: Motor de fresado (motor tool)

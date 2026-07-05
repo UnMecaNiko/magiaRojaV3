@@ -24,4 +24,4 @@ La v3 **mantiene Arduino + CNC Shield + GRBL** con los drivers de la controlador
 
 - ✅ Riesgo técnico bajo en la fase de electrónica.
 - ⚠️ Techo conocido: sin WiFi nativo, límite de 3 ejes, 8 bits. Si el roadmap futuro pide más (p. ej. rotativo de 4º eje), se revisará esta decisión con un nuevo ADR.
-- ⏳ PENDIENTE: confirmar modelo de drivers (v2 usó TMC2209 refrigerados — candidatos naturales).
+- ✅ Modelo de drivers confirmado: DRV8825 — ver [D-0007](D-0007-drivers-drv8825.md).

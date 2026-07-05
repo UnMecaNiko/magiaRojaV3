@@ -55,6 +55,16 @@ Aquí **no se desarrolla código de producto**: se organiza información del mun
 - Al terminar trabajo: actualizar [harness/planeacion/changelog.md](harness/planeacion/changelog.md) y mover ítems de [plan-de-trabajo.md](harness/planeacion/plan-de-trabajo.md) a [completado.md](harness/planeacion/completado.md).
 - Las metas y el roadmap se revisan cuando cambia el rumbo, no en cada commit.
 
+### 10. Presupuesto: interno y confidencial 🔒
+- `presupuesto/` contiene costos reales (materiales, horas, tarifas). Es **estrictamente interno**.
+- **Prohibido** que el chatbot, la web, los artículos o cualquier salida de cara a clientes lea o cite `presupuesto/`.
+- El Excel (`presupuesto-v3.xlsx`) es el archivo de trabajo; los CSV de `presupuesto/datos/` son su espejo en texto y se regeneran tras cambios significativos.
+- Toda compra registrada referencia su `bom_id` del [BOM](conocimiento/maquina/componentes/bom.yaml).
+
+### 11. v1 y v2 son historia congelada
+- Sobre las versiones 1 y 2 **no se trabaja más**: son contexto histórico y linaje ([conocimiento/historia/](conocimiento/historia/)).
+- No se documenta trabajo nuevo, no se presupuestan, no se les crean pendientes. Todo el trabajo activo es **v3**.
+
 ## Mapa del repositorio
 
 ```
@@ -75,6 +85,7 @@ conocimiento/                    ── CAPA 1: fuente de la verdad ──
 ├── mantenimiento.md
 └── glosario.md
 comercial/                       propuesta de valor, mercado, casos de uso (SIN precios)
+presupuesto/                     🔒 INTERNO — Excel de materiales/horas/tarifas + espejo CSV
 harness/                         ── CAPA 2: harness agéntico ──
 ├── planeacion/                  metas, roadmap, plan-de-trabajo, completado, changelog
 ├── guias/                       como-investigar, estilo-redaccion
@@ -102,3 +113,5 @@ salidas/                         ── GENERADO desde la fuente ──
 | Documentar un paso del build | Plantilla paso-tutorial → `conocimiento/proceso-construccion/v3/NN-titulo.md` |
 | Escribir un artículo/página/tutorial | Leer la fuente en `conocimiento/`, generar en `salidas/`, seguir `harness/guias/estilo-redaccion.md` |
 | Investigar un componente | Seguir `harness/guias/como-investigar.md`, crear ficha en `componentes/fichas/` |
+| Registrar una compra u horas de trabajo | Editar `presupuesto/presupuesto-v3.xlsx` (hojas Materiales/Horas) y regenerar los CSV de `presupuesto/datos/` |
+| Saber qué está pendiente | `harness/planeacion/plan-de-trabajo.md` (accionable), marcas `⏳ PENDIENTE` en cada documento (vacíos puntuales), lista de investigación en `harness/guias/como-investigar.md`, y `roadmap.md` (futuro) |

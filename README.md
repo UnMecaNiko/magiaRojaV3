@@ -18,6 +18,7 @@ Este repositorio es la **base de conocimiento central y única** de la máquina.
 | [`conocimiento/`](conocimiento/) | La **fuente de la verdad**: máquina, subsistemas, parámetros, pruebas, decisiones, historia |
 | [`conocimiento/proceso-construccion/`](conocimiento/proceso-construccion/) | Paso a paso del build — insumo para tutoriales |
 | [`comercial/`](comercial/) | Propuesta de valor, mercado, casos de uso (sin precios) |
+| [`presupuesto/`](presupuesto/) | 🔒 **Interno** — Excel de materiales, horas y tarifas por rol |
 | [`harness/`](harness/) | Planeación (metas, roadmap, plan de trabajo, changelog), guías y plantillas |
 | [`skills/`](skills/) | Skills de investigación para agentes |
 | [`salidas/`](salidas/) | Todo lo **generado** desde la fuente: artículos, web, chatbot |

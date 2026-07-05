@@ -19,6 +19,10 @@ Investigado el 2026-07-04 (regla [como-investigar](../../../harness/guias/como-i
 3. Existe material accesible y probado: p. ej. J Tech Photonics "Laser Safety Shielding 250–520 nm", **OD 3+ probado a 405 y 445 nm**, >55% de transmisión visible, ~USD 17 (30×30 cm) / ~USD 90 (60×60 cm).
 4. **OD 3+ significa ≤0.1% de transmisión**: de 30W pasarían ≤30 mW en el peor caso de haz directo — suficiente para **reflejos difusos** (su uso previsto en carcasas de grabadores de diodo), pero **no para mirar el haz directo**. Ventanas certificadas de mayor exigencia llegan a OD 5+/6+ en 190–550 nm.
 
+### Nota sobre el protector propio del K30
+
+El módulo K30 incluye su propio protector/escudo. Sin embargo, **esto no elimina la necesidad del domo**: al impactar el material, el haz se **refleja** (reflexión difusa) en todas direcciones, y esa luz dispersa a 30W sigue siendo peligrosa para los ojos de quien observa. El protector del módulo cubre el haz cerca de la boquilla; el domo protege contra los reflejos del área de trabajo completa. Por eso el material del domo sigue siendo crítico.
+
 ### Implicaciones de diseño para la v3
 
 - ❌ **No reutilizar acrílico rojo genérico como única protección ocular.**

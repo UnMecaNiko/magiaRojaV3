@@ -39,3 +39,5 @@ Lista viva — agregar aquí lo que surja:
 - [ ] Modo láser GRBL (`$32`, M3 vs M4) con módulos de diodo
 - [ ] CAM y sender para el flujo de fresado
 - [ ] Competencia: xTool, Atomstack, Sculpfun, kits CNC (para comercial)
+- [ ] Tarifas de mercado por hora en Colombia para los roles mecánico, electricista, electrónico y programador (para la hoja Tarifas del presupuesto 🔒)
+- [ ] Disponibilidad local (Colombia) de acrílico naranja con OD certificada para 405–450 nm, o costo de importarlo

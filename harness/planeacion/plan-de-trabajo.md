@@ -16,6 +16,12 @@
 - [ ] Montar controladora + cablear motores X/Y/Z
 - [ ] Paro de emergencia de doble riel + protecciones
 
+### Presupuesto
+
+- [ ] Definir tarifas COP/hora por rol (mecánico, electricista, electrónico, programador) → hoja Tarifas de [presupuesto-v3.xlsx](../../presupuesto/presupuesto-v3.xlsx)
+- [ ] 🪑 **Sesión de reconstrucción de la fase mecánica** (sentarse con Saul): detallar las horas invertidas, los procesos que se hicieron y los gastos de materiales de la mecánica ya construida → registrar en el Excel con `Estimado = Sí`
+- [ ] Registrar las compras ya hechas de la v3 (K30, fuente 12V/10A…) en la hoja Materiales
+
 ### Documentación paralela (mientras se trabaja)
 
 - [ ] Bitácora en [02-electronica-y-electrica.md](../../conocimiento/proceso-construccion/v3/02-electronica-y-electrica.md) en cada sesión de trabajo

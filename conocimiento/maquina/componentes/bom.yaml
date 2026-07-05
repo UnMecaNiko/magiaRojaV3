@@ -1,0 +1,71 @@
+# Lista de materiales (BOM) — CNC Magia Roja v3
+# Formato: YAML (regla del repo: datos en YAML, narrativa en Markdown)
+# Los componentes con ficha detallada enlazan a fichas/
+# estado: instalado | en-integracion | pendiente | por-definir
+
+version_maquina: magia-roja-v3
+actualizado: "2026-07-04"
+
+componentes:
+  - id: laser-k30
+    nombre: Laser Tree K30
+    categoria: herramienta
+    descripcion: Módulo láser 30W ópticos, 450 nm, air assist integrado
+    cantidad: 1
+    estado: en-integracion
+    ficha: fichas/laser-tree-k30.md
+    proveedor: null   # ⏳ PENDIENTE: dónde se compró
+    notas: Incluye fuente propia 24V/5A
+
+  - id: fuente-12v
+    nombre: Fuente de alimentación 12V 10A
+    categoria: electrica
+    descripcion: Riel principal para control, motores y ventilación
+    cantidad: 1
+    estado: instalado
+    proveedor: null   # ⏳ PENDIENTE
+
+  - id: arduino-cnc-shield
+    nombre: Arduino + CNC Shield
+    categoria: electronica
+    descripcion: Controladora GRBL (plataforma de la línea desde v1)
+    cantidad: 1
+    estado: en-integracion
+    notas: "⏳ PENDIENTE: modelo exacto de Arduino y versión de shield"
+
+  - id: drivers-steppers
+    nombre: Drivers de motores paso a paso
+    categoria: electronica
+    descripcion: Drivers de la controladora
+    cantidad: 3   # X, Y, Z — ⏳ confirmar si Y es dual como en v1 (serían 4)
+    estado: por-definir
+    notas: "⏳ PENDIENTE: confirmar modelo (v2 usó TMC2209 refrigerados)"
+
+  - id: nema17-x
+    nombre: Motor NEMA 17 (eje X)
+    categoria: movimiento
+    cantidad: 1
+    estado: instalado
+  - id: nema17-y
+    nombre: Motor NEMA 17 (eje Y)
+    categoria: movimiento
+    cantidad: 1   # ⏳ PENDIENTE: ¿Y dual como en v1?
+    estado: instalado
+  - id: nema17-z
+    nombre: Motor NEMA 17 (eje Z)
+    categoria: movimiento
+    cantidad: 1
+    estado: instalado
+    notas: Nuevo en v3 — eje Z motorizado
+
+  - id: motor-fresado
+    nombre: Motor de fresado (motor tool)
+    categoria: herramienta
+    descripcion: Cabezal intercambiable para fresado/grabado
+    cantidad: 1
+    estado: por-definir
+    notas: Modelo no prioritario por ahora (decisión 2026-07)
+
+# ⏳ PENDIENTE: estructura mecánica (perfiles, tornillos, bujes), cableado,
+# conectores, protecciones (paro de emergencia, fusibles), ventilación.
+# Agregar a medida que se documente la fase eléctrica/electrónica.

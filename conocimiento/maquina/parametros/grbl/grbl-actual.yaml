@@ -1,0 +1,28 @@
+# Configuración GRBL vigente — CNC Magia Roja v3
+# ⏳ PENDIENTE: la controladora v3 aún no está configurada (fase electrónica en curso).
+# Cuando exista la primera config: llenar valores, snapshot en historico/ y anotar CHANGELOG.md.
+
+maquina: magia-roja-v3
+fecha: null            # fecha del último cambio aplicado
+version_grbl: null     # ⏳ PENDIENTE: versión de firmware a instalar
+
+# Parámetros $$ de GRBL, anotados. Referencia oficial:
+# https://github.com/gnea/grbl/blob/master/doc/markdown/settings.md
+parametros:
+  $0:   {valor: null, nombre: "Step pulse (µs)"}
+  $1:   {valor: null, nombre: "Step idle delay (ms)"}
+  $30:  {valor: null, nombre: "Max spindle/laser speed (S-value máx)"}
+  $31:  {valor: null, nombre: "Min spindle/laser speed"}
+  $32:  {valor: null, nombre: "Laser mode (1=on)", nota: "Activar para el K30; revisar al conmutar a fresado"}
+  $100: {valor: null, nombre: "Pasos/mm X"}
+  $101: {valor: null, nombre: "Pasos/mm Y"}
+  $102: {valor: null, nombre: "Pasos/mm Z", nota: "Nuevo en v3 — depende del husillo del Z"}
+  $110: {valor: null, nombre: "Velocidad máx X (mm/min)"}
+  $111: {valor: null, nombre: "Velocidad máx Y (mm/min)"}
+  $112: {valor: null, nombre: "Velocidad máx Z (mm/min)"}
+  $120: {valor: null, nombre: "Aceleración X (mm/s²)"}
+  $121: {valor: null, nombre: "Aceleración Y (mm/s²)"}
+  $122: {valor: null, nombre: "Aceleración Z (mm/s²)"}
+  $130: {valor: null, nombre: "Recorrido máx X (mm)", nota: "⏳ área de trabajo por medir"}
+  $131: {valor: null, nombre: "Recorrido máx Y (mm)"}
+  $132: {valor: null, nombre: "Recorrido máx Z (mm)"}

@@ -1,0 +1,19 @@
+# Plantilla de parámetros de material (D-0002: los parámetros van en YAML)
+# Copiar a: conocimiento/maquina/parametros/materiales/<material>-<espesor>.yaml
+# Ejemplo de nombre: acrilico-3mm.yaml, mdf-6mm.yaml, cuero.yaml
+
+material: null            # nombre humano, ej: Acrílico
+espesor_mm: null
+maquina: magia-roja-v3
+operaciones:
+  - tipo: corte           # corte | grabado | marcado
+    potencia_pct: null    # % de potencia del láser
+    velocidad_mm_min: null
+    pasadas: null
+    air_assist: true
+    foco_mm: 40           # distancia focal usada (K30: 40 mm)
+  # agregar más operaciones según se validen (grabado, marcado…)
+notas: ""                 # acabado, olor, precauciones, particularidades
+fuente: null              # OBLIGATORIO: ruta a la prueba que lo respalda,
+                          # o URL si es dato externo sin validar
+validado: false           # true solo cuando el equipo lo probó en esta máquina

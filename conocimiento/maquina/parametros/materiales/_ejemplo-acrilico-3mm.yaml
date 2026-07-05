@@ -1,0 +1,23 @@
+# EJEMPLO de formato — valores NO validados en la v3.
+# Cuando exista la primera prueba real, crear acrilico-3mm.yaml (sin "_ejemplo")
+# y borrar este archivo o dejarlo como referencia de esquema.
+
+material: Acrílico
+espesor_mm: 3
+maquina: magia-roja-v3
+operaciones:
+  - tipo: corte
+    potencia_pct: 100
+    velocidad_mm_min: 300
+    pasadas: 1
+    air_assist: true
+    foco_mm: 40
+  - tipo: grabado
+    potencia_pct: 30
+    velocidad_mm_min: 3000
+    pasadas: 1
+    air_assist: false
+    foco_mm: 40
+notas: "Valores de ejemplo para ilustrar el esquema. NO usar en producción."
+fuente: null
+validado: false

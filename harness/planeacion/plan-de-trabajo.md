@@ -10,8 +10,9 @@
 
 ### Siguiente
 
+- [ ] Decidir si el eje Z se incorpora al ciclo de homing de GRBL (`config.h`) y qué hacer con `HOMING_INIT_LOCK`/`HOMING_FORCE_SET_ORIGIN` heredados de la máquina anterior → ver hallazgo en [control-grbl.md](../../conocimiento/maquina/subsistemas/control-grbl.md)
+- [ ] Confirmar físicamente los jumpers MODE0/1/2 (1/8 de paso) en la CNC Shield de los tres ejes → [parametros/drivers/microstepping.yaml](../../conocimiento/maquina/parametros/drivers/microstepping.yaml)
 - [ ] Investigar y seleccionar conectores + calibres de cable (con fuentes de internet citadas)
-- [ ] Confirmar drivers de la controladora (¿TMC2209 como la v2?) → actualizar [bom.yaml](../../conocimiento/maquina/componentes/bom.yaml) y [D-0006](../../conocimiento/maquina/decisiones/D-0006-mantener-plataforma-grbl.md)
 - [ ] Extraer pinout PWM/TTL del manual del K30 → actualizar [ficha](../../conocimiento/maquina/componentes/fichas/laser-tree-k30.md)
 - [ ] Montar controladora + cablear motores X/Y/Z
 - [ ] Paro de emergencia de doble riel + protecciones

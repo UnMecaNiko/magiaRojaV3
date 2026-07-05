@@ -8,6 +8,7 @@
 - Repositorio estructurado en dos capas (conocimiento + harness) con AGENTS.md como contexto principal.
 - Investigada y documentada la ficha del Laser Tree K30 (corrigió la referencia "tri-j30" y detectó el requisito de 24V → decisión de dos rieles).
 - Registradas las 6 primeras decisiones (D-0001 a D-0006).
+- Confirmado el driver de la controladora: **DRV8825** en los tres ejes ([D-0007](../../conocimiento/maquina/decisiones/D-0007-drivers-drv8825.md)) — cierra el pendiente que quedaba abierto en el plan de trabajo.
 - Documentado el linaje v1/v2 en español.
 
 ### 2026 (antes del repo) — Fase mecánica de la v3 ✅

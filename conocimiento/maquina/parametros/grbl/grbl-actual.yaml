@@ -17,7 +17,7 @@ parametros:
   $30:  {valor: null, nombre: "Max spindle/laser speed (S-value máx)"}
   $31:  {valor: null, nombre: "Min spindle/laser speed"}
   $32:  {valor: null, nombre: "Laser mode (1=on)", nota: "Activar para el K30; revisar al conmutar a fresado"}
-  $100: {valor: null, nombre: "Pasos/mm X"}
+  $100: {valor: 200, nombre: "Pasos/mm X", nota: "Deducido, no medido: mismo tornillo que v2 (8mm/rev) + 1/8 micropaso (1600 pasos efectivos/rev). Ver parametros/drivers/microstepping.yaml. ⏳ PENDIENTE validar sin pérdida de pasos."}
   $101: {valor: null, nombre: "Pasos/mm Y"}
   $102: {valor: null, nombre: "Pasos/mm Z", nota: "Nuevo en v3 — depende del husillo del Z"}
   $110: {valor: null, nombre: "Velocidad máx X (mm/min)"}

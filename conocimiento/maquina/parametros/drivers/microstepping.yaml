@@ -24,6 +24,8 @@ ejes:
     microstepping: "1/8"
     pasos_motor_por_rev: 200   # 1.8°/paso, ver motor-nema17.md
     pasos_por_rev_efectivos: 1600
+    avance_mm_por_rev: 8   # mismo tornillo helicoidal que v2 (confirmado por Nicolas, 2026-07-17), no medido físicamente todavía
+    pasos_por_mm: 200   # 1600 / 8mm — deducido de v2-grbl-config.yaml ($100=25 pasos/mm asumiendo paso completo: 200/25=8mm/rev)
   y:
     microstepping: "1/8"
     pasos_motor_por_rev: 200
@@ -33,5 +35,5 @@ ejes:
     pasos_motor_por_rev: 200   # ⏳ PENDIENTE confirmar en etiqueta (ver motor-nema17.md), se asume 1.8° estándar
     pasos_por_rev_efectivos: 1600
 
-impacto: "El microstepping es un factor directo en el cálculo de pasos/mm ($100/$101/$102 en GRBL): pasos/mm = pasos_por_rev_efectivos / avance_mm_por_rev (paso de tornillo o polea+correa). Ese avance mecánico por eje todavía no está registrado — ver grbl-actual.yaml."
-siguiente_paso: "Con el avance mecánico (paso de tornillo helicoidal o dientes de polea) de cada eje, calcular $100/$101/$102 y registrar la prueba en conocimiento/maquina/pruebas/ una vez validado sin pérdida de pasos."
+impacto: "El microstepping es un factor directo en el cálculo de pasos/mm ($100/$101/$102 en GRBL): pasos/mm = pasos_por_rev_efectivos / avance_mm_por_rev (paso de tornillo o polea+correa). Avance de X ya estimado (ver eje x); Y y Z todavía no están registrados — ver grbl-actual.yaml."
+siguiente_paso: "Con el avance mecánico (paso de tornillo helicoidal o dientes de polea) de los ejes Y y Z, calcular $101/$102. Para los tres ejes: registrar la prueba en conocimiento/maquina/pruebas/ una vez validado sin pérdida de pasos (el valor de X=200 pasos/mm es una deducción, no una medición física todavía)."

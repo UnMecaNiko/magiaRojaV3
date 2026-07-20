@@ -4,6 +4,9 @@
 
 ## 2026-07
 
+### 2026-07-20
+- **[software/lasergrbl]** ✅ Confirmado: la opción 1 del tutorial de Z (Grbl → Settings → pestaña Jog Control → marcar "Show Z up/down control") resolvió los botones de subir/bajar Z en LaserGRBL — no eran macros personalizadas, era la casilla nativa. Ver [software.md](../../conocimiento/maquina/subsistemas/software.md).
+
 ### 2026-07-04
 - **[software/lasergrbl]** Corrección: los botones de subir/bajar Z eran de **LaserGRBL** (`C:\Program Files (x86)\LaserGRBL`), no de LightBurn como se documentó antes hoy. Reescrito el tutorial en [software.md](../../conocimiento/maquina/subsistemas/software.md): se ubicó `CustomButtons.bin` en `%APPDATA%\LaserGRBL\` (sin botones de Z, confirma que se borraron) y `StandardButtons.zbn` en la instalación; no se editó el binario a mano por riesgo de corromper los botones que sí funcionan. Se documentan dos rutas: la casilla nativa "Show Z up/down control" (Grbl→Settings→Jog Control) y, si eran macros, el G-code `$J= G91 Z[jogstep] F[jogspeed]` citado de la comunidad de LaserGRBL.
 - **[repo/limpieza]** Eliminado del plan de trabajo el pendiente "confirmar drivers de la controladora" — ya resuelto por [D-0007](../../conocimiento/maquina/decisiones/D-0007-drivers-drv8825.md) (DRV8825); movido a [completado.md](completado.md).

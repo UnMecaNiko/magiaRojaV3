@@ -26,6 +26,8 @@ Fuentes sobre configuración GRBL en LightBurn (consultadas 2026-07-04):
 
 Corrección sobre una nota anterior de esta misma sesión: esto **no es de LightBurn** — son los botones de eje Z de **LaserGRBL** (`C:\Program Files (x86)\LaserGRBL`), que Nicolas borró y ahora necesita recrear.
 
+✅ **Resuelto (2026-07-20)**: era la opción 1 — la casilla nativa "Show Z up/down control", no macros personalizadas. Confirmado funcionando.
+
 ### Dónde vive esta configuración (hallazgo de la exploración)
 
 - `C:\Program Files (x86)\LaserGRBL\` solo tiene el ejecutable y librerías — no guarda configuración de usuario. Sí trae `StandardButtons.zbn`, un set de botones de ejemplo de fábrica, en el formato binario propio de LaserGRBL ("RemotingBase" serializer, comprimido) — no legible ni editable como texto.
@@ -76,4 +78,3 @@ Fuentes:
 1. Definir el software del flujo de fresado (UGS u otro sender; CAM para generar G-code de fresado — investigar opciones y citar).
 2. Script YAML → librería de materiales LightBurn.
 3. Versión de GRBL a usar y su configuración de modo láser (`$32`).
-4. Recrear en LaserGRBL los botones de Z (ver tutorial arriba) — probar primero la opción 1 (casilla nativa); si no era eso, crear los botones de la opción 2 y confirmar que el comportamiento (paso, velocidad, dirección) es el esperado.

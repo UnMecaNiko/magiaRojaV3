@@ -10,7 +10,7 @@
 
 ### Siguiente
 
-- [ ] Decidir si el eje Z se incorpora al ciclo de homing de GRBL (`config.h`) y qué hacer con `HOMING_INIT_LOCK`/`HOMING_FORCE_SET_ORIGIN` heredados de la máquina anterior → ver hallazgo en [control-grbl.md](../../conocimiento/maquina/subsistemas/control-grbl.md)
+- [ ] Decidir qué hacer con `HOMING_INIT_LOCK`/`HOMING_FORCE_SET_ORIGIN` heredados de la máquina anterior (`config.h`) → ver hallazgo en [control-grbl.md](../../conocimiento/maquina/subsistemas/control-grbl.md). (El eje Z fuera del ciclo de homing ya quedó decidido — [D-0009](../../conocimiento/maquina/decisiones/D-0009-z-sin-fin-de-carrera-soft-limits.md).)
 - [ ] Confirmar físicamente los jumpers MODE0/1/2 (1/8 de paso) en la CNC Shield de los tres ejes → [parametros/drivers/microstepping.yaml](../../conocimiento/maquina/parametros/drivers/microstepping.yaml)
 - [ ] Investigar y seleccionar conectores + calibres de cable (con fuentes de internet citadas)
 - [ ] Extraer pinout PWM/TTL del manual del K30 → actualizar [ficha](../../conocimiento/maquina/componentes/fichas/laser-tree-k30.md)

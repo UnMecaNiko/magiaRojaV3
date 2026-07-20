@@ -5,6 +5,7 @@
 ## 2026-07
 
 ### 2026-07-20
+- **[electrónica/grbl]** ✅ [D-0009](../../conocimiento/maquina/decisiones/D-0009-z-sin-fin-de-carrera-soft-limits.md): resuelto el pendiente de límites/homing con el eje Z sin fin de carrera. GRBL no soporta soft/hard limits por eje (son globales a los 3 ejes, código fuente citado); Z queda fuera del ciclo de homing y `$132` se fija a un valor enorme para neutralizar su soft limit sin afectar a X/Y. Resuelve el pendiente #3 de [control-grbl.md](../../conocimiento/maquina/subsistemas/control-grbl.md) y la pregunta abierta del 2026-07-04 en la bitácora del [paso 02](../../conocimiento/proceso-construccion/v3/02-electronica-y-electrica.md).
 - **[software/lasergrbl]** ✅ Confirmado: la opción 1 del tutorial de Z (Grbl → Settings → pestaña Jog Control → marcar "Show Z up/down control") resolvió los botones de subir/bajar Z en LaserGRBL — no eran macros personalizadas, era la casilla nativa. Ver [software.md](../../conocimiento/maquina/subsistemas/software.md).
 
 ### 2026-07-04

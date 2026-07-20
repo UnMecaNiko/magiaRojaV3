@@ -36,6 +36,12 @@ Diseñar e implementar toda la electrónica y eléctrica de la v3: alimentación
 - **Lección**: ninguno de estos 3 cambios quedó documentado cuando se hicieron originalmente — se perdió el motivo. Para la v3, todo cambio a `config.h` se anota aquí (o en el changelog de GRBL) con su fecha y su porqué apenas se decida.
 - **Decisión adicional de la sesión**: los tres drivers DRV8825 (X, Y, Z) se configuran a **1/8 de paso (octavo)**. Tabla de jumpers MODE0/1/2 y detalle en [parametros/drivers/microstepping.yaml](../../maquina/parametros/drivers/microstepping.yaml). Con esto más el avance mecánico de cada eje (aún pendiente) se podrán calcular los `$100`/`$101`/`$102` de GRBL.
 
+### 2026-07-20 — Resuelto: Z sin fin de carrera queda fuera del homing y de los soft limits reales
+
+- **Qué se decidió**: la v3 no va a tener fin de carrera físico en Z. Se confirmó que GRBL no permite soft limits (`$20`) ni hard limits (`$21`) por eje individual — son *flags* globales a los 3 ejes (código fuente citado en [D-0009](../../maquina/decisiones/D-0009-z-sin-fin-de-carrera-soft-limits.md)). Respuesta a la pregunta abierta del 2026-07-04: Z **se mantiene sin homear** (como en el `config.h` heredado), y en vez de recorrido real, `$132` se fija a un valor enorme para neutralizar el chequeo de soft limit en ese eje sin apagarlo para X/Y.
+- **Por qué**: era la única forma de tener soft/hard limits activos y útiles en X/Y (que sí tienen switch) sin que la falta de switch en Z bloquee la activación de `$20` (que exige `$22=1`) ni genere falsas alarmas por un eje que nunca se referencía.
+- **Detalle completo**: [D-0009](../../maquina/decisiones/D-0009-z-sin-fin-de-carrera-soft-limits.md).
+
 ## Salidas esperadas de este paso
 
 - Esquemático eléctrico → [subsistemas/electrica.md](../../maquina/subsistemas/electrica.md)

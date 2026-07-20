@@ -10,6 +10,7 @@ Términos técnicos usados en esta base de conocimiento, explicados para que cua
 | **Bujes lineales** | Casquillos que deslizan sobre ejes/guías lineales; dan soporte de precisión al movimiento (v2/v3). |
 | **CNC** | Control Numérico Computarizado: máquina cuyos movimientos se controlan por instrucciones digitales (G-code). |
 | **CNC Shield** | Placa de expansión para Arduino que aloja los drivers de motores y expone las conexiones de una CNC. |
+| **Coolant control (M7/M8/M9)** | Códigos G de GRBL que activan/desactivan salidas digitales auxiliares de la CNC Shield: `M8` enciende el pin de *flood* (Cool.En, A3), `M7` el de *mist* (A4, requiere compilar GRBL con `ENABLE_M7`), `M9` apaga ambos. No están ligados al spindle/láser ni al movimiento — solo cambian si el G-code o el sender los manda explícitamente. GRBL los apaga automáticamente en cualquier reset o fin de programa (`M2`/`M30`) por seguridad. Detalle de pines en [control-grbl.md](maquina/subsistemas/control-grbl.md#pines-de-control-auxiliares-de-la-cnc-shield). |
 | **Driver (de motor paso a paso)** | Circuito que convierte pulsos lógicos en corriente para las bobinas del motor. Ej: A4988 (v1), TMC2209 (v2). Su corriente debe calibrarse. |
 | **FAC** | *Fast Axis Collimation* — lente que colima el eje rápido de un diodo láser, concentrando el haz (tecnología del láser de la v2). |
 | **Compresión de haz (beam compression)** | Técnica óptica que combina/comprime varios haces de diodo en uno más denso — así logra el K30 30W ópticos con 6 diodos. |

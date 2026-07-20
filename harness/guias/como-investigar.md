@@ -21,6 +21,8 @@ Al iniciar el repo, el láser de la v3 se recordaba como "tri-j30". Una búsqued
 
 ## Dónde queda lo investigado
 
+**Esto se hace de forma automática, sin pedir autorización** — en cuanto una investigación produce un hallazgo (aunque haya surgido de una pregunta informal en el chat), se escribe en su destino de la tabla siguiente antes de cerrar el tema. No se deja el conocimiento solo en la conversación.
+
 | Tipo de hallazgo | Destino |
 |---|---|
 | Specs de un componente | Ficha en `conocimiento/maquina/componentes/fichas/` |

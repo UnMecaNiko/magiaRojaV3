@@ -22,6 +22,19 @@ La configuración GRBL vigente, su histórico y el porqué de cada cambio viven 
 - `historico/` — snapshots fechados (dump `$$` crudo + YAML).
 - `CHANGELOG.md` — bitácora de cambios con su motivo.
 
+## Pines de control auxiliares de la CNC Shield
+
+Investigado 2026-07-20 a raíz de buscar cómo alimentar un ventilador de refrigeración de drivers (decisión final en [D-0008](../decisiones/D-0008-ventilador-drivers-5v-directo.md): se optó por 5V directo, no por estos pines).
+
+- **Cool.En (A3)** — salida `COOLANT_FLOOD`, controlada por `M8` (on) / `M9` (off). Salida lógica de 5V y baja corriente: no alimenta directamente una bomba, ventilador o solenoide, requiere un módulo MOSFET o relé intermedio.
+- **A4** — salida `COOLANT_MIST`, controlada por `M7` / `M9`. Solo funciona si el firmware se compiló con `#define ENABLE_M7` (viene **deshabilitado por defecto** en GRBL mainline). Libre para un futuro air-assist real del K30.
+- **Enable compartido de drivers (D8)** — GRBL lo activa automáticamente para sostener/mover los ejes y lo desactiva tras el tiempo de `$1` (Step idle delay) en reposo total; no depende de `M8`/`M9` ni del sender. Su polaridad se ajusta con `$4` (Invert step enable pin).
+- La lógica activo-alto/activo-bajo de Cool.En/Mist se puede invertir en `config.h` con `#define INVERT_COOLANT_FLOOD_PIN` (útil para relés activo-bajo).
+- GRBL apaga coolant y spindle automáticamente ante cualquier reset o fin de programa (`M2`/`M30`), por seguridad.
+- **LaserGRBL no soporta** inyectar G-code de inicio/fin automático (a diferencia de LightBurn) — activar `M8`/`M9` en cada trabajo desde LaserGRBL requiere un botón personalizado manual (ver [tutorial de botones](software.md#tutorial-botones-de-subirbajar-z-en-lasergrbl) para el mecanismo). Confirmado como limitación conocida y sin resolver en [arkypita/LaserGRBL#617](https://github.com/arkypita/LaserGRBL/issues/617) (consultado 2026-07-20).
+
+Fuentes: [gnea/grbl cpu_map.h](https://github.com/gnea/grbl/blob/master/grbl/cpu_map.h), [gnea/grbl config.h](https://github.com/gnea/grbl/blob/master/grbl/config.h), [Grbl v1.1 Commands](https://github.com/gnea/grbl/wiki/Grbl-v1.1-Commands), [grbl/grbl issue #1753](https://github.com/grbl/grbl/issues/1753) — todas consultadas 2026-07-20.
+
 ## Retos conocidos de la plataforma (experiencia v1/v2)
 
 - Calibración de corriente de drivers: crítico para evitar pérdida de pasos y sobrecalentamiento.
@@ -30,12 +43,12 @@ La configuración GRBL vigente, su histórico y el porqué de cada cambio viven 
 
 ## Puntos a investigar (regla: consultar internet y citar)
 
+✅ **Resuelto (2026-07-20)**: Límites y homing con el nuevo eje Z. La v3 no tiene fin de carrera físico en Z (solo X/Y), y GRBL no permite soft/hard limits por eje individual (son *flags* globales de 3 ejes). Decisión: Z queda fuera del ciclo de homing (`config.h`, igual que la máquina anterior) y `$132` (recorrido máx. Z) se fija a un valor deliberadamente enorme para neutralizar en la práctica el chequeo de soft limit en ese eje, mientras X/Y quedan protegidos con sus valores reales. Detalle completo, código fuente citado y consecuencias en [D-0009](../decisiones/D-0009-z-sin-fin-de-carrera-soft-limits.md).
+
 ⏳ PENDIENTE:
 
 1. Modo láser de GRBL (`$32=1`) y comportamiento de M4 (potencia dinámica) con el K30.
 2. Conmutación de perfiles GRBL entre modo láser y modo fresado (aceleraciones y velocidades distintas; posible par de configs versionadas en `parametros/perfiles/`).
-3. Límites y homing con el nuevo eje Z — el `config.h` heredado de la máquina anterior tenía el ciclo de homing sin el eje Z (`HOMING_CYCLE_1` comentado) y `HOMING_INIT_LOCK`/`HOMING_FORCE_SET_ORIGIN` alterados respecto al stock de GRBL. Comparación completa en la bitácora del [paso 02](../../proceso-construccion/v3/02-electronica-y-electrica.md#2026-07-04--preparando-la-subida-de-grbl-al-arduino). Pendiente decidir si el Z motorizado se incorpora al ciclo `$H` antes de compilar el firmware definitivo.
-   - Referencia histórica: los `$$` de la v2 sí traían `$22=1` (homing habilitado) y valores de Z no nulos ([v2-grbl-config.yaml](../../historia/v2-grbl-config.yaml)), lo que no encaja del todo con que Z quedara fuera del `config.h` — inconsistencia sin resolver, anotada en ese archivo.
 
 ## Software de operación
 

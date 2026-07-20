@@ -19,7 +19,7 @@ Aquí **no se desarrolla código de producto**: se organiza información del mun
 - Ante cualquier dato técnico dudoso, concepto poco claro o especificación de componente: **buscar en internet, validar y citar la fuente** (URL + fecha de consulta).
 - Nunca asumir especificaciones de memoria. Ejemplo real: el láser "tri-j30" resultó ser el **Laser Tree K30**, con alimentación 24V/5A — dato crítico que se confirmó buscando la referencia oficial.
 - Las fichas de componentes (`conocimiento/maquina/componentes/fichas/`) siempre llevan sección de fuentes.
-- Ver [harness/guias/como-investigar.md](harness/guias/como-investigar.md).
+- **Todo hallazgo se escribe en su destino dentro de `conocimiento/` de forma automática, sin pedir autorización** — no se queda solo en la conversación, aunque la investigación haya arrancado de una pregunta informal. Ver la tabla "Dónde queda lo investigado" en [harness/guias/como-investigar.md](harness/guias/como-investigar.md).
 
 ### 2. Idioma
 - **Todo en español.** Es la lengua de la fuente de la verdad.

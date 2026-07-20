@@ -4,6 +4,9 @@
 
 ## 2026
 
+### 2026-07-20 — Z sin fin de carrera: límites y homing decididos
+- [D-0009](../../conocimiento/maquina/decisiones/D-0009-z-sin-fin-de-carrera-soft-limits.md): GRBL no soporta soft/hard limits por eje (son globales); Z queda fuera del ciclo de homing y `$132` se fija a un valor enorme para neutralizar su soft limit sin afectar a X/Y — cierra parte del pendiente en [plan-de-trabajo.md](plan-de-trabajo.md).
+
 ### 2026-07-04 — Creación de la base de conocimiento
 - Repositorio estructurado en dos capas (conocimiento + harness) con AGENTS.md como contexto principal.
 - Investigada y documentada la ficha del Laser Tree K30 (corrigió la referencia "tri-j30" y detectó el requisito de 24V → decisión de dos rieles).

@@ -28,7 +28,7 @@ Cerebro de la máquina: controladora, drivers, y la integración de señales del
 2. Integrar señal de control del K30 (PWM 24V — verificar niveles con la ficha del fabricante).
 3. Cablear eje Z y configurar GRBL para 3 ejes.
 4. Definir la conmutación eléctrica del cabezal intercambiable (láser ↔ fresado).
-5. Sistema de ventilación/refrigeración de drivers.
+5. ~~Sistema de ventilación/refrigeración de drivers.~~ Resuelto: ventilador de 5V cableado directo al riel de 5V de la controladora, sin pasar por GRBL — ver [D-0008](../decisiones/D-0008-ventilador-drivers-5v-directo.md). Queda pendiente confirmar el consumo del ventilador contra la capacidad del regulador.
 6. Protecciones: paro de emergencia, protección de sobrecarga (heredadas de v2).
 
 ## Relación con otros subsistemas

@@ -19,3 +19,4 @@ Cada decisión relevante — técnica de la máquina o estructural del repositor
 | [D-0005](D-0005-fuentes-separadas.md) | Dos rieles de alimentación (24V láser / 12V control) | Máquina | ✅ Vigente |
 | [D-0006](D-0006-mantener-plataforma-grbl.md) | Mantener Arduino + CNC Shield + GRBL | Máquina | ✅ Vigente |
 | [D-0007](D-0007-drivers-drv8825.md) | Drivers DRV8825 para los tres ejes | Máquina | ✅ Vigente |
+| [D-0008](D-0008-ventilador-drivers-5v-directo.md) | Ventilador de drivers directo a 5V (no Cool.En/GRBL) | Máquina | ✅ Vigente |

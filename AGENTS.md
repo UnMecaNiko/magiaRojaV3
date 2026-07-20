@@ -32,7 +32,7 @@ Aquí **no se desarrolla código de producto**: se organiza información del mun
 
 ### 4. Trazabilidad
 - Todo parámetro enlaza a la **prueba** que lo respalda (campo `fuente`).
-- Toda decisión técnica se registra en `conocimiento/maquina/decisiones/` con su porqué (formato ADR).
+- **Toda decisión técnica se registra de forma automática, sin pedir autorización** — en cuanto una decisión queda tomada en conversación (aunque sea informal, "decidí dejarlo así"), se crea su ADR en `conocimiento/maquina/decisiones/` con su porqué. No esperar a que el usuario lo pida explícitamente.
 - Todo cambio de configuración GRBL se snapshotea en `conocimiento/maquina/parametros/grbl/historico/` y se anota en su `CHANGELOG.md`.
 
 ### 5. Datos pendientes

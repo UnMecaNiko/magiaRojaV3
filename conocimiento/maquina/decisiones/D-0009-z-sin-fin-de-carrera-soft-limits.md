@@ -2,8 +2,10 @@
 
 - **Fecha**: 2026-07-20
 - **Ámbito**: Máquina (GRBL)
-- **Estado**: ✅ Vigente
+- **Estado**: ❌ Reemplazada por [D-0010](D-0010-soft-limits-apagados-hasta-fin-de-carrera-z.md)
 - **Decisor**: Nicolas Velasquez
+
+> ⚠️ La parte de esta decisión sobre soft limits (punto 2) quedó **reemplazada por [D-0010](D-0010-soft-limits-apagados-hasta-fin-de-carrera-z.md)**: fijar `$132` grande no bastaba, porque el chequeo de GRBL deja un lado del eje fijo en la posición `0` sin importar `$132` — ver el porqué técnico en D-0010. El punto 1 (Z fuera del ciclo de homing) y el punto 3 (hard limits sin cambios) **siguen vigentes**, no se revirtieron.
 
 ## Contexto
 

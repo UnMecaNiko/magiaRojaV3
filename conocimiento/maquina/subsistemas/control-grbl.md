@@ -43,7 +43,7 @@ Fuentes: [gnea/grbl cpu_map.h](https://github.com/gnea/grbl/blob/master/grbl/cpu
 
 ## Puntos a investigar (regla: consultar internet y citar)
 
-✅ **Resuelto (2026-07-20)**: Límites y homing con el nuevo eje Z. La v3 no tiene fin de carrera físico en Z (solo X/Y), y GRBL no permite soft/hard limits por eje individual (son *flags* globales de 3 ejes). Decisión: Z queda fuera del ciclo de homing (`config.h`, igual que la máquina anterior) y `$132` (recorrido máx. Z) se fija a un valor deliberadamente enorme para neutralizar en la práctica el chequeo de soft limit en ese eje, mientras X/Y quedan protegidos con sus valores reales. Detalle completo, código fuente citado y consecuencias en [D-0009](../decisiones/D-0009-z-sin-fin-de-carrera-soft-limits.md).
+✅ **Resuelto (2026-07-20)**: Límites y homing con el nuevo eje Z. La v3 no tiene fin de carrera físico en Z (solo X/Y), y GRBL no permite soft/hard limits por eje individual (son *flags* globales de 3 ejes) — además, su chequeo de soft limits deja un lado de cada eje fijo en la posición `0` sin importar `$130`/`$131`/`$132`, lo que hace inviable "neutralizarlo" con un valor grande cuando el eje no está homeado. Decisión final: `$20=0` (soft limits apagados del todo) hasta instalar fin de carrera físico en Z; Z se mantiene fuera del ciclo de homing y hard limits (`$21=1`) sin cambios. Detalle completo, código fuente citado y consecuencias en [D-0010](../decisiones/D-0010-soft-limits-apagados-hasta-fin-de-carrera-z.md) (reemplaza al intento inicial documentado en [D-0009](../decisiones/D-0009-z-sin-fin-de-carrera-soft-limits.md)).
 
 ⏳ PENDIENTE:
 

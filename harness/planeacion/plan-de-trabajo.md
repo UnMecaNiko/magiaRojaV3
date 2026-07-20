@@ -11,6 +11,7 @@
 ### Siguiente
 
 - [ ] Decidir qué hacer con `HOMING_INIT_LOCK`/`HOMING_FORCE_SET_ORIGIN` heredados de la máquina anterior (`config.h`) → ver hallazgo en [control-grbl.md](../../conocimiento/maquina/subsistemas/control-grbl.md). (El eje Z fuera del ciclo de homing ya quedó decidido — [D-0009](../../conocimiento/maquina/decisiones/D-0009-z-sin-fin-de-carrera-soft-limits.md).)
+- [ ] Instalar fin de carrera físico en Z → cuando exista, incorporar Z al ciclo de homing, medir `$132` real y reevaluar reactivar `$20` (soft limits, hoy apagado) — ver [D-0010](../../conocimiento/maquina/decisiones/D-0010-soft-limits-apagados-hasta-fin-de-carrera-z.md)
 - [ ] Confirmar físicamente los jumpers MODE0/1/2 (1/8 de paso) en la CNC Shield de los tres ejes → [parametros/drivers/microstepping.yaml](../../conocimiento/maquina/parametros/drivers/microstepping.yaml)
 - [ ] Investigar y seleccionar conectores + calibres de cable (con fuentes de internet citadas)
 - [ ] Extraer pinout PWM/TTL del manual del K30 → actualizar [ficha](../../conocimiento/maquina/componentes/fichas/laser-tree-k30.md)

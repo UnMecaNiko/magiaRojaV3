@@ -14,9 +14,9 @@ version_grbl: null     # ⏳ PENDIENTE: versión de firmware a instalar
 parametros:
   $0:   {valor: null, nombre: "Step pulse (µs)"}
   $1:   {valor: null, nombre: "Step idle delay (ms)"}
-  $20:  {valor: 1, nombre: "Soft limits enable", nota: "Ver D-0009: Z queda fuera del ciclo de homing; su protección real depende de $132 (no de este flag, que es global a los 3 ejes)."}
-  $21:  {valor: 1, nombre: "Hard limits enable", nota: "Global a los 3 ejes; Z no tiene switch — ver D-0009 sobre el pin sin cablear."}
-  $22:  {valor: 1, nombre: "Homing cycle enable", nota: "Habilitado por X/Y (únicos ejes con switch). Ver D-0009."}
+  $20:  {valor: 0, nombre: "Soft limits enable", nota: "Apagado — ver D-0010. GRBL no permite soft limits por eje y Z no tiene fin de carrera; se prioriza no bloquear a Z en un sentido arbitrario. ⏳ PENDIENTE: instalar fin de carrera en Z y reevaluar reactivarlo."}
+  $21:  {valor: 1, nombre: "Hard limits enable", nota: "Global a los 3 ejes; Z no tiene switch — pin en pull-up interno, sin puente necesario. Ver D-0009/D-0010."}
+  $22:  {valor: 1, nombre: "Homing cycle enable", nota: "Habilitado por X/Y (únicos ejes con switch). Ver D-0009 (vigente en este punto)."}
   $30:  {valor: null, nombre: "Max spindle/laser speed (S-value máx)"}
   $31:  {valor: null, nombre: "Min spindle/laser speed"}
   $32:  {valor: null, nombre: "Laser mode (1=on)", nota: "Activar para el K30; revisar al conmutar a fresado"}
@@ -31,4 +31,4 @@ parametros:
   $122: {valor: null, nombre: "Aceleración Z (mm/s²)"}
   $130: {valor: null, nombre: "Recorrido máx X (mm)", nota: "⏳ área de trabajo por medir"}
   $131: {valor: null, nombre: "Recorrido máx Y (mm)"}
-  $132: {valor: 100000, nombre: "Recorrido máx Z (mm)", nota: "Valor deliberadamente enorme, NO el recorrido real — ver D-0009 (Grbl no soporta soft limits por eje; esto neutraliza el chequeo en Z ya que Z no tiene fin de carrera ni se homea)."}
+  $132: {valor: null, nombre: "Recorrido máx Z (mm)", nota: "⏳ PENDIENTE: recorrido real de Z. Ya no se usa un valor artificial (ver D-0010) — con $20=0 este valor no se evalúa por ahora; se medirá cuando se instale el fin de carrera de Z."}

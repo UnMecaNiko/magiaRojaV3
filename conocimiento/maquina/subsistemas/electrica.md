@@ -23,7 +23,7 @@ Alimentación, cableado y protecciones de la v3. Uno de los objetivos declarados
 1. Selección de calibres de cable por corriente (buscar tablas AWG y citar fuente).
 2. Conectores de calidad (evitar empalmes; considerar ferrules, conectores aéreos tipo GX/XT, borneras).
 3. Gestión de cable: cadenas portacables para ejes móviles, separación de señal vs. potencia.
-4. Tierra común entre fuentes para la referencia de señal del láser (verificar recomendación del fabricante).
+4. Tierra común entre fuentes para la referencia de señal del láser (verificar recomendación del fabricante). Nota (2026-07-22): el aviso "problema con la placa" que se sospechaba ligado a esto resultó tener otra causa raíz — un conflicto de pines de GRBL en modo láser (ver [D-0011](../decisiones/D-0011-fin-de-carrera-fisico-en-z.md)), no necesariamente un problema de tierra. Este punto sigue pendiente de verificar por separado, como buena práctica general.
 5. Protecciones: fusibles por riel, paro de emergencia que corte ambos rieles, protección de sobrecarga.
 
 ## Lecciones heredadas

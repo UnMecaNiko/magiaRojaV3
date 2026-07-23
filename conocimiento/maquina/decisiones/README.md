@@ -22,3 +22,4 @@ Cada decisión relevante — técnica de la máquina o estructural del repositor
 | [D-0008](D-0008-ventilador-drivers-5v-directo.md) | Ventilador de drivers directo a 5V (no Cool.En/GRBL) | Máquina | ✅ Vigente |
 | [D-0009](D-0009-z-sin-fin-de-carrera-soft-limits.md) | Eje Z sin fin de carrera: fuera del homing, soft limits neutralizados por $132 | Máquina | ❌ Reemplazada por D-0010 |
 | [D-0010](D-0010-soft-limits-apagados-hasta-fin-de-carrera-z.md) | Soft limits apagados ($20=0) hasta instalar fin de carrera en Z | Máquina | ✅ Vigente |
+| [D-0011](D-0011-fin-de-carrera-fisico-en-z.md) | Instalar fin de carrera físico en Z (Z+), cableado a D12 — resuelve alarma falsa del K30 | Máquina | ✅ Vigente |

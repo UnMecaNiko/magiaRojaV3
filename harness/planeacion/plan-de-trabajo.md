@@ -11,7 +11,13 @@
 ### Siguiente
 
 - [ ] Decidir qué hacer con `HOMING_INIT_LOCK`/`HOMING_FORCE_SET_ORIGIN` heredados de la máquina anterior (`config.h`) → ver hallazgo en [control-grbl.md](../../conocimiento/maquina/subsistemas/control-grbl.md). (El eje Z fuera del ciclo de homing ya quedó decidido — [D-0009](../../conocimiento/maquina/decisiones/D-0009-z-sin-fin-de-carrera-soft-limits.md).)
-- [ ] Instalar fin de carrera físico en Z → cuando exista, incorporar Z al ciclo de homing, medir `$132` real y reevaluar reactivar `$20` (soft limits, hoy apagado) — ver [D-0010](../../conocimiento/maquina/decisiones/D-0010-soft-limits-apagados-hasta-fin-de-carrera-z.md)
+- [ ] **Instalar fin de carrera físico en Z** (posición Z+, arriba/retraído) — ver [D-0011](../../conocimiento/maquina/decisiones/D-0011-fin-de-carrera-fisico-en-z.md) y checklist en [eje-z.md](../../conocimiento/maquina/subsistemas/eje-z.md). Motivo: resuelve de raíz la falsa alarma de hard limit que el K30 disparaba a alta potencia (ver [prueba 2026-07-22](../../conocimiento/maquina/pruebas/2026-07-22-diagnostico-alarma-laser-k30.md)). Pasos:
+  - [ ] 🔧 Resolver la mecánica de montaje del switch en Z+ (en investigación)
+  - [ ] Elegir tipo de switch (mecánico/óptico/inductivo) y NO/NC
+  - [ ] Cablear la señal al header **D12 ("SpnEn")** de la CNC Shield — no al terminal "Z-" (ocupado por el PWM del láser)
+  - [ ] Definir `$23`, `$24`, `$25`, `$26`, `$27` para Z; decidir orden del ciclo de homing en `config.h`
+  - [ ] Medir recorrido real de Z → `$132`
+  - [ ] Reactivar `$20` y `$21` una vez instalado y probado; actualizar `grbl-actual.yaml`
 - [ ] Confirmar físicamente los jumpers MODE0/1/2 (1/8 de paso) en la CNC Shield de los tres ejes → [parametros/drivers/microstepping.yaml](../../conocimiento/maquina/parametros/drivers/microstepping.yaml)
 - [ ] Investigar y seleccionar conectores + calibres de cable (con fuentes de internet citadas)
 - [ ] Extraer pinout PWM/TTL del manual del K30 → actualizar [ficha](../../conocimiento/maquina/componentes/fichas/laser-tree-k30.md)

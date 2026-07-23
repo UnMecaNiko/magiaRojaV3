@@ -37,9 +37,9 @@ Resumen operativo:
 
 ## Integración pendiente
 
+✅ **Resuelto (2026-07-22)**: conexión de señal PWM/TTL — el K30 está conectado al terminal "Z-" de la CNC Shield, que con `$32=1` (modo láser / `VARIABLE_SPINDLE`) es en realidad el pin D11 de hardware PWM (GRBL reasigna el límite de Z a D12 para liberar D11). Confirmado funcionando correctamente por debajo del umbral que causaba el aviso "problema con la placa" — el problema real no era la señal PWM, sino D12 (límite de Z) flotando; ver [prueba 2026-07-22](../pruebas/2026-07-22-diagnostico-alarma-laser-k30.md) y [D-0011](../decisiones/D-0011-fin-de-carrera-fisico-en-z.md).
+
 ⏳ PENDIENTE:
 
-1. Conexión de señal PWM/TTL desde la CNC Shield al K30 (verificar pinout y niveles con el manual).
-2. Tierra común entre riel de 12V (control) y 24V (láser) para referencia de señal.
-3. Montaje en el cabezal intercambiable.
-4. Pruebas de potencia por material → registrar en [pruebas/](../pruebas/).
+1. Montaje en el cabezal intercambiable.
+2. Pruebas de potencia por material → registrar en [pruebas/](../pruebas/).

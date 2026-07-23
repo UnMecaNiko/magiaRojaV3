@@ -15,11 +15,11 @@ parametros:
   $0:   {valor: null, nombre: "Step pulse (µs)"}
   $1:   {valor: null, nombre: "Step idle delay (ms)"}
   $20:  {valor: 0, nombre: "Soft limits enable", nota: "Apagado — ver D-0010. GRBL no permite soft limits por eje y Z no tiene fin de carrera; se prioriza no bloquear a Z en un sentido arbitrario. ⏳ PENDIENTE: instalar fin de carrera en Z y reevaluar reactivarlo."}
-  $21:  {valor: 1, nombre: "Hard limits enable", nota: "Global a los 3 ejes; Z no tiene switch — pin en pull-up interno, sin puente necesario. Ver D-0009/D-0010."}
+  $21:  {valor: 0, nombre: "Hard limits enable", nota: "Apagado — ver D-0011. Con $32=1 (modo láser), GRBL vigila el límite de Z en D12 (no D11), que queda flotando al no tener switch; el ruido del driver del K30 lo disparaba como falsa alarma. ⏳ PENDIENTE: instalar switch físico en Z (D12) y reactivar."}
   $22:  {valor: 1, nombre: "Homing cycle enable", nota: "Habilitado por X/Y (únicos ejes con switch). Ver D-0009 (vigente en este punto)."}
   $30:  {valor: null, nombre: "Max spindle/laser speed (S-value máx)"}
   $31:  {valor: null, nombre: "Min spindle/laser speed"}
-  $32:  {valor: null, nombre: "Laser mode (1=on)", nota: "Activar para el K30; revisar al conmutar a fresado"}
+  $32:  {valor: 1, nombre: "Laser mode (1=on)", nota: "Activo para el K30 — confirmado 2026-07-22. Implica VARIABLE_SPINDLE compilado, lo que mueve el límite de Z de D11 a D12 (ver D-0011). Revisar al conmutar a fresado."}
   $100: {valor: 200, nombre: "Pasos/mm X", nota: "Deducido, no medido: mismo tornillo que v2 (8mm/rev) + 1/8 micropaso (1600 pasos efectivos/rev). Ver parametros/drivers/microstepping.yaml. ⏳ PENDIENTE validar sin pérdida de pasos."}
   $101: {valor: null, nombre: "Pasos/mm Y"}
   $102: {valor: null, nombre: "Pasos/mm Z", nota: "Nuevo en v3 — depende del husillo del Z"}
@@ -31,4 +31,4 @@ parametros:
   $122: {valor: null, nombre: "Aceleración Z (mm/s²)"}
   $130: {valor: null, nombre: "Recorrido máx X (mm)", nota: "⏳ área de trabajo por medir"}
   $131: {valor: null, nombre: "Recorrido máx Y (mm)"}
-  $132: {valor: null, nombre: "Recorrido máx Z (mm)", nota: "⏳ PENDIENTE: recorrido real de Z. Ya no se usa un valor artificial (ver D-0010) — con $20=0 este valor no se evalúa por ahora; se medirá cuando se instale el fin de carrera de Z."}
+  $132: {valor: null, nombre: "Recorrido máx Z (mm)", nota: "⏳ PENDIENTE: recorrido real de Z. Ya no se usa un valor artificial (ver D-0010/D-0011) — con $20=0 este valor no se evalúa por ahora; se medirá cuando se instale el fin de carrera de Z (D-0011)."}

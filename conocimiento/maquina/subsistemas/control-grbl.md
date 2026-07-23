@@ -43,12 +43,15 @@ Fuentes: [gnea/grbl cpu_map.h](https://github.com/gnea/grbl/blob/master/grbl/cpu
 
 ## Puntos a investigar (regla: consultar internet y citar)
 
-✅ **Resuelto (2026-07-20)**: Límites y homing con el nuevo eje Z. La v3 no tiene fin de carrera físico en Z (solo X/Y), y GRBL no permite soft/hard limits por eje individual (son *flags* globales de 3 ejes) — además, su chequeo de soft limits deja un lado de cada eje fijo en la posición `0` sin importar `$130`/`$131`/`$132`, lo que hace inviable "neutralizarlo" con un valor grande cuando el eje no está homeado. Decisión final: `$20=0` (soft limits apagados del todo) hasta instalar fin de carrera físico en Z; Z se mantiene fuera del ciclo de homing y hard limits (`$21=1`) sin cambios. Detalle completo, código fuente citado y consecuencias en [D-0010](../decisiones/D-0010-soft-limits-apagados-hasta-fin-de-carrera-z.md) (reemplaza al intento inicial documentado en [D-0009](../decisiones/D-0009-z-sin-fin-de-carrera-soft-limits.md)).
+✅ **Resuelto (2026-07-20 → 2026-07-22)**: Límites y homing con el nuevo eje Z. La v3 no tiene fin de carrera físico en Z (solo X/Y), y GRBL no permite soft/hard limits por eje individual (son *flags* globales de 3 ejes) — además, su chequeo de soft limits deja un lado de cada eje fijo en la posición `0` sin importar `$130`/`$131`/`$132`. [D-0010](../decisiones/D-0010-soft-limits-apagados-hasta-fin-de-carrera-z.md) apagó `$20` del todo (reemplaza al intento inicial de [D-0009](../decisiones/D-0009-z-sin-fin-de-carrera-soft-limits.md)).
+
+⚠️ **Hallazgo crítico (2026-07-22)**: con `$32=1` (modo láser), GRBL usa `VARIABLE_SPINDLE`, que **reasigna el límite de Z de D11 a D12** para liberar D11 como PWM de hardware. El terminal "Z-" de la CNC Shield está cableado a D11 (por eso el K30 recibe bien el PWM ahí), pero deja **D12 flotando** — con `$21=1` esto causaba una falsa alarma de hard limit al usar el K30 a alta potencia (el ruido EMI del driver, proporcional a la corriente, se leía como "switch de Z activado"), reportada por LaserGRBL como "problema con la placa". Confirmado con tres pruebas controladas — ver [prueba 2026-07-22](../pruebas/2026-07-22-diagnostico-alarma-laser-k30.md). Por eso `$21` también quedó en `0` mientras tanto. Solución definitiva: instalar fin de carrera físico en Z, cableado a D12 (no a "Z-") — ver [D-0011](../decisiones/D-0011-fin-de-carrera-fisico-en-z.md).
 
 ⏳ PENDIENTE:
 
-1. Modo láser de GRBL (`$32=1`) y comportamiento de M4 (potencia dinámica) con el K30.
-2. Conmutación de perfiles GRBL entre modo láser y modo fresado (aceleraciones y velocidades distintas; posible par de configs versionadas en `parametros/perfiles/`).
+1. Instalar fin de carrera físico en Z (posición Z+, cableado a D12) y reactivar `$20`/`$21` — checklist completo en [D-0011](../decisiones/D-0011-fin-de-carrera-fisico-en-z.md) y [eje-z.md](eje-z.md).
+2. Comportamiento de M4 (potencia dinámica) con el K30.
+3. Conmutación de perfiles GRBL entre modo láser y modo fresado (aceleraciones y velocidades distintas; posible par de configs versionadas en `parametros/perfiles/`).
 
 ## Software de operación
 

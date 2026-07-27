@@ -1,12 +1,14 @@
 # Propuesta de valor — CNC Magia Roja v3
 
-> Borrador inicial (2026-07-04). Refinar cuando la v3 esté operativa y validada.
+> Actualizado 2026-07-26 para la landing promocional de VELO inc.
+
+## Empresa
+
+**VELO inc** es una compañía dedicada a diseñar y fabricar máquinas CNC.
 
 ## La frase corta
 
-⏳ PENDIENTE — candidata de trabajo:
-
-> *Una máquina híbrida láser + fresado, construida por fabricantes que la usan a diario, con la precisión de tornillos helicoidales y un láser de 30W ópticos reales.*
+> *De una idea a un producto real: corte y grabado CNC con 30W ópticos y un área de trabajo de 400 × 400 mm.*
 
 ## Pilares de valor
 
@@ -14,7 +16,7 @@
 Cabezal intercambiable: cortadora/grabadora **láser de 30W ópticos** y **fresadora/grabadora rotativa** con eje Z motorizado. La competencia de escritorio suele ofrecer solo una de las dos.
 
 ### 2. Potencia óptica real, no marketing
-30W **ópticos** (Laser Tree K30) — no "80W" de consumo eléctrico. Corta en una pasada: ~20 mm pino, ~30 mm acrílico (dato del fabricante; validaremos y publicaremos nuestras propias pruebas).
+30W **ópticos** (Laser Tree K30), 450 nm y *air assist* integrado. Sus aplicaciones incluyen corte y grabado de madera, contrachapado, papel, cartón, cuero y acrílicos oscuros compatibles, además de marcado superficial sobre materiales recubiertos compatibles.
 
 ### 3. Mecánica de precisión heredada de 3 generaciones
 Tornillos helicoidales y bujes lineales en vez de correas (desde la v2), estructura rígida de aluminio y acero. No es un kit: es una máquina diseñada y fabricada por quienes la operan en producción.
@@ -29,6 +31,9 @@ Domo de protección ocular, paro de emergencia, protección de sobrecarga, extra
 
 ### 6. Plataforma abierta y mantenible
 GRBL + Arduino: estándar abierto, compatible con LightBurn/LaserGRBL/UGS, repuestos baratos y disponibles en cualquier parte. Sin ecosistemas cerrados ni suscripciones.
+
+### 7. Mantenimiento incluido
+Plan de mantenimiento con cobertura durante seis meses y un servicio cada dos meses: tres servicios incluidos ([D-0013](../conocimiento/maquina/decisiones/D-0013-identidad-velo-y-plan-mantenimiento.md)).
 
 ## Diferenciadores frente a alternativas
 

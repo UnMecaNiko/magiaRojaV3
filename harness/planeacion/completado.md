@@ -4,6 +4,11 @@
 
 ## 2026
 
+### 2026-07-26 — Dimensiones y oferta comercial definidas
+- Confirmadas las dimensiones externas de **500 × 500 mm** y el área útil de **400 × 400 mm** ([D-0012](../../conocimiento/maquina/decisiones/D-0012-dimensiones-generales-y-area-trabajo.md)).
+- Definidas la identidad **VELO inc** y la cobertura de mantenimiento por seis meses con tres servicios ([D-0013](../../conocimiento/maquina/decisiones/D-0013-identidad-velo-y-plan-mantenimiento.md)).
+- Completada la primera landing promocional en `salidas/web/`, con 20 imágenes generadas, contacto medible por WhatsApp y configuración para despliegue en VPS.
+
 ### 2026-07-20 — Z sin fin de carrera: límites y homing decididos
 - [D-0009](../../conocimiento/maquina/decisiones/D-0009-z-sin-fin-de-carrera-soft-limits.md): GRBL no soporta soft/hard limits por eje (son globales); Z queda fuera del ciclo de homing y `$132` se fija a un valor enorme para neutralizar su soft limit sin afectar a X/Y — cierra parte del pendiente en [plan-de-trabajo.md](plan-de-trabajo.md).
 

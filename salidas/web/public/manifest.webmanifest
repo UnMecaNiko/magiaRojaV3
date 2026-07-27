@@ -1,0 +1,10 @@
+{
+  "name": "CNC Magia Roja v3 — VELO inc",
+  "short_name": "Magia Roja v3",
+  "description": "Máquina CNC de corte y grabado láser diseñada por VELO inc.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fbfaf7",
+  "theme_color": "#e32636",
+  "lang": "es"
+}

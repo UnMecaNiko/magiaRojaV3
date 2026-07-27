@@ -1,0 +1,10 @@
+---
+description: Ubicación obligatoria de las imágenes generadas con IA
+alwaysApply: true
+---
+
+# Imágenes generadas
+
+- Guarda todas las imágenes generadas con IA dentro de `media/ia/`.
+- Usa nombres descriptivos en minúsculas y separados por guiones.
+- No dejes la única copia en la carpeta temporal de recursos de Cursor.

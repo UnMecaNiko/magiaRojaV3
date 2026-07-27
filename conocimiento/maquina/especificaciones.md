@@ -1,14 +1,14 @@
 # Especificaciones — CNC Magia Roja v3
 
 > Documento vivo. Los valores pendientes se completan a medida que avanza el desarrollo.
-> Última actualización: 2026-07-04
+> Última actualización: 2026-07-26
 
 ## Dimensiones y estructura
 
 | Especificación | Valor |
 |---|---|
-| Área de trabajo | ⏳ PENDIENTE — mayor que los 400×400 mm de la v2; medir cuando se cierre el diseño |
-| Dimensiones externas | ⏳ PENDIENTE |
+| Área de trabajo | **400 × 400 mm** ([D-0012](decisiones/D-0012-dimensiones-generales-y-area-trabajo.md)) |
+| Dimensiones externas | **500 × 500 mm** de planta; altura ⏳ PENDIENTE ([D-0012](decisiones/D-0012-dimensiones-generales-y-area-trabajo.md)) |
 | Peso | ⏳ PENDIENTE |
 | Materiales estructurales | ⏳ PENDIENTE — confirmar si se mantiene la receta v2 (acero 1045, aluminio extruido, lámina calibre 18, acrílico rojo 5 mm) |
 
@@ -42,7 +42,7 @@
 
 | | v1 | v2 | v3 |
 |---|---|---|---|
-| Área de trabajo | 270×340 mm | 400×400 mm | ⏳ (mayor) |
+| Área de trabajo | 270×340 mm | 400×400 mm | **400×400 mm** |
 | Ejes motorizados | X/Y (Y dual) | X/Y | X/Y/Z |
 | Láser (óptico) | ~10W | 10W (FAC) | **30W** |
 | Fresado | Motor rotativo | — | Cabezal intercambiable |

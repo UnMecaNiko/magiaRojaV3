@@ -34,7 +34,6 @@
 
 - [ ] Bitácora en [02-electronica-y-electrica.md](../../conocimiento/proceso-construccion/v3/02-electronica-y-electrica.md) en cada sesión de trabajo
 - [ ] Capturar datos de la mecánica ya hecha (medidas, transmisión) con Saul → [01-construccion-mecanica.md](../../conocimiento/proceso-construccion/v3/01-construccion-mecanica.md)
-- [ ] Medir el área de trabajo → [especificaciones.md](../../conocimiento/maquina/especificaciones.md)
 
 ## Reglas de esta lista
 

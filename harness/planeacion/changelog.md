@@ -4,6 +4,13 @@
 
 ## 2026-07
 
+### 2026-07-26
+- **[repo/media]** Definida `media/ia/` como ubicación permanente para todas las imágenes generadas con IA. Guardado allí el primer render profesional de la v3 y actualizadas las reglas de `AGENTS.md`, `CLAUDE.md` y Cursor.
+- **[máquina]** [D-0012](../../conocimiento/maquina/decisiones/D-0012-dimensiones-generales-y-area-trabajo.md): confirmadas dimensiones externas de 500 × 500 mm y área útil de 400 × 400 mm; cerrado el pendiente de medición.
+- **[comercial]** [D-0013](../../conocimiento/maquina/decisiones/D-0013-identidad-velo-y-plan-mantenimiento.md): definida la identidad VELO inc y un plan de mantenimiento incluido por seis meses, con tres servicios cada dos meses.
+- **[web]** Completada la primera versión de la landing promocional en Next.js dentro de `salidas/web/`: identidad VELO inc, cinco familias de aplicaciones, materiales K30, especificaciones, mantenimiento, FAQ, SEO, analítica con consentimiento, atribución de clics a WhatsApp y despliegue local/VPS.
+- **[media/ia]** Generadas 20 imágenes coherentes con la máquina real para la landing; maestros en `media/ia/web-v3/`, copias de publicación en `salidas/web/public/images/` y prompts completos en `salidas/media/imagenes-web-v3.md`.
+
 ### 2026-07-22
 - **[electrónica/grbl/láser]** ✅ Diagnosticado el aviso "LaserGRBL detectó un problema con tu placa" que aparecía con el K30 arriba de ~50% de potencia. Causa raíz: con `$32=1` (modo láser), GRBL reasigna el límite de Z de D11 a D12 para liberar D11 como PWM de hardware — el terminal "Z-" de la shield (donde está conectado el K30) es en realidad D11, pero eso deja a D12 (el límite real de Z) flotando; con `$21=1`, el ruido EMI del driver del K30 a alta potencia lo disparaba como falsa alarma de hard limit. Confirmado con tres pruebas controladas (solo láser, solo motores, `$21=0`) — ver [prueba 2026-07-22](../../conocimiento/maquina/pruebas/2026-07-22-diagnostico-alarma-laser-k30.md). Mientras tanto `$21=0` también (sumado a `$20=0` de D-0010).
 - **[decisión]** [D-0011](../../conocimiento/maquina/decisiones/D-0011-fin-de-carrera-fisico-en-z.md): se instalará un fin de carrera físico en Z (posición Z+), cableado al header D12 ("SpnEn") de la shield — no al terminal "Z-". Resuelve la causa raíz de forma permanente y habilita homing/soft-hard-limits reales en Z. Actualizados `eje-z.md`, `laser.md`, `electrica.md`, `control-grbl.md`, `grbl-actual.yaml` y `plan-de-trabajo.md` con el checklist pendiente (mecánica de montaje, tipo de switch, cableado a D12, `$23`-`$27`, orden de homing).

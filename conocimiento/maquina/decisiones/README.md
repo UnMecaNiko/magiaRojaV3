@@ -23,3 +23,5 @@ Cada decisión relevante — técnica de la máquina o estructural del repositor
 | [D-0009](D-0009-z-sin-fin-de-carrera-soft-limits.md) | Eje Z sin fin de carrera: fuera del homing, soft limits neutralizados por $132 | Máquina | ❌ Reemplazada por D-0010 |
 | [D-0010](D-0010-soft-limits-apagados-hasta-fin-de-carrera-z.md) | Soft limits apagados ($20=0) hasta instalar fin de carrera en Z | Máquina | ✅ Vigente |
 | [D-0011](D-0011-fin-de-carrera-fisico-en-z.md) | Instalar fin de carrera físico en Z (Z+), cableado a D12 — resuelve alarma falsa del K30 | Máquina | ✅ Vigente |
+| [D-0012](D-0012-dimensiones-generales-y-area-trabajo.md) | Dimensiones externas 500 × 500 mm y área útil 400 × 400 mm | Máquina | ✅ Vigente |
+| [D-0013](D-0013-identidad-velo-y-plan-mantenimiento.md) | Identidad VELO inc y plan de mantenimiento por seis meses | Repositorio / Comercial | ✅ Vigente |

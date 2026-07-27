@@ -1,26 +1,38 @@
 # Material de venta — CNC Magia Roja v3
 
-> ⏳ En construcción — se desarrollará cuando la v3 esté operativa y con fotos/videos propios. **Sin precios** (regla del repo).
+> Material promocional de VELO inc. **Sin precios** (regla del repo).
 
-## Mensajes clave (borrador)
+## Identidad
 
-1. **"Dos máquinas en una"** — láser 30W ópticos + fresado con eje Z motorizado.
-2. **"Construida por quienes la usan"** — tres generaciones de máquinas operando en producción real desde 2021.
-3. **"Potencia real"** — 30W ópticos medidos, no watts eléctricos de marketing.
-4. **"Abierta y reparable"** — GRBL, LightBurn, repuestos estándar.
-5. **"Segura de serie"** — domo, paro de emergencia, extracción de humos.
+**VELO inc** es una compañía dedicada a diseñar y fabricar máquinas CNC.
 
-## Activos pendientes
+## Mensajes clave
 
-⏳ PENDIENTE — generar cuando la máquina opere:
+1. **"De una idea a un producto real"** — corte y grabado para decoración, ropa y accesorios, eventos, publicidad y educación.
+2. **"Potencia óptica real"** — Laser Tree K30 de 30W ópticos, 450 nm y *air assist* integrado.
+3. **"Área útil definida"** — 400 × 400 mm dentro de una máquina de 500 × 500 mm.
+4. **"Abierta y mantenible"** — plataforma GRBL compatible con LightBurn y LaserGRBL.
+5. **"Acompañamiento incluido"** — plan de mantenimiento por seis meses, con un servicio cada dos meses (tres servicios).
 
-- [ ] Fotos profesionales de la v3 (→ almacenamiento externo, URLs aquí)
-- [ ] Video demo (corte grueso en una pasada — el diferenciador visual del K30)
-- [ ] Muestras físicas de corte/grabado por material
-- [ ] Tabla de capacidades validada con pruebas propias
-- [ ] Testimonios (el comprador de la v2 es el primer candidato)
-- [ ] Página web (→ se genera en [salidas/web/](../salidas/web/))
+## Reglas para la landing
+
+- Mostrar la máquina como un producto terminado.
+- Priorizar posibilidades y productos sobre especificaciones técnicas.
+- Omitir datos no definidos en lugar de publicar pendientes.
+- No mencionar producción masiva, trayectoria, versiones anteriores ni testimonios.
+- Las capacidades por material se basan en la ficha oficial del K30 y se expresan sin sugerir corte de metal ni de acrílico transparente, blanco o azul.
+- La conversión principal es la conversación por WhatsApp.
+
+## Activos
+
+- [x] Render profesional inicial de la v3: `media/ia/cnc-magia-roja-v3-profesional.png`
+- [ ] Colección visual de aplicaciones para la landing: `media/ia/web-v3/`
+- [ ] Fotografías reales equivalentes para reemplazar progresivamente los renders
+- [ ] Video demostrativo
+- [ ] Muestras físicas por material
+- [ ] Página web en [salidas/web/](../salidas/web/)
 
 ## Canales
 
-⏳ PENDIENTE: definir. Historial: LinkedIn (@unmecaniko), YouTube (demos v1/v2).
+- Landing optimizada para tráfico desde Google e Instagram.
+- WhatsApp como canal principal de contacto.

@@ -9,4 +9,4 @@ Resumen mínimo (la fuente completa es AGENTS.md):
 - **Markdown para narrativa, YAML para datos** (parámetros, GRBL, BOM).
 - `conocimiento/` es la fuente de la verdad; `salidas/` es lo generado. Nunca mezclarlas.
 - Datos desconocidos se marcan `⏳ PENDIENTE`, jamás se inventan.
-- `comercial/` sin precios. Media pesada fuera del repo (S3/Supabase), solo URLs.
+- `comercial/` sin precios. Media pesada fuera del repo (S3/Supabase), solo URLs; las imágenes generadas con IA son la excepción y se guardan en `media/ia/`.

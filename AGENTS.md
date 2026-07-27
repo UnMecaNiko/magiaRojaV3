@@ -45,6 +45,7 @@ Aquí **no se desarrolla código de producto**: se organiza información del mun
 ### 7. Archivos pesados fuera del repo
 - CAD, fotos, videos → almacenamiento externo (S3/Supabase). En el repo solo la **URL + descripción**.
 - La media de v1 y v2 ya vive en Supabase (ver `conocimiento/historia/`).
+- Excepción: todas las imágenes generadas con IA se guardan dentro del repo en `media/ia/`, con nombres descriptivos en minúsculas y separados por guiones.
 
 ### 8. Paso a paso para tutoriales
 - El proceso de construcción se documenta como **pasos atómicos** en `conocimiento/proceso-construccion/`, usando [la plantilla](harness/plantillas/plantilla-paso-tutorial.md).

@@ -113,6 +113,14 @@ reiniciar Caddy.
 ## Certificados
 
 Caddy los pide en el primer arranque y los renueva solo, sin cron ni certbot.
+
+> **Si el sitio no carga tras apuntar el DNS**, comprobar primero que el DNS es
+> correcto (`nslookup dominio hermes.dns-parking.com` consulta al autoritativo,
+> sin caché). Si el DNS está bien pero no hay certificado, lo más probable es
+> que Caddy esté en espera larga por intentos fallidos anteriores: reintenta con
+> retroceso exponencial y puede tardar horas. Se fuerza con
+> `docker compose restart caddy`. Lo ideal es no levantar el proxy hasta que el
+> DNS resuelva.
 Viven en el volumen `caddy_data`. **Ese volumen no se borra**: perderlo obliga a
 reemitir todos los certificados y Let's Encrypt limita a 5 emisiones por dominio
 por semana.

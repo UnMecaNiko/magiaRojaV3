@@ -1,3 +1,5 @@
+# Nota: ver .gitattributes — el Dockerfile y los YAML van siempre con LF,
+# porque se copian tal cual a un servidor Linux.
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies

@@ -61,6 +61,25 @@ Fuentes (consultadas el 2026-07-27):
 [Ubuntu release cycle](https://ubuntu.com/about/release-cycle),
 [Ubuntu 26.04 LTS release notes](https://documentation.ubuntu.com/release-notes/26.04/).
 
+## Nota de ejecución (2026-07-27)
+
+El VPS contratado (`srv1860276.hstgr.cloud`, 2.24.106.64, Ubuntu 24.04.4 LTS,
+1 vCPU / 4 GB) llegó con **Traefik v3.7.9 preinstalado** por la plantilla de
+Hostinger, en `/docker/traefik`, ocupando los puertos 80 y 443. Venía bien
+configurado (dashboard apagado, ACME por desafío HTTP, redirección 80→443),
+pero sin ninguna ruta definida y con dos minutos de vida.
+
+Se mantuvo la decisión de usar Caddy: el enrutamiento en un archivo legible
+pesa más que ahorrarse una instalación, y Traefik no tenía nada configurado que
+perder. Se detuvo con `docker compose down` **dejando `/docker/traefik` intacto**;
+restaurarlo es `cd /docker/traefik && docker compose up -d`, previo apagado de
+Caddy.
+
+Dominio asignado: `velasquezlopez.com` para la landing (con `www` redirigido al
+apex) y `n8n.velasquezlopez.com` para n8n. El segundo sitio queda comentado en
+el `Caddyfile` hasta que se defina su subdominio, para no pedir un certificado
+de un dominio sin contenido.
+
 ## Consecuencias
 
 - ✅ Añadir un cuarto sitio es un bloque de tres líneas en el `Caddyfile`.

@@ -28,17 +28,25 @@
 	reverse_proxy web-velo:3000
 }
 
+# www redirige al apex, para no dividir el SEO entre dos direcciones.
+www.{$DOMINIO_VELO} {
+	redir https://{$DOMINIO_VELO}{uri} permanent
+}
+
 # ── n8n ────────────────────────────────────────────────────────
 {$DOMINIO_N8N} {
 	import comunes
 	reverse_proxy n8n:5678
 }
 
-# ── Segundo sitio: marcador de posición estático ───────────────
-# Cuando exista la app real, reemplazar root+file_server por:
+# ── Segundo sitio ──────────────────────────────────────────────
+# Descomentar cuando se defina su subdominio, añadir DOMINIO_DOS al .env,
+# crear su registro A y reiniciar Caddy. El certificado se emite solo.
+# Si en vez de estático es una app, cambiar root+file_server por:
 #   reverse_proxy web-dos:3000
-{$DOMINIO_DOS} {
-	import comunes
-	root * /srv/sitio-dos
-	file_server
-}
+#
+# {$DOMINIO_DOS} {
+# 	import comunes
+# 	root * /srv/sitio-dos
+# 	file_server
+# }

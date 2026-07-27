@@ -1,0 +1,5 @@
+# Estos archivos se copian tal cual al servidor Linux. Con finales de línea
+# CRLF, Docker falla al construir la imagen.
+Dockerfile text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf

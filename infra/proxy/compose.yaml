@@ -1,0 +1,29 @@
+# Proxy inverso compartido — el ÚNICO stack que publica los puertos 80/443.
+# Reparte por dominio hacia los contenedores conectados a la red "edge".
+# HTTPS automático: Caddy pide y renueva los certificados sin intervención.
+
+services:
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp" # HTTP/3
+    env_file: .env
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./sitios:/srv:ro
+      - caddy_data:/data # certificados — NO borrar este volumen
+      - caddy_config:/config
+    networks:
+      - edge
+
+volumes:
+  caddy_data:
+  caddy_config:
+
+networks:
+  edge:
+    external: true

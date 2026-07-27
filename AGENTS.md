@@ -102,6 +102,7 @@ harness/                         ── CAPA 2: harness agéntico ──
 skills/                          skills de investigación
 salidas/                         ── GENERADO desde la fuente ──
 ├── articulos/  ├── web/  └── chatbot/
+infra/                           despliegue del VPS: proxy Caddy, n8n (ver D-0014)
 ```
 
 ## Estado del proyecto (actualizado 2026-07-04)

@@ -4,6 +4,10 @@
 
 ## 2026-07
 
+### 2026-07-27
+- **[infra]** [D-0014](../../conocimiento/maquina/decisiones/D-0014-infraestructura-vps-compartida.md): el VPS alojará tres servicios (landing, n8n y un segundo sitio aún sin definir), así que el proxy inverso se separa de las aplicaciones. Creado `infra/` con un stack de **Caddy** —único con los puertos 80/443, HTTPS automático sin certbot ni cron— y un stack de **n8n con PostgreSQL**. Se retiró el nginx del `compose.yaml` de la landing y se descartaron los archivos de `salidas/web/deploy/` (quedan en el commit `2cb99b9`). Sistema anfitrión elegido: Ubuntu 24.04 LTS con plantilla Docker de Hostinger.
+- **[web]** Verificados `lint` y `build` de la landing antes de desplegar: sin errores, Next.js 16.2.12, 4 rutas estáticas.
+
 ### 2026-07-26
 - **[repo/media]** Definida `media/ia/` como ubicación permanente para todas las imágenes generadas con IA. Guardado allí el primer render profesional de la v3 y actualizadas las reglas de `AGENTS.md`, `CLAUDE.md` y Cursor.
 - **[máquina]** [D-0012](../../conocimiento/maquina/decisiones/D-0012-dimensiones-generales-y-area-trabajo.md): confirmadas dimensiones externas de 500 × 500 mm y área útil de 400 × 400 mm; cerrado el pendiente de medición.

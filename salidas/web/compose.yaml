@@ -1,3 +1,8 @@
+# Solo la aplicación. El TLS y el enrutamiento por dominio los resuelve el
+# proxy compartido en infra/proxy/ — ver D-0014.
+# Este stack no publica puertos: el proxy lo alcanza por la red "edge"
+# usando el nombre de contenedor "web-velo".
+
 services:
   web:
     build:
@@ -7,33 +12,13 @@ services:
         NEXT_PUBLIC_WHATSAPP_NUMBER: ${NEXT_PUBLIC_WHATSAPP_NUMBER}
         NEXT_PUBLIC_GA_MEASUREMENT_ID: ${NEXT_PUBLIC_GA_MEASUREMENT_ID}
         NEXT_PUBLIC_META_PIXEL_ID: ${NEXT_PUBLIC_META_PIXEL_ID}
+    container_name: web-velo
     restart: unless-stopped
     environment:
       NODE_ENV: production
     networks:
-      - velo
-
-  nginx:
-    image: nginx:1.29-alpine
-    restart: unless-stopped
-    depends_on:
-      - web
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./deploy/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-      - ./deploy/certbot/www:/var/www/certbot:ro
-      - ./deploy/certbot/conf:/etc/letsencrypt:ro
-    networks:
-      - velo
-
-  certbot:
-    image: certbot/certbot:latest
-    profiles: ["tools"]
-    volumes:
-      - ./deploy/certbot/www:/var/www/certbot
-      - ./deploy/certbot/conf:/etc/letsencrypt
+      - edge
 
 networks:
-  velo:
+  edge:
+    external: true

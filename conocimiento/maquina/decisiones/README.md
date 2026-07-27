@@ -25,4 +25,5 @@ Cada decisión relevante — técnica de la máquina o estructural del repositor
 | [D-0011](D-0011-fin-de-carrera-fisico-en-z.md) | Instalar fin de carrera físico en Z (Z+), cableado a D12 — resuelve alarma falsa del K30 | Máquina | ✅ Vigente |
 | [D-0012](D-0012-dimensiones-generales-y-area-trabajo.md) | Dimensiones externas 500 × 500 mm y área útil 400 × 400 mm | Máquina | ♻️ Reemplazada por D-0014 (área de trabajo) |
 | [D-0013](D-0013-identidad-velo-y-plan-mantenimiento.md) | Identidad VELO inc y plan de mantenimiento por seis meses | Repositorio / Comercial | ✅ Vigente |
+| [D-0014](D-0014-infraestructura-vps-compartida.md) | Un solo VPS con proxy compartido Caddy para landing, n8n y un segundo sitio | Repositorio / Infraestructura | ✅ Vigente |
 | [D-0014](D-0014-area-de-trabajo-500x500.md) | Área de trabajo corregida a 500 × 500 mm | Máquina | ✅ Vigente |

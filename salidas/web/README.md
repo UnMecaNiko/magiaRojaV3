@@ -46,6 +46,13 @@ Cuando se sustituya un render por una fotografía real, actualizar primero el ma
 
 ## Despliegue en VPS
 
+Este stack contiene **solo la aplicación**. El TLS y el enrutamiento por dominio
+los resuelve el proxy compartido del servidor, porque en el mismo VPS conviven
+otros servicios. La guía completa está en [`infra/`](../../infra/README.md); ver
+también [D-0014](../../conocimiento/maquina/decisiones/D-0014-infraestructura-vps-compartida.md).
+
+Con el proxy ya levantado y la red `edge` creada:
+
 1. Copiar `.env.example` a `.env` y completar los valores.
 2. Construir y arrancar:
 
@@ -53,21 +60,9 @@ Cuando se sustituya un render por una fotografía real, actualizar primero el ma
 docker compose up -d --build
 ```
 
-3. Apuntar el dominio a la IP del VPS.
-4. Cambiar `server_name _;` en `deploy/nginx.conf` por el dominio.
-5. Solicitar el certificado:
+El contenedor no publica puertos: el proxy lo alcanza como `web-velo:3000`.
 
-```bash
-docker compose --profile tools run --rm certbot certonly \
-  --webroot --webroot-path /var/www/certbot \
-  --email correo@ejemplo.com --agree-tos --no-eff-email \
-  -d maquina.ejemplo.com
-```
-
-6. Sustituir el dominio de ejemplo en `deploy/nginx-https.conf.example`, copiarlo como `deploy/nginx.conf` y reiniciar:
-
-```bash
-docker compose restart nginx
-```
+Las variables `NEXT_PUBLIC_*` se incrustan **en tiempo de compilación**. Al
+cambiar cualquiera de ellas hay que reconstruir con `--build`; reiniciar no basta.
 
 No guardar `.env`, certificados ni credenciales en Git.

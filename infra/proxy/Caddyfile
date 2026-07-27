@@ -1,0 +1,44 @@
+# Configuración del proxy inverso. Un bloque por dominio.
+# Los certificados TLS se piden y renuevan solos; no hay certbot ni cron.
+
+{
+	email {$ACME_EMAIL}
+}
+
+# Cabeceras y compresión comunes a todos los sitios.
+(comunes) {
+	encode zstd gzip
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		-Server
+	}
+}
+
+# ── Landing de VELO inc (Next.js) ──────────────────────────────
+{$DOMINIO_VELO} {
+	import comunes
+
+	# Los assets con hash de Next son inmutables: cache larga.
+	@estaticos path /_next/static/*
+	header @estaticos Cache-Control "public, max-age=31536000, immutable"
+
+	reverse_proxy web-velo:3000
+}
+
+# ── n8n ────────────────────────────────────────────────────────
+{$DOMINIO_N8N} {
+	import comunes
+	reverse_proxy n8n:5678
+}
+
+# ── Segundo sitio: marcador de posición estático ───────────────
+# Cuando exista la app real, reemplazar root+file_server por:
+#   reverse_proxy web-dos:3000
+{$DOMINIO_DOS} {
+	import comunes
+	root * /srv/sitio-dos
+	file_server
+}

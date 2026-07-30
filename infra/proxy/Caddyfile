@@ -39,13 +39,36 @@ www.{$DOMINIO_VELO} {
 	reverse_proxy n8n:5678
 }
 
-# ── Segundo sitio ──────────────────────────────────────────────
-# Descomentar cuando se defina su subdominio, añadir DOMINIO_DOS al .env,
+# ── Presentación "Sistema operativo de IA" ─────────────────────
+# Exportación estática de un Next.js (`output: "export"`), servida como
+# archivos: no hay proceso Node detrás. El contenido se sube a
+# /opt/proxy/sitios/theker — ver la sección "Sitios estáticos" del README.
+{$DOMINIO_THEKER} {
+	import comunes
+
+	root * /srv/theker
+
+	# Los assets con hash de Next son inmutables: cache larga.
+	@estaticos path /_next/static/*
+	header @estaticos Cache-Control "public, max-age=31536000, immutable"
+
+	# La exportación escribe una página por ruta como `<ruta>.html`.
+	try_files {path} {path}.html {path}/index.html
+	file_server
+
+	handle_errors 404 {
+		rewrite * /404.html
+		file_server
+	}
+}
+
+# ── Tercer sitio ───────────────────────────────────────────────
+# Descomentar cuando se defina su subdominio, añadir DOMINIO_TRES al .env,
 # crear su registro A y reiniciar Caddy. El certificado se emite solo.
 # Si en vez de estático es una app, cambiar root+file_server por:
-#   reverse_proxy web-dos:3000
+#   reverse_proxy web-tres:3000
 #
-# {$DOMINIO_DOS} {
+# {$DOMINIO_TRES} {
 # 	import comunes
 # 	root * /srv/sitio-dos
 # 	file_server

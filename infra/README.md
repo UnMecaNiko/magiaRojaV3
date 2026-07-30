@@ -14,6 +14,7 @@ detrás, sin puertos publicados.
 ```
 Internet ──▶ :80 / :443 ──▶ Caddy ──┬──▶ web-velo:3000   (landing Next.js)
                                     ├──▶ n8n:5678        (automatizaciones)
+                                    ├──▶ /srv/theker     (presentación estática)
                                     └──▶ /srv/sitio-dos  (estático temporal)
 ```
 
@@ -22,6 +23,9 @@ Internet ──▶ :80 / :443 ──▶ Caddy ──┬──▶ web-velo:3000  
 | Proxy (Caddy) | `/opt/proxy` | 80, 443 |
 | Landing VELO | `/opt/web-velo` | no |
 | n8n + PostgreSQL | `/opt/n8n` | no |
+
+Un sitio estático no necesita stack propio: son archivos dentro de
+`/opt/proxy/sitios`, que Caddy sirve directamente.
 
 Los stacks se comunican por una red Docker externa llamada `edge`. PostgreSQL
 está solo en la red `interna` de n8n: no es alcanzable desde el proxy ni desde
@@ -94,20 +98,40 @@ docker compose -f /opt/proxy/compose.yaml logs --tail 50 caddy
 | Logs de un servicio | `docker compose logs -f --tail 100 <servicio>` |
 | Añadir o cambiar un dominio | Editar `Caddyfile` y `.env`, luego `docker compose restart caddy` |
 | Actualizar la landing tras un cambio | `cd /opt/web-velo && docker compose up -d --build` |
+| Publicar una versión nueva de un sitio estático | ver [Sitios estáticos](#sitios-estáticos) |
 | Actualizar n8n | `cd /opt/n8n && docker compose pull && docker compose up -d` |
 | Liberar espacio | `docker image prune -f` |
 
-### Reemplazar el sitio temporal por una app real
+### Sitios estáticos
 
-En el `Caddyfile`, cambiar el bloque de `{$DOMINIO_DOS}`:
+`theker.velasquezlopez.com` sirve la presentación **«Sistema operativo de IA»**,
+cuyo código vive en otro repositorio (`presales-customers-context`, en
+`web/sistema-operativo-ia/`). Es un Next.js configurado con `output: "export"`:
+en producción no hay proceso Node, solo archivos.
+
+Para publicar una versión nueva, desde el repositorio de la presentación:
+
+```bash
+npm run build                       # genera out/
+tar -czf - -C out . | ssh velo-vps 'tar -xzf - -C /opt/proxy/sitios/theker'
+```
+
+No hace falta reiniciar Caddy: lee los archivos en cada petición. Los assets de
+`/_next/static/` llevan hash en el nombre y se sirven con cache de un año, así
+que un despliegue nuevo no deja a nadie con una versión mezclada. Si se quiere
+un despliegue atómico, subir a un directorio hermano y mover el enlace.
+
+### Reemplazar un sitio estático por una app real
+
+En el `Caddyfile`, cambiar `root` + `file_server` del bloque por:
 
 ```diff
 -	root * /srv/sitio-dos
 -	file_server
-+	reverse_proxy web-dos:3000
++	reverse_proxy web-tres:3000
 ```
 
-Levantar el nuevo stack conectado a `edge` con `container_name: web-dos` y
+Levantar el nuevo stack conectado a `edge` con `container_name: web-tres` y
 reiniciar Caddy.
 
 ## Certificados

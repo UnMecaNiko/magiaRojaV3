@@ -1,6 +1,6 @@
 export const specifications = [
   { label: "Dimensiones externas", value: "500 × 500 mm" },
-  { label: "Área de trabajo", value: "400 × 400 mm" },
+  { label: "Área de trabajo", value: "500 × 500 mm" },
   { label: "Potencia óptica", value: "30 W" },
   { label: "Longitud de onda", value: "450 nm" },
   { label: "Cabezal", value: "Laser Tree K30" },

@@ -10,7 +10,7 @@
 
 1. **"De una idea a un producto real"** — corte y grabado para decoración, ropa y accesorios, eventos, publicidad y educación.
 2. **"Potencia óptica real"** — Laser Tree K30 de 30W ópticos, 450 nm y *air assist* integrado.
-3. **"Área útil definida"** — 400 × 400 mm dentro de una máquina de 500 × 500 mm.
+3. **"Área útil definida"** — 500 × 500 mm de área de trabajo.
 4. **"Abierta y mantenible"** — plataforma GRBL compatible con LightBurn y LaserGRBL.
 5. **"Acompañamiento incluido"** — plan de mantenimiento por seis meses, con un servicio cada dos meses (tres servicios).
 

@@ -2,7 +2,7 @@
 
 - **Fecha**: 2026-07-26
 - **Ámbito**: Máquina
-- **Estado**: ✅ Vigente
+- **Estado**: ♻️ Reemplazada por [D-0014](D-0014-area-de-trabajo-500x500.md) en el área de trabajo (las dimensiones externas siguen vigentes)
 - **Decisor**: Nicolas Velasquez Lopez
 
 ## Contexto

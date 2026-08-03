@@ -1,13 +1,13 @@
 # Especificaciones — CNC Magia Roja v3
 
 > Documento vivo. Los valores pendientes se completan a medida que avanza el desarrollo.
-> Última actualización: 2026-07-26
+> Última actualización: 2026-08-02
 
 ## Dimensiones y estructura
 
 | Especificación | Valor |
 |---|---|
-| Área de trabajo | **400 × 400 mm** ([D-0012](decisiones/D-0012-dimensiones-generales-y-area-trabajo.md)) |
+| Área de trabajo | **500 × 500 mm** ([D-0014](decisiones/D-0014-area-de-trabajo-500x500.md)) |
 | Dimensiones externas | **500 × 500 mm** de planta; altura ⏳ PENDIENTE ([D-0012](decisiones/D-0012-dimensiones-generales-y-area-trabajo.md)) |
 | Peso | ⏳ PENDIENTE |
 | Materiales estructurales | ⏳ PENDIENTE — confirmar si se mantiene la receta v2 (acero 1045, aluminio extruido, lámina calibre 18, acrílico rojo 5 mm) |

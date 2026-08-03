@@ -11,7 +11,7 @@ La tercera iteración de la CNC Magia Roja: una máquina CNC de escritorio para 
 
 | Aspecto | v2 | v3 |
 |---|---|---|
-| Área de trabajo | 400 × 400 mm | Mayor — ⏳ PENDIENTE: medidas finales |
+| Área de trabajo | 400 × 400 mm | **500 × 500 mm** ([D-0015](decisiones/D-0015-area-de-trabajo-500x500.md)) |
 | Ejes | X/Y | X/Y + **eje Z motorizado** (NEMA 17) |
 | Herramienta | Láser fijo | **Cabezal intercambiable**: láser ↔ motor de fresado |
 | Láser | 80W eléctricos / 10W ópticos (FAC) | **Laser Tree K30 — 30W ópticos reales** |

@@ -2,7 +2,7 @@ export const faqItems = [
   {
     question: "¿Qué tamaño tiene el área de trabajo?",
     answer:
-      "La CNC Magia Roja v3 ofrece un área útil de 400 × 400 mm dentro de una estructura de 500 × 500 mm.",
+      "La CNC Magia Roja v3 ofrece un área útil de trabajo de 500 × 500 mm.",
   },
   {
     question: "¿Qué materiales puede trabajar?",

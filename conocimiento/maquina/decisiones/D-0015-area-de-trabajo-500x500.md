@@ -1,4 +1,4 @@
-# D-0014 — Área de trabajo corregida a 500 × 500 mm
+# D-0015 — Área de trabajo corregida a 500 × 500 mm
 
 - **Fecha**: 2026-08-02
 - **Ámbito**: Máquina

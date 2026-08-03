@@ -17,7 +17,7 @@ Qué cambió entre versiones y **por qué** — la narrativa del linaje. Útil p
 
 | | v1 | v2 | v3 |
 |---|---|---|---|
-| Área de trabajo | 270×340 mm | 400×400 mm | ⏳ mayor |
+| Área de trabajo | 270×340 mm | 400×400 mm | **500×500 mm** |
 | Ejes | X/Y (Y dual) | X/Y | **X/Y/Z** |
 | Transmisión | Correas | Tornillo helicoidal + bujes | ⏳ por confirmar |
 | Controladora | Arduino Uno + Shield V3 | GRBL board | Arduino + CNC Shield |

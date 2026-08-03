@@ -108,7 +108,7 @@ export default function Home() {
                 <dd>Potencia óptica</dd>
               </div>
               <div>
-                <dt>400 × 400</dt>
+                <dt>500 × 500</dt>
                 <dd>Área útil en mm</dd>
               </div>
               <div>

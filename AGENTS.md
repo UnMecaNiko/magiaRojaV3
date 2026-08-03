@@ -103,6 +103,7 @@ skills/                          skills de investigación
 salidas/                         ── GENERADO desde la fuente ──
 ├── articulos/  ├── web/  └── chatbot/
 infra/                           despliegue del VPS: proxy Caddy, n8n (ver D-0014)
+└── desplegar-landing.sh         publica la web oficial de una sola pasada
 ```
 
 ## Estado del proyecto (actualizado 2026-07-04)
@@ -122,6 +123,7 @@ infra/                           despliegue del VPS: proxy Caddy, n8n (ver D-001
 | Cambiar config GRBL | Dump `$$` crudo + YAML anotado en `grbl/historico/`, actualizar `grbl-actual.yaml` y `grbl/CHANGELOG.md` |
 | Documentar un paso del build | Plantilla paso-tutorial → `conocimiento/proceso-construccion/v3/NN-titulo.md` |
 | Escribir un artículo/página/tutorial | Leer la fuente en `conocimiento/`, generar en `salidas/`, seguir `harness/guias/estilo-redaccion.md` |
+| **Publicar la web oficial** (velasquezlopez.com) | `./infra/desplegar-landing.sh --pull` — un comando: trae lo remoto, sincroniza al VPS, reconstruye y verifica. **No hacerlo a mano.** Ver [infra/README.md](infra/README.md) |
 | Investigar un componente | Seguir `harness/guias/como-investigar.md`, crear ficha en `componentes/fichas/` |
 | Registrar una compra u horas de trabajo | Editar `presupuesto/presupuesto-v3.xlsx` (hojas Materiales/Horas) y regenerar los CSV de `presupuesto/datos/` |
 | Saber qué está pendiente | `harness/planeacion/plan-de-trabajo.md` (accionable), marcas `⏳ PENDIENTE` en cada documento (vacíos puntuales), lista de investigación en `harness/guias/como-investigar.md`, y `roadmap.md` (futuro) |

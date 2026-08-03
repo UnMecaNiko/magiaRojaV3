@@ -2,7 +2,8 @@
 #
 # Publica la landing de VELO inc (salidas/web) en el VPS, de una sola pasada.
 #
-#   ./infra/desplegar-landing.sh
+#   ./infra/desplegar-landing.sh --pull    # trae lo remoto y publica
+#   ./infra/desplegar-landing.sh           # publica lo que hay en disco
 #
 # Qué hace y por qué:
 #
@@ -22,6 +23,18 @@
 
 set -euo pipefail
 
+CON_PULL=0
+for arg in "$@"; do
+  case "$arg" in
+    --pull) CON_PULL=1 ;;
+    # La ayuda es la cabecera de comentarios de este archivo: una sola fuente.
+    -h|--help)
+      awk 'NR==1 {next} /^#/ {sub(/^# ?/, ""); print; next} {exit}' "${BASH_SOURCE[0]}"
+      exit 0 ;;
+    *) printf 'opción desconocida: %s (usa --help)\n' "$arg" >&2; exit 2 ;;
+  esac
+done
+
 HOST="${VELO_VPS_HOST:-velo-vps}"
 DESTINO="${VELO_VPS_RUTA:-/opt/web-velo}"
 DOMINIO="${VELO_DOMINIO:-velasquezlopez.com}"
@@ -33,6 +46,29 @@ FUENTE="$RAIZ/salidas/web"
 paso()  { printf '\n\033[1;34m==>\033[0m %s\n' "$1"; }
 aviso() { printf '\033[1;33m[aviso]\033[0m %s\n' "$1"; }
 error() { printf '\033[1;31m[error]\033[0m %s\n' "$1" >&2; }
+
+if [ "$CON_PULL" = 1 ]; then
+  paso "Trayendo cambios remotos"
+  cd "$RAIZ"
+  # --ff-only a propósito: si la rama divergió, preferimos abortar aquí y
+  # resolverlo a mano antes que publicar una fusión improvisada.
+  if ! git pull --ff-only; then
+    error "el pull no avanzó en línea recta; resuelve la divergencia y vuelve a correr"
+    exit 1
+  fi
+  # Estando en una rama de trabajo, el pull trae esa rama y no `main`. Si main
+  # se movió, conviene saberlo antes de publicar: se estaría subiendo contenido
+  # más viejo que la fuente de la verdad.
+  RAMA="$(git rev-parse --abbrev-ref HEAD)"
+  if [ "$RAMA" != "main" ]; then
+    PENDIENTES="$(git rev-list --count HEAD..origin/main 2>/dev/null || echo 0)"
+    if [ "$PENDIENTES" != "0" ]; then
+      aviso "estás en '$RAMA' y origin/main tiene $PENDIENTES commit(s) que no están aquí:"
+      git log --oneline HEAD..origin/main | sed 's/^/           /'
+      aviso "se publica '$RAMA' de todos modos; intégralos si afectan a la web"
+    fi
+  fi
+fi
 
 cd "$FUENTE"
 
@@ -70,7 +106,9 @@ paso "Verificando https://$DOMINIO"
 CODIGO=000
 for _ in $(seq 1 20); do
   CODIGO="$(curl -s -o /dev/null -w '%{http_code}' "https://$DOMINIO" || true)"
-  [ "$CODIGO" = "200" ] && break
+  if [ "$CODIGO" = "200" ]; then
+    break
+  fi
   sleep 3
 done
 printf '    HTTP %s\n' "$CODIGO"

@@ -7,7 +7,7 @@
 
 | Especificación | Valor |
 |---|---|
-| Área de trabajo | **500 × 500 mm** ([D-0014](decisiones/D-0014-area-de-trabajo-500x500.md)) |
+| Área de trabajo | **500 × 500 mm** ([D-0015](decisiones/D-0015-area-de-trabajo-500x500.md)) |
 | Dimensiones externas | **500 × 500 mm** de planta; altura ⏳ PENDIENTE ([D-0012](decisiones/D-0012-dimensiones-generales-y-area-trabajo.md)) |
 | Peso | ⏳ PENDIENTE |
 | Materiales estructurales | ⏳ PENDIENTE — confirmar si se mantiene la receta v2 (acero 1045, aluminio extruido, lámina calibre 18, acrílico rojo 5 mm) |
@@ -42,7 +42,7 @@
 
 | | v1 | v2 | v3 |
 |---|---|---|---|
-| Área de trabajo | 270×340 mm | 400×400 mm | **400×400 mm** |
+| Área de trabajo | 270×340 mm | 400×400 mm | **500×500 mm** |
 | Ejes motorizados | X/Y (Y dual) | X/Y | X/Y/Z |
 | Láser (óptico) | ~10W | 10W (FAC) | **30W** |
 | Fresado | Motor rotativo | — | Cabezal intercambiable |

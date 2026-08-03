@@ -24,7 +24,7 @@ El salto de láser es de categoría, no incremental: de ~10W ópticos a **30W ó
 
 - ✅ **Mecánica**: desarrollada y terminada.
 - 🔧 **Electrónica y eléctrica**: en desarrollo — fase actual del proyecto.
-- ⏳ Pendientes de definición: medidas del área de trabajo, detalles del husillo del eje Z, modelo del motor de fresado.
+- ⏳ Pendientes de definición: detalles del husillo del eje Z, modelo del motor de fresado.
 
 ## Filosofía de la línea Magia Roja
 

@@ -8,7 +8,7 @@
 
 ## La frase corta
 
-> *De una idea a un producto real: corte y grabado CNC con 30W ópticos y un área de trabajo de 400 × 400 mm.*
+> *De una idea a un producto real: corte y grabado CNC con 30W ópticos y un área de trabajo de 500 × 500 mm.*
 
 ## Pilares de valor
 

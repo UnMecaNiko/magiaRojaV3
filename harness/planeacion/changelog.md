@@ -2,6 +2,12 @@
 
 > Bitácora cronológica de cambios: en la máquina, en decisiones, en el repo. Grano más fino que [completado.md](completado.md) (que registra hitos). Formato: fecha + qué + por qué.
 
+## 2026-08
+
+### 2026-08-02
+- **[web]** ✅ **Publicado el número de WhatsApp en la landing**: los cinco CTA de https://velasquezlopez.com apuntaban a `wa.me/` **sin destinatario** desde el despliegue del 2026-07-27, así que cada visitante que hacía clic tenía que elegir el contacto a mano — el peor punto posible para perder una conversación. La causa: `NEXT_PUBLIC_WHATSAPP_NUMBER` quedó vacío en el `.env` del servidor. Completado con `573125485893` (el número documentado en [material-venta.md](../../comercial/material-venta.md)) y reconstruida la imagen, porque las `NEXT_PUBLIC_*` se incrustan al compilar y reiniciar no basta. Verificado: HTTP 200 y los 5 enlaces con número.
+- **[infra]** Creado [`infra/desplegar-landing.sh`](../../infra/desplegar-landing.sh): publica la landing completa de una sola pasada, en vez de la secuencia manual de empaquetar, subir, sincronizar y reconstruir. Sube **solo los archivos versionados** de `salidas/web` (así no viajan `node_modules`, `.next` ni el `.env` local), sincroniza con `rsync --delete` excluyendo el `.env` del servidor —de modo que lo borrado del repo desaparece del VPS pero los valores de producción sobreviven—, reconstruye con `--build` y verifica el dominio antes de darse por bueno. Avisa si el número de WhatsApp quedó vacío, que es precisamente el fallo que se acaba de corregir. Es idempotente. Actualizado `infra/README.md`.
+
 ## 2026-07
 
 ### 2026-07-30

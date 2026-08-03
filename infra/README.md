@@ -97,10 +97,35 @@ docker compose -f /opt/proxy/compose.yaml logs --tail 50 caddy
 | Ver estado de todo | `docker ps` |
 | Logs de un servicio | `docker compose logs -f --tail 100 <servicio>` |
 | Añadir o cambiar un dominio | Editar `Caddyfile` y `.env`, luego `docker compose restart caddy` |
-| Actualizar la landing tras un cambio | `cd /opt/web-velo && docker compose up -d --build` |
+| Actualizar la landing tras un cambio | `./infra/desplegar-landing.sh` desde el repo (ver [Publicar la landing](#publicar-la-landing)) |
 | Publicar una versión nueva de un sitio estático | ver [Sitios estáticos](#sitios-estáticos) |
 | Actualizar n8n | `cd /opt/n8n && docker compose pull && docker compose up -d` |
 | Liberar espacio | `docker image prune -f` |
+
+### Publicar la landing
+
+Desde el repositorio, con un solo comando:
+
+```bash
+./infra/desplegar-landing.sh
+```
+
+El script hace todo el trayecto y lo verifica: empaqueta **solo los archivos
+versionados** de `salidas/web` (nunca `node_modules`, `.next` ni el `.env`
+local), los sincroniza en `/opt/web-velo` con `rsync --delete` excluyendo el
+`.env` del servidor, reconstruye la imagen y comprueba que
+`https://velasquezlopez.com` responda 200 y que los CTA lleven número de
+WhatsApp. Es idempotente.
+
+Se puede apuntar a otro host, ruta o dominio con las variables `VELO_VPS_HOST`,
+`VELO_VPS_RUTA` y `VELO_DOMINIO`.
+
+El `.env` del servidor no se toca nunca desde el repo: es la única copia de los
+valores de producción y no está en Git. Si se cambia una `NEXT_PUBLIC_*` a mano
+en el servidor, hay que volver a correr el script — esas variables se incrustan
+al compilar, y reiniciar el contenedor no las recoge. El script avisa si
+`NEXT_PUBLIC_WHATSAPP_NUMBER` quedó vacío o mal formado, porque en ese caso los
+CTA abren WhatsApp sin destinatario y el visitante tiene que elegir el contacto.
 
 ### Sitios estáticos
 

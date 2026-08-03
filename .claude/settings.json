@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ssh velo-vps:*)",
+      "Bash(bash infra/desplegar-landing.sh:*)",
+      "Bash(./infra/desplegar-landing.sh:*)",
+      "Bash(git rebase:*)",
+      "Bash(git stash:*)"
+    ]
+  }
+}

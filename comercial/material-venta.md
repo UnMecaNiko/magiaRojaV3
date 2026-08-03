@@ -35,4 +35,4 @@
 ## Canales
 
 - Landing optimizada para tráfico desde Google e Instagram.
-- WhatsApp como canal principal de contacto.
+- WhatsApp como canal principal de contacto: +57 312 548 5893.

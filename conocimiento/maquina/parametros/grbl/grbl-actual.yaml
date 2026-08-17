@@ -36,7 +36,7 @@ parametros:
   $31:  {valor: 0, nombre: "Min spindle/laser speed"}
   $32:  {valor: 1, nombre: "Laser mode (1=on)", nota: "Activo para el K30 — confirmado 2026-07-22. Implica VARIABLE_SPINDLE compilado, lo que mueve el límite de Z de D11 a D12 (confirmado 2026-08-17, ver D-0011). Revisar al conmutar a fresado."}
   $100: {valor: 200.000, nombre: "Pasos/mm X", nota: "Deducido, no medido: mismo tornillo que v2 (8mm/rev) + 1/8 micropaso (1600 pasos efectivos/rev). Ver parametros/drivers/microstepping.yaml. ⏳ PENDIENTE validar sin pérdida de pasos."}
-  $101: {valor: 200.000, nombre: "Pasos/mm Y", nota: "Igualado a X (asume mismo avance 8mm/rev). ⏳ PENDIENTE confirmar el avance real de Y y validar sin pérdida de pasos."}
+  $101: {valor: 200.000, nombre: "Pasos/mm Y", nota: "Valor LINEAL (asume mismo avance 8mm/rev que X). ⏳ PENDIENTE confirmar avance real de Y y validar sin pérdida de pasos. OJO dualidad: en modo eje rotatorio (D-0016) Y se clona al slot A y $101 debe recalcularse (pasos/grado × relación del rotatorio); restaurar $101=200 al volver a plano. ⏳ PENDIENTE calcular $101 rotatorio."}
   $102: {valor: 200.000, nombre: "Pasos/mm Z", nota: "Igualado a X (asume mismo avance 8mm/rev). ⏳ PENDIENTE: depende del husillo real del Z, sin validar."}
   $110: {valor: 2500.000, nombre: "Velocidad máx X (mm/min)"}
   $111: {valor: 2500.000, nombre: "Velocidad máx Y (mm/min)"}

@@ -27,3 +27,4 @@ Cada decisión relevante — técnica de la máquina o estructural del repositor
 | [D-0013](D-0013-identidad-velo-y-plan-mantenimiento.md) | Identidad VELO inc y plan de mantenimiento por seis meses | Repositorio / Comercial | ✅ Vigente |
 | [D-0014](D-0014-infraestructura-vps-compartida.md) | Un solo VPS con proxy compartido Caddy para landing, n8n y un segundo sitio | Repositorio / Infraestructura | ✅ Vigente |
 | [D-0015](D-0015-area-de-trabajo-500x500.md) | Área de trabajo corregida a 500 × 500 mm | Máquina | ✅ Vigente |
+| [D-0016](D-0016-eje-rotatorio-clonado-a-y.md) | Eje rotatorio en slot A clonado a Y, conmutación por conectores manuales | Máquina | ✅ Vigente |

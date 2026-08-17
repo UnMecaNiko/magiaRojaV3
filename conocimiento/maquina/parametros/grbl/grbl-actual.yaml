@@ -1,35 +1,49 @@
 # Configuración GRBL vigente — CNC Magia Roja v3
-# ⏳ PENDIENTE: la controladora v3 aún no está configurada (fase electrónica en curso).
-# Cuando exista la primera config: llenar valores, snapshot en historico/ y anotar CHANGELOG.md.
+# Snapshot del $$ real leído de la controladora el 2026-08-17 (primera config completa).
+# Respaldo restaurable crudo en historico/2026-08-17.txt — pegar de vuelta si un $RST=$ borra la EEPROM.
 
 maquina: magia-roja-v3
-fecha: null            # fecha del último cambio aplicado
-version_grbl: null     # ⏳ PENDIENTE: versión de firmware a instalar
+fecha: "2026-08-17"     # fecha del último $$ leído/aplicado
+version_grbl: "1.1h"   # confirmado en el banner del Serial Monitor ("Grbl 1.1h ['$' for help]")
 
 # Microstepping decidido: 1/8 en los tres ejes — ver ../drivers/microstepping.yaml.
-# Falta el avance mecánico (paso de tornillo/polea) de cada eje para calcular $100/$101/$102.
+# Los $100/$101/$102 ya están en 200 en la EEPROM, pero asumen el mismo avance de 8mm/rev en los
+# tres ejes; solo X está deducido de v2, Y y Z todavía sin validar físicamente (ver notas).
 
-# Parámetros $$ de GRBL, anotados. Referencia oficial:
+# Parámetros $$ de GRBL, con el valor REAL en la controladora. Referencia oficial:
 # https://github.com/gnea/grbl/blob/master/doc/markdown/settings.md
 parametros:
-  $0:   {valor: null, nombre: "Step pulse (µs)"}
-  $1:   {valor: null, nombre: "Step idle delay (ms)"}
-  $5:   {valor: 0, nombre: "Invert limit pins (0=NO, 1=NC)", nota: "En 0 (finales NO). Probar $5=1 (NC) con Z sin switch cae en alarma: D12 (límite de Z en modo láser) flota HIGH y con lógica NC se lee como disparado (Pn:Z). Ver prueba 2026-08-17-invert-limit-pins-z-flotante.md. $5 es booleano global en GRBL 1.1h: no se puede invertir solo X/Y. Pasar a $5=1 exige que D12 tenga nivel definido en reposo (switch NC en D12, o D12 a GND) — ligado a D-0011."}
-  $20:  {valor: 0, nombre: "Soft limits enable", nota: "Apagado — ver D-0010. GRBL no permite soft limits por eje y Z no tiene fin de carrera; se prioriza no bloquear a Z en un sentido arbitrario. ⏳ PENDIENTE: instalar fin de carrera en Z y reevaluar reactivarlo."}
-  $21:  {valor: 0, nombre: "Hard limits enable", nota: "Apagado — ver D-0011. Con $32=1 (modo láser), GRBL vigila el límite de Z en D12 (no D11), que queda flotando al no tener switch; el ruido del driver del K30 lo disparaba como falsa alarma. ⏳ PENDIENTE: instalar switch físico en Z (D12) y reactivar."}
-  $22:  {valor: 1, nombre: "Homing cycle enable", nota: "Habilitado por X/Y (únicos ejes con switch). Ver D-0009 (vigente en este punto)."}
-  $30:  {valor: null, nombre: "Max spindle/laser speed (S-value máx)"}
-  $31:  {valor: null, nombre: "Min spindle/laser speed"}
-  $32:  {valor: 1, nombre: "Laser mode (1=on)", nota: "Activo para el K30 — confirmado 2026-07-22. Implica VARIABLE_SPINDLE compilado, lo que mueve el límite de Z de D11 a D12 (ver D-0011). Revisar al conmutar a fresado."}
-  $100: {valor: 200, nombre: "Pasos/mm X", nota: "Deducido, no medido: mismo tornillo que v2 (8mm/rev) + 1/8 micropaso (1600 pasos efectivos/rev). Ver parametros/drivers/microstepping.yaml. ⏳ PENDIENTE validar sin pérdida de pasos."}
-  $101: {valor: null, nombre: "Pasos/mm Y"}
-  $102: {valor: null, nombre: "Pasos/mm Z", nota: "Nuevo en v3 — depende del husillo del Z"}
-  $110: {valor: null, nombre: "Velocidad máx X (mm/min)"}
-  $111: {valor: null, nombre: "Velocidad máx Y (mm/min)"}
-  $112: {valor: null, nombre: "Velocidad máx Z (mm/min)"}
-  $120: {valor: null, nombre: "Aceleración X (mm/s²)"}
-  $121: {valor: null, nombre: "Aceleración Y (mm/s²)"}
-  $122: {valor: null, nombre: "Aceleración Z (mm/s²)"}
-  $130: {valor: null, nombre: "Recorrido máx X (mm)", nota: "⏳ área de trabajo por medir"}
-  $131: {valor: null, nombre: "Recorrido máx Y (mm)"}
-  $132: {valor: null, nombre: "Recorrido máx Z (mm)", nota: "⏳ PENDIENTE: recorrido real de Z. Ya no se usa un valor artificial (ver D-0010/D-0011) — con $20=0 este valor no se evalúa por ahora; se medirá cuando se instale el fin de carrera de Z (D-0011)."}
+  $0:   {valor: 10, nombre: "Step pulse (µs)"}
+  $1:   {valor: 25, nombre: "Step idle delay (ms)"}
+  $2:   {valor: 0, nombre: "Step port invert mask"}
+  $3:   {valor: 0, nombre: "Direction port invert mask"}
+  $4:   {valor: 0, nombre: "Step enable invert"}
+  $5:   {valor: 1, nombre: "Invert limit pins (0=NO, 1=NC)", nota: "En 1 (finales NC) desde 2026-08-17. $5 es booleano global en GRBL 1.1h: invierte los tres ejes a la vez, no se puede por eje. Con NC, cada pin debe estar en LOW (aterrizado/cerrado) en reposo; un pin flotante se lee como disparado. OJO: en la CNC Shield X+/X- comparten D9, Y+/Y- D10, Z+/Z- D11 — un jumper y un switch real no pueden coexistir en el mismo eje (el jumper enmascara al switch). Ver pruebas 2026-08-17."}
+  $6:   {valor: 0, nombre: "Invert probe pin"}
+  $10:  {valor: 1, nombre: "Status report mask"}
+  $11:  {valor: 0.010, nombre: "Junction deviation (mm)"}
+  $12:  {valor: 0.002, nombre: "Arc tolerance (mm)"}
+  $13:  {valor: 0, nombre: "Report in inches (0=mm)"}
+  $20:  {valor: 0, nombre: "Soft limits enable", nota: "Apagado — ver D-0010. Requiere homing fiable en los tres ejes; reactivar cuando el switch de Z esté instalado y $22=1. ⏳ PENDIENTE."}
+  $21:  {valor: 1, nombre: "Hard limits enable", nota: "ACTIVADO 2026-08-17. Con $32=1 (modo láser) GRBL vigila el límite de Z en D12 (SpnEn), no en D11 — confirmado empíricamente: un jumper en SpnEn hace desaparecer Pn:Z. Hoy D12 está resuelto con jumper temporal a GND; el switch físico definitivo sigue pendiente (D-0011)."}
+  $22:  {valor: 0, nombre: "Homing cycle enable", nota: "DESACTIVADO en la EEPROM actual (antes se planeaba 1 por X/Y). Reactivar cuando se validen switches y direcciones de home. Ver D-0009. ⏳ PENDIENTE."}
+  $23:  {valor: 3, nombre: "Homing dir invert mask", nota: "3 = X e Y invertidos (bits 0 y 1); Z sin invertir. Solo aplica cuando $22=1."}
+  $24:  {valor: 200.000, nombre: "Homing feed (mm/min)"}
+  $25:  {valor: 500.000, nombre: "Homing seek (mm/min)"}
+  $26:  {valor: 250, nombre: "Homing debounce (ms)"}
+  $27:  {valor: 4.000, nombre: "Homing pull-off (mm)"}
+  $30:  {valor: 1000, nombre: "Max spindle/laser speed (S máx)"}
+  $31:  {valor: 0, nombre: "Min spindle/laser speed"}
+  $32:  {valor: 1, nombre: "Laser mode (1=on)", nota: "Activo para el K30 — confirmado 2026-07-22. Implica VARIABLE_SPINDLE compilado, lo que mueve el límite de Z de D11 a D12 (confirmado 2026-08-17, ver D-0011). Revisar al conmutar a fresado."}
+  $100: {valor: 200.000, nombre: "Pasos/mm X", nota: "Deducido, no medido: mismo tornillo que v2 (8mm/rev) + 1/8 micropaso (1600 pasos efectivos/rev). Ver parametros/drivers/microstepping.yaml. ⏳ PENDIENTE validar sin pérdida de pasos."}
+  $101: {valor: 200.000, nombre: "Pasos/mm Y", nota: "Igualado a X (asume mismo avance 8mm/rev). ⏳ PENDIENTE confirmar el avance real de Y y validar sin pérdida de pasos."}
+  $102: {valor: 200.000, nombre: "Pasos/mm Z", nota: "Igualado a X (asume mismo avance 8mm/rev). ⏳ PENDIENTE: depende del husillo real del Z, sin validar."}
+  $110: {valor: 2500.000, nombre: "Velocidad máx X (mm/min)"}
+  $111: {valor: 2500.000, nombre: "Velocidad máx Y (mm/min)"}
+  $112: {valor: 2500.000, nombre: "Velocidad máx Z (mm/min)"}
+  $120: {valor: 100.000, nombre: "Aceleración X (mm/s²)"}
+  $121: {valor: 100.000, nombre: "Aceleración Y (mm/s²)"}
+  $122: {valor: 100.000, nombre: "Aceleración Z (mm/s²)"}
+  $130: {valor: 400.000, nombre: "Recorrido máx X (mm)", nota: "⚠️ Todavía en 400 (área de la v2). Por D-0015 la v3 es 500×500 — subir a 500 cuando se validen soft limits ($20=1). ⏳ PENDIENTE."}
+  $131: {valor: 400.000, nombre: "Recorrido máx Y (mm)", nota: "⚠️ Igual que $130: subir a 500 (D-0015). ⏳ PENDIENTE."}
+  $132: {valor: 200.000, nombre: "Recorrido máx Z (mm)", nota: "⏳ PENDIENTE: medir el recorrido real de Z (D-0011). Solo se evalúa con $20=1."}

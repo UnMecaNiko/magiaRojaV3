@@ -7,7 +7,8 @@ rsense_ohm: 0.1              # confirmado físicamente: resistencias marcadas "R
 formula: "Vref = Ilimite_A / 2   (válida para Rsense = 0.1 ohm)"
 fuente_formula: "conocimiento/maquina/componentes/fichas/driver-drv8825.md"
 fecha_calculo: "2026-07-04"
-validado: false               # ⏳ PENDIENTE: medir en banco con multímetro (via marcado, respecto a GND) y confirmar sin pérdida de pasos ni sobrecalentamiento
+fecha_medicion: "2026-08-17"  # Vref ajustado físicamente en los tres ejes — ver conocimiento/maquina/pruebas/2026-08-17-calibracion-vref-drivers-700mv.md
+validado: false               # ⏳ PENDIENTE: Vref ya ajustado (~0.70V los tres), falta validar BAJO CARGA (sin pérdida de pasos ni sobrecalentamiento), sobre todo en Z
 
 ejes:
   x:
@@ -15,18 +16,21 @@ ejes:
     corriente_nominal_a: 1.7
     vref_max_v: 0.85          # 100% de la corriente nominal (tope recomendado por Pololu)
     vref_recomendado_v: 0.80  # punto de partida conservador (~1.6 A) hasta confirmar refrigeración
+    vref_medido_v: 0.70       # 2026-08-17: ajustado a ~0.70V (~1.4A, ~82% del nominal) — conservador, OK
     nota: "Por encima de 1.5A sin refrigeración — requiere disipador/ventilación activa en el driver."
   y:
     motor_ficha: "../../componentes/fichas/motor-nema17.md"
     corriente_nominal_a: 1.7
     vref_max_v: 0.85
     vref_recomendado_v: 0.80
+    vref_medido_v: 0.70       # 2026-08-17: ajustado a ~0.70V (~1.4A, ~82% del nominal) — conservador, OK
     nota: "Mismo motor y misma nota que el eje X."
   z:
     motor_ficha: "../../componentes/fichas/motor-nema17.md"
     corriente_nominal_a: 2.0
     vref_max_v: 1.00
     vref_recomendado_v: 0.90  # punto de partida (~1.8 A); subir a 1.00V solo si la temperatura del driver se mantiene controlada
+    vref_medido_v: 0.70       # 2026-08-17: ajustado a ~0.70V (~1.4A, solo ~70% del nominal) — ⚠️ vigilar pérdida de pasos/caída del eje; subir a 0.80-0.90V si ocurre
     nota: "Cerca del máximo del DRV8825 con refrigeración (2.2A) — refrigeración activa obligatoria."
 
 siguiente_paso: "Registrar una prueba en conocimiento/maquina/pruebas/ una vez calibrado físicamente cada eje, con temperatura del driver y comportamiento bajo carga (con y sin pérdida de pasos)."

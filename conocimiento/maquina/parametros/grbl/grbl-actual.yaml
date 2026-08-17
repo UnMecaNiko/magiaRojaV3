@@ -14,6 +14,7 @@ version_grbl: null     # ⏳ PENDIENTE: versión de firmware a instalar
 parametros:
   $0:   {valor: null, nombre: "Step pulse (µs)"}
   $1:   {valor: null, nombre: "Step idle delay (ms)"}
+  $5:   {valor: 0, nombre: "Invert limit pins (0=NO, 1=NC)", nota: "En 0 (finales NO). Probar $5=1 (NC) con Z sin switch cae en alarma: D12 (límite de Z en modo láser) flota HIGH y con lógica NC se lee como disparado (Pn:Z). Ver prueba 2026-08-17-invert-limit-pins-z-flotante.md. $5 es booleano global en GRBL 1.1h: no se puede invertir solo X/Y. Pasar a $5=1 exige que D12 tenga nivel definido en reposo (switch NC en D12, o D12 a GND) — ligado a D-0011."}
   $20:  {valor: 0, nombre: "Soft limits enable", nota: "Apagado — ver D-0010. GRBL no permite soft limits por eje y Z no tiene fin de carrera; se prioriza no bloquear a Z en un sentido arbitrario. ⏳ PENDIENTE: instalar fin de carrera en Z y reevaluar reactivarlo."}
   $21:  {valor: 0, nombre: "Hard limits enable", nota: "Apagado — ver D-0011. Con $32=1 (modo láser), GRBL vigila el límite de Z en D12 (no D11), que queda flotando al no tener switch; el ruido del driver del K30 lo disparaba como falsa alarma. ⏳ PENDIENTE: instalar switch físico en Z (D12) y reactivar."}
   $22:  {valor: 1, nombre: "Homing cycle enable", nota: "Habilitado por X/Y (únicos ejes con switch). Ver D-0009 (vigente en este punto)."}

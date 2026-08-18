@@ -46,6 +46,6 @@ parametros:
   $120: {valor: 100.000, nombre: "Aceleración X (mm/s²)"}
   $121: {valor: 100.000, nombre: "Aceleración Y (mm/s²)"}
   $122: {valor: 100.000, nombre: "Aceleración Z (mm/s²)"}
-  $130: {valor: 505.000, nombre: "Recorrido máx X (mm)", nota: "Fijado en 505 el 2026-08-17 (antes 400). Cercano al área 500×500 de D-0015; revisar si el 505 es recorrido real medido o margen. Ahora sí se evalúa ($20=1)."}
-  $131: {valor: 490.000, nombre: "Recorrido máx Y (mm)", nota: "Fijado en 490 el 2026-08-17 (antes 400). ~10mm por debajo del nominal 500 de D-0015; confirmar si es recorrido real medido de Y. Ahora sí se evalúa ($20=1)."}
+  $130: {valor: 505.000, nombre: "Recorrido máx X (mm)", nota: "VALOR FINAL EMPÍRICO (medido en la máquina 2026-08-17). Es el área de trabajo máxima real de X. Se evalúa con $20=1. Ver D-0017."}
+  $131: {valor: 490.000, nombre: "Recorrido máx Y (mm)", nota: "VALOR FINAL EMPÍRICO (medido en la máquina 2026-08-17). Es el área de trabajo máxima real de Y (~10mm bajo el nominal 500 de D-0015). Se evalúa con $20=1. Ver D-0017."}
   $132: {valor: 200.000, nombre: "Recorrido máx Z (mm)", nota: "⏳ PENDIENTE: valor por defecto, aún NO medido el recorrido real de Z (D-0011 #6). Con $20=1 ya se evalúa — medir y ajustar para que el soft limit de Z sea correcto."}

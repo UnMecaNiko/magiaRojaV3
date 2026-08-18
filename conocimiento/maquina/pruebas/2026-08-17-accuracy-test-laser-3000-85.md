@@ -14,7 +14,7 @@ Validar la precisión de grabado del cabezal láser [Laser Tree K30](../componen
 - Modo láser (`$32=1`, ver [grbl-actual.yaml](../parametros/grbl/grbl-actual.yaml)).
 - **Velocidad (feed)**: 3000 mm/min.
 - **Potencia**: 85 %.
-- **Material / grosor**: ⏳ PENDIENTE de anotar.
+- **Material**: pino (el grosor no es relevante para este test).
 - **Patrón / origen del accuracy test**: ⏳ PENDIENTE de anotar (software o archivo usado).
 
 ## Procedimiento y resultados
@@ -24,12 +24,12 @@ Validar la precisión de grabado del cabezal láser [Laser Tree K30](../componen
 
 ## Conclusiones
 
-- La combinación **3000 mm/min + 85 %** produce un grabado preciso en las condiciones probadas.
-- Buen candidato como punto de partida para el futuro `modo-laser.yaml` en [perfiles](../parametros/perfiles/README.md), una vez confirmados material y grosor.
+- La combinación **3000 mm/min + 85 %** produce un grabado preciso en **pino**.
+- Buen candidato como punto de partida para el futuro `modo-laser.yaml` en [perfiles](../parametros/perfiles/README.md).
 
 ## Acciones / implicaciones
 
-- ⏳ PENDIENTE: registrar material y grosor para poder trasladar estos parámetros a un perfil de material/operación.
+- Trasladar estos parámetros a un perfil de material/operación (pino) cuando se creen los perfiles.
 
 ## Fuentes
 

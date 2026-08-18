@@ -44,3 +44,17 @@ Detalle y checklist ampliado en [eje-z.md](../subsistemas/eje-z.md) y [plan-de-t
 
 - Resuelve de raíz el aviso "problema con la placa" del K30, sin necesidad de parches (capacitor) ni de renunciar permanentemente a la protección de hard limit en Z.
 - Es la única de las opciones evaluadas que además le da a Z una referencia de máquina real (las otras dos — capacitor o excluir a Z de `LIMIT_MASK` — solo tapaban el síntoma).
+
+## Actualización — 2026-08-17: switch instalado, decisión implementada ✅
+
+Se instaló el fin de carrera físico de Z (posición **Z+**) cableado a **SpnEn/D12** y se puso en marcha la máquina. Ver prueba [2026-08-17-homing-ok-switch-z-en-spnen](../pruebas/2026-08-17-homing-ok-switch-z-en-spnen.md). Estado de los pendientes:
+
+- **#1–#3 (mecánico / tipo de switch / cableado a D12)**: ✅ hechos. Switch NC cableado a SpnEn/D12; se retiró el jumper temporal a GND.
+- **#2 tipo/lógica**: ✅ NC → `$5=1`. Switches en X-, Y-, Y+, Z+.
+- **#4 direcciones/velocidades de homing**: ✅ `$23=3`, `$24=1000`, `$25=1500`, `$26=250`, `$27=4`. Homing (`$H`) probado y correcto.
+- **#5 orden del ciclo en config.h**: ✅ Z entra al homing (funciona en los tres ejes).
+- **#6 medir recorrido de Z → `$132`**: ⏳ PENDIENTE — `$132=200` sigue siendo el valor por defecto, no el recorrido real medido.
+- **#7 reactivar `$20`/`$21`**: ✅ `$21=1` y `$20=1` (soft limits reactivados). Snapshot en [grbl-actual.yaml](../parametros/grbl/grbl-actual.yaml).
+- **#8 revertir mitigaciones temporales**: ✅ jumper temporal en D12 retirado (sustituido por el switch real).
+
+**Único pendiente real que queda: medir el recorrido de Z y fijar `$132`** para que el soft limit de Z sea correcto (hoy con `$20=1` se evalúa contra 200mm por defecto).

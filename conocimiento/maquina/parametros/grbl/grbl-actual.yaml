@@ -1,9 +1,11 @@
 # Configuración GRBL vigente — CNC Magia Roja v3
-# Snapshot del $$ real leído de la controladora el 2026-08-17 (primera config completa).
-# Respaldo restaurable crudo en historico/2026-08-17.txt — pegar de vuelta si un $RST=$ borra la EEPROM.
+# Snapshot del $$ real leído de la controladora el 2026-08-17 (tarde) — segundo del día,
+# tras instalar el switch físico de Z (SpnEn/D12), habilitar homing y reactivar soft limits.
+# Respaldo restaurable crudo en historico/2026-08-17-homing.txt — pegar de vuelta si un $RST=$ borra la EEPROM.
+# Snapshot previo (antes de homing/switch de Z) en historico/2026-08-17.txt.
 
 maquina: magia-roja-v3
-fecha: "2026-08-17"     # fecha del último $$ leído/aplicado
+fecha: "2026-08-17"     # fecha del último $$ leído/aplicado (segunda captura del día)
 version_grbl: "1.1h"   # confirmado en el banner del Serial Monitor ("Grbl 1.1h ['$' for help]")
 
 # Microstepping decidido: 1/8 en los tres ejes — ver ../drivers/microstepping.yaml.
@@ -18,32 +20,32 @@ parametros:
   $2:   {valor: 0, nombre: "Step port invert mask"}
   $3:   {valor: 0, nombre: "Direction port invert mask"}
   $4:   {valor: 0, nombre: "Step enable invert"}
-  $5:   {valor: 1, nombre: "Invert limit pins (0=NO, 1=NC)", nota: "En 1 (finales NC) desde 2026-08-17. $5 es booleano global en GRBL 1.1h: invierte los tres ejes a la vez, no se puede por eje. Con NC, cada pin debe estar en LOW (aterrizado/cerrado) en reposo; un pin flotante se lee como disparado. OJO: en la CNC Shield X+/X- comparten D9, Y+/Y- D10, Z+/Z- D11 — un jumper y un switch real no pueden coexistir en el mismo eje (el jumper enmascara al switch). Ver pruebas 2026-08-17."}
+  $5:   {valor: 1, nombre: "Invert limit pins (0=NO, 1=NC)", nota: "En 1 (finales NC) desde 2026-08-17. Switches en X-, Y-, Y+, y Z+ (Z cableado a SpnEn/D12). $5 es booleano global en GRBL 1.1h: invierte los tres ejes a la vez, no se puede por eje. Con NC, cada pin debe estar en LOW (cerrado) en reposo; un pin flotante se lee como disparado. OJO: en la CNC Shield X+/X- comparten D9, Y+/Y- D10, Z+/Z- D11 — un jumper y un switch real no pueden coexistir en el mismo eje. Ver pruebas 2026-08-17."}
   $6:   {valor: 0, nombre: "Invert probe pin"}
   $10:  {valor: 1, nombre: "Status report mask"}
   $11:  {valor: 0.010, nombre: "Junction deviation (mm)"}
   $12:  {valor: 0.002, nombre: "Arc tolerance (mm)"}
   $13:  {valor: 0, nombre: "Report in inches (0=mm)"}
-  $20:  {valor: 0, nombre: "Soft limits enable", nota: "Apagado — ver D-0010. Requiere homing fiable en los tres ejes; reactivar cuando el switch de Z esté instalado y $22=1. ⏳ PENDIENTE."}
-  $21:  {valor: 1, nombre: "Hard limits enable", nota: "ACTIVADO 2026-08-17. Con $32=1 (modo láser) GRBL vigila el límite de Z en D12 (SpnEn), no en D11 — confirmado empíricamente: un jumper en SpnEn hace desaparecer Pn:Z. Hoy D12 está resuelto con jumper temporal a GND; el switch físico definitivo sigue pendiente (D-0011)."}
-  $22:  {valor: 0, nombre: "Homing cycle enable", nota: "DESACTIVADO en la EEPROM actual (antes se planeaba 1 por X/Y). Reactivar cuando se validen switches y direcciones de home. Ver D-0009. ⏳ PENDIENTE."}
-  $23:  {valor: 3, nombre: "Homing dir invert mask", nota: "3 = X e Y invertidos (bits 0 y 1); Z sin invertir. Solo aplica cuando $22=1."}
-  $24:  {valor: 200.000, nombre: "Homing feed (mm/min)"}
-  $25:  {valor: 500.000, nombre: "Homing seek (mm/min)"}
+  $20:  {valor: 1, nombre: "Soft limits enable", nota: "ACTIVADO 2026-08-17 (tarde). Reactivado tras instalar switch de Z y habilitar homing en los tres ejes — cierra el pendiente de D-0010/D-0011. Depende de $130/$131/$132 correctos y homing fiable."}
+  $21:  {valor: 1, nombre: "Hard limits enable", nota: "ACTIVADO. Con $32=1 (modo láser) GRBL vigila el límite de Z en D12 (SpnEn), no en D11 — confirmado empíricamente. D12 ya tiene el switch físico de Z (Z+): se eliminó el jumper temporal a GND (D-0011 resuelto)."}
+  $22:  {valor: 1, nombre: "Homing cycle enable", nota: "ACTIVADO 2026-08-17 (tarde). Ciclo $H probado y funcionando en la dirección correcta en los tres ejes. Ver prueba 2026-08-17-homing-ok-switch-z-en-spnen."}
+  $23:  {valor: 3, nombre: "Homing dir invert mask", nota: "3 = X e Y invertidos (bits 0 y 1); Z sin invertir."}
+  $24:  {valor: 1000.000, nombre: "Homing feed (mm/min)", nota: "Subido de 200 a 1000 el 2026-08-17."}
+  $25:  {valor: 1500.000, nombre: "Homing seek (mm/min)", nota: "Subido de 500 a 1500 el 2026-08-17."}
   $26:  {valor: 250, nombre: "Homing debounce (ms)"}
   $27:  {valor: 4.000, nombre: "Homing pull-off (mm)"}
   $30:  {valor: 1000, nombre: "Max spindle/laser speed (S máx)"}
   $31:  {valor: 0, nombre: "Min spindle/laser speed"}
-  $32:  {valor: 1, nombre: "Laser mode (1=on)", nota: "Activo para el K30 — confirmado 2026-07-22. Implica VARIABLE_SPINDLE compilado, lo que mueve el límite de Z de D11 a D12 (confirmado 2026-08-17, ver D-0011). Revisar al conmutar a fresado."}
-  $100: {valor: 200.000, nombre: "Pasos/mm X", nota: "Deducido, no medido: mismo tornillo que v2 (8mm/rev) + 1/8 micropaso (1600 pasos efectivos/rev). Ver parametros/drivers/microstepping.yaml. ⏳ PENDIENTE validar sin pérdida de pasos."}
-  $101: {valor: 200.000, nombre: "Pasos/mm Y", nota: "Valor LINEAL (asume mismo avance 8mm/rev que X). ⏳ PENDIENTE confirmar avance real de Y y validar sin pérdida de pasos. OJO dualidad: en modo eje rotatorio (D-0016) Y se clona al slot A y $101 debe recalcularse (pasos/grado × relación del rotatorio); restaurar $101=200 al volver a plano. ⏳ PENDIENTE calcular $101 rotatorio."}
+  $32:  {valor: 1, nombre: "Laser mode (1=on)", nota: "Activo para el K30. Implica VARIABLE_SPINDLE compilado, lo que mueve el límite de Z de D11 a D12 (confirmado 2026-08-17, ver D-0011). Revisar al conmutar a fresado."}
+  $100: {valor: 200.000, nombre: "Pasos/mm X", nota: "Deducido, no medido: mismo tornillo que v2 (8mm/rev) + 1/8 micropaso (1600 pasos efectivos/rev). ⏳ PENDIENTE validar sin pérdida de pasos."}
+  $101: {valor: 200.000, nombre: "Pasos/mm Y", nota: "Valor LINEAL (asume mismo avance 8mm/rev que X). ⏳ PENDIENTE confirmar avance real de Y. OJO dualidad: en modo eje rotatorio (D-0016) Y se clona al slot A y $101 debe recalcularse; restaurar $101=200 al volver a plano."}
   $102: {valor: 200.000, nombre: "Pasos/mm Z", nota: "Igualado a X (asume mismo avance 8mm/rev). ⏳ PENDIENTE: depende del husillo real del Z, sin validar."}
-  $110: {valor: 2500.000, nombre: "Velocidad máx X (mm/min)"}
-  $111: {valor: 2500.000, nombre: "Velocidad máx Y (mm/min)"}
+  $110: {valor: 3000.000, nombre: "Velocidad máx X (mm/min)", nota: "Subida de 2500 a 3000 el 2026-08-17."}
+  $111: {valor: 3000.000, nombre: "Velocidad máx Y (mm/min)", nota: "Subida de 2500 a 3000 el 2026-08-17."}
   $112: {valor: 2500.000, nombre: "Velocidad máx Z (mm/min)"}
   $120: {valor: 100.000, nombre: "Aceleración X (mm/s²)"}
   $121: {valor: 100.000, nombre: "Aceleración Y (mm/s²)"}
   $122: {valor: 100.000, nombre: "Aceleración Z (mm/s²)"}
-  $130: {valor: 400.000, nombre: "Recorrido máx X (mm)", nota: "⚠️ Todavía en 400 (área de la v2). Por D-0015 la v3 es 500×500 — subir a 500 cuando se validen soft limits ($20=1). ⏳ PENDIENTE."}
-  $131: {valor: 400.000, nombre: "Recorrido máx Y (mm)", nota: "⚠️ Igual que $130: subir a 500 (D-0015). ⏳ PENDIENTE."}
-  $132: {valor: 200.000, nombre: "Recorrido máx Z (mm)", nota: "⏳ PENDIENTE: medir el recorrido real de Z (D-0011). Solo se evalúa con $20=1."}
+  $130: {valor: 505.000, nombre: "Recorrido máx X (mm)", nota: "Fijado en 505 el 2026-08-17 (antes 400). Cercano al área 500×500 de D-0015; revisar si el 505 es recorrido real medido o margen. Ahora sí se evalúa ($20=1)."}
+  $131: {valor: 490.000, nombre: "Recorrido máx Y (mm)", nota: "Fijado en 490 el 2026-08-17 (antes 400). ~10mm por debajo del nominal 500 de D-0015; confirmar si es recorrido real medido de Y. Ahora sí se evalúa ($20=1)."}
+  $132: {valor: 200.000, nombre: "Recorrido máx Z (mm)", nota: "⏳ PENDIENTE: valor por defecto, aún NO medido el recorrido real de Z (D-0011 #6). Con $20=1 ya se evalúa — medir y ajustar para que el soft limit de Z sea correcto."}

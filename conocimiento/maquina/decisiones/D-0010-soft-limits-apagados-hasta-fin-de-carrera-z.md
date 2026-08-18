@@ -2,7 +2,7 @@
 
 - **Fecha**: 2026-07-20
 - **Ámbito**: Máquina (GRBL)
-- **Estado**: ✅ Vigente
+- **Estado**: ⏪ Superada (2026-08-17) — soft limits reactivados (`$20=1`) al instalar el switch de Z; ver [D-0011](D-0011-fin-de-carrera-fisico-en-z.md) y prueba [2026-08-17-homing-ok-switch-z-en-spnen](../pruebas/2026-08-17-homing-ok-switch-z-en-spnen.md)
 - **Decisor**: Nicolas Velasquez
 - **Reemplaza a**: [D-0009](D-0009-z-sin-fin-de-carrera-soft-limits.md)
 

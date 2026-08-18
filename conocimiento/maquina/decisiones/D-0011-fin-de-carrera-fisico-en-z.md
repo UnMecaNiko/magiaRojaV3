@@ -53,7 +53,7 @@ Se instaló el fin de carrera físico de Z (posición **Z+**) cableado a **SpnEn
 - **#2 tipo/lógica**: ✅ NC → `$5=1`. Switches en X-, Y-, Y+, Z+.
 - **#4 direcciones/velocidades de homing**: ✅ `$23=3`, `$24=1000`, `$25=1500`, `$26=250`, `$27=4`. Homing (`$H`) probado y correcto.
 - **#5 orden del ciclo en config.h**: ✅ Corregido 2026-08-17 — `HOMING_CYCLE_0=(1<<Z_AXIS)`, `HOMING_CYCLE_1=X|Y` (antes Z quedaba fuera del ciclo). Z homea primero (sube), luego horizontal. Detalle en [firmware-config-h.md](../parametros/grbl/firmware-config-h.md). ⏳ Falta probar `$H` con Z en el ciclo por primera vez (requiere recompilar/reflashear).
-- **#6 medir recorrido de Z → `$132`**: ⏳ PENDIENTE — `$132=200` sigue siendo el valor por defecto, no el recorrido real medido.
+- **#6 medir recorrido de Z → `$132`**: ✅ Medido 2026-08-17 = **85 mm**. Fijado en `$132` y horneado en `defaults.h`. Ver [D-0017](D-0017-area-trabajo-empirica-505x490.md) y [firmware-config-h.md](../parametros/grbl/firmware-config-h.md).
 - **#7 reactivar `$20`/`$21`**: ✅ `$21=1` y `$20=1` (soft limits reactivados). Snapshot en [grbl-actual.yaml](../parametros/grbl/grbl-actual.yaml).
 - **#8 revertir mitigaciones temporales**: ✅ jumper temporal en D12 retirado (sustituido por el switch real).
 

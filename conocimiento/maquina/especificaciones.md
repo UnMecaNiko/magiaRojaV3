@@ -1,13 +1,13 @@
 # Especificaciones — CNC Magia Roja v3
 
 > Documento vivo. Los valores pendientes se completan a medida que avanza el desarrollo.
-> Última actualización: 2026-08-02
+> Última actualización: 2026-08-17
 
 ## Dimensiones y estructura
 
 | Especificación | Valor |
 |---|---|
-| Área de trabajo | **500 × 500 mm** ([D-0015](decisiones/D-0015-area-de-trabajo-500x500.md)) |
+| Área de trabajo | **500 × 500 mm** nominal ([D-0015](decisiones/D-0015-area-de-trabajo-500x500.md)); envolvente real medida (soft limits) **505 × 490 mm** ([D-0017](decisiones/D-0017-area-trabajo-empirica-505x490.md)) |
 | Dimensiones externas | **500 × 500 mm** de planta; altura ⏳ PENDIENTE ([D-0012](decisiones/D-0012-dimensiones-generales-y-area-trabajo.md)) |
 | Peso | ⏳ PENDIENTE |
 | Materiales estructurales | ⏳ PENDIENTE — confirmar si se mantiene la receta v2 (acero 1045, aluminio extruido, lámina calibre 18, acrílico rojo 5 mm) |
@@ -19,7 +19,8 @@
 | Ejes | X, Y, **Z motorizado** (nuevo en v3) |
 | Motores | NEMA 17 en todos los ejes |
 | Transmisión X/Y | ⏳ PENDIENTE — confirmar si se mantienen tornillos helicoidales + bujes lineales (receta v2) |
-| Transmisión Z | ⏳ PENDIENTE — definir husillo y recorrido |
+| Transmisión Z | Husillo ⏳ PENDIENTE de definir; **recorrido útil de Z = 85 mm** (medido 2026-08-17; soft limit en 80 mm) |
+| Homing / finales de carrera | ✅ Los tres ejes. Switches NC; Z en Z+ (D12/SpnEn). `$H` sube Z primero, luego X/Y ([D-0011](decisiones/D-0011-fin-de-carrera-fisico-en-z.md)) |
 
 ## Herramientas (cabezal intercambiable)
 

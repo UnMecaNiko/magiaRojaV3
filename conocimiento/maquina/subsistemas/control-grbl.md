@@ -1,7 +1,7 @@
 # Subsistema: Control (GRBL)
 
-> **Estado: 🔧 En desarrollo**
-> Última actualización: 2026-07-04
+> **Estado: ✅ Operativo** (motores, finales de carrera y homing en los tres ejes funcionando)
+> Última actualización: 2026-08-17
 
 ## Resumen
 
@@ -9,7 +9,7 @@ Control de movimiento por **GRBL** sobre **Arduino + CNC Shield**, la plataforma
 
 ## Configuración
 
-- **Firmware**: GRBL — ⏳ PENDIENTE: versión exacta a instalar en v3.
+- **Firmware**: **GRBL 1.1h** (confirmado en el banner del Serial Monitor). Compilado desde fuente con `config.h` y `defaults.h` **personalizados** (Z en el ciclo de homing, defaults = valores de esta máquina). Detalle en [firmware-config-h.md](../parametros/grbl/firmware-config-h.md).
 - **Placa**: Arduino + CNC Shield (v1 usó Arduino Uno + CNC Shield V3).
 - **Drivers**: **DRV8825** (confirmado, ver [D-0007](../decisiones/D-0007-drivers-drv8825.md); v1 usó A4988, v2 usó TMC2209 refrigerados).
 - **Ejes**: X, Y, Z — la v3 usa por primera vez el eje Z motorizado, lo que implica configurar `$102` (pasos/mm Z), `$112` (velocidad máx Z) y `$122` (aceleración Z).
@@ -47,9 +47,11 @@ Fuentes: [gnea/grbl cpu_map.h](https://github.com/gnea/grbl/blob/master/grbl/cpu
 
 ⚠️ **Hallazgo crítico (2026-07-22)**: con `$32=1` (modo láser), GRBL usa `VARIABLE_SPINDLE`, que **reasigna el límite de Z de D11 a D12** para liberar D11 como PWM de hardware. El terminal "Z-" de la CNC Shield está cableado a D11 (por eso el K30 recibe bien el PWM ahí), pero deja **D12 flotando** — con `$21=1` esto causaba una falsa alarma de hard limit al usar el K30 a alta potencia (el ruido EMI del driver, proporcional a la corriente, se leía como "switch de Z activado"), reportada por LaserGRBL como "problema con la placa". Confirmado con tres pruebas controladas — ver [prueba 2026-07-22](../pruebas/2026-07-22-diagnostico-alarma-laser-k30.md). Por eso `$21` también quedó en `0` mientras tanto. Solución definitiva: instalar fin de carrera físico en Z, cableado a D12 (no a "Z-") — ver [D-0011](../decisiones/D-0011-fin-de-carrera-fisico-en-z.md).
 
+✅ **Resuelto (2026-08-17)**: instalado el fin de carrera físico de Z (Z+, cableado a D12/SpnEn) y **reactivados `$20=1`/`$21=1`**. Con los tres pines de límite definidos en reposo (`$5=1` NC) desaparecen las falsas alarmas. Homing (`$H`) incorpora Z (sube primero) y funciona. Esto **supera a [D-0010](../decisiones/D-0010-soft-limits-apagados-hasta-fin-de-carrera-z.md)** (que había apagado `$20`). Ver [D-0011](../decisiones/D-0011-fin-de-carrera-fisico-en-z.md), [D-0017](../decisiones/D-0017-area-trabajo-empirica-505x490.md) y pruebas del 2026-08-17.
+
 ⏳ PENDIENTE:
 
-1. Instalar fin de carrera físico en Z (posición Z+, cableado a D12) y reactivar `$20`/`$21` — checklist completo en [D-0011](../decisiones/D-0011-fin-de-carrera-fisico-en-z.md) y [eje-z.md](eje-z.md).
+1. Validar los tres ejes bajo carga real sin pérdida de pasos (Vref ~1.4 A; especial atención a Z al levantar el cabezal de fresado).
 2. Comportamiento de M4 (potencia dinámica) con el K30.
 3. Conmutación de perfiles GRBL entre modo láser y modo fresado (aceleraciones y velocidades distintas; posible par de configs versionadas en `parametros/perfiles/`).
 

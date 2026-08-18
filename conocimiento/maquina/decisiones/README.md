@@ -21,10 +21,11 @@ Cada decisión relevante — técnica de la máquina o estructural del repositor
 | [D-0007](D-0007-drivers-drv8825.md) | Drivers DRV8825 para los tres ejes | Máquina | ✅ Vigente |
 | [D-0008](D-0008-ventilador-drivers-5v-directo.md) | Ventilador de drivers directo a 5V (no Cool.En/GRBL) | Máquina | ✅ Vigente |
 | [D-0009](D-0009-z-sin-fin-de-carrera-soft-limits.md) | Eje Z sin fin de carrera: fuera del homing, soft limits neutralizados por $132 | Máquina | ❌ Reemplazada por D-0010 |
-| [D-0010](D-0010-soft-limits-apagados-hasta-fin-de-carrera-z.md) | Soft limits apagados ($20=0) hasta instalar fin de carrera en Z | Máquina | ✅ Vigente |
-| [D-0011](D-0011-fin-de-carrera-fisico-en-z.md) | Instalar fin de carrera físico en Z (Z+), cableado a D12 — resuelve alarma falsa del K30 | Máquina | ✅ Vigente |
+| [D-0010](D-0010-soft-limits-apagados-hasta-fin-de-carrera-z.md) | Soft limits apagados ($20=0) hasta instalar fin de carrera en Z | Máquina | ⏪ Superada (2026-08-17): soft limits reactivados |
+| [D-0011](D-0011-fin-de-carrera-fisico-en-z.md) | Instalar fin de carrera físico en Z (Z+), cableado a D12 — resuelve alarma falsa del K30 | Máquina | ✅ Vigente (implementada y probada) |
 | [D-0012](D-0012-dimensiones-generales-y-area-trabajo.md) | Dimensiones externas 500 × 500 mm y área útil 400 × 400 mm | Máquina | ♻️ Reemplazada por D-0015 (área de trabajo) |
 | [D-0013](D-0013-identidad-velo-y-plan-mantenimiento.md) | Identidad VELO inc y plan de mantenimiento por seis meses | Repositorio / Comercial | ✅ Vigente |
 | [D-0014](D-0014-infraestructura-vps-compartida.md) | Un solo VPS con proxy compartido Caddy para landing, n8n y un segundo sitio | Repositorio / Infraestructura | ✅ Vigente |
 | [D-0015](D-0015-area-de-trabajo-500x500.md) | Área de trabajo corregida a 500 × 500 mm | Máquina | ✅ Vigente |
 | [D-0016](D-0016-eje-rotatorio-clonado-a-y.md) | Eje rotatorio en slot A clonado a Y, conmutación por conectores manuales | Máquina | ✅ Vigente |
+| [D-0017](D-0017-area-trabajo-empirica-505x490.md) | Área de trabajo real medida (soft limits): 505 × 490 mm; Z = 85 mm | Máquina | ✅ Vigente |

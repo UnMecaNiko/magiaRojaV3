@@ -10,4 +10,12 @@ Registro de toda prueba realizada sobre la máquina: pruebas de movimiento, cali
 4. Fotos/videos de la prueba → almacenamiento externo, URL en el archivo.
 5. **Las pruebas fallidas también se registran** — un fracaso documentado ahorra repetirlo.
 
-*(Sin pruebas registradas todavía — la v3 está en fase de electrónica. Las primeras serán las de movimiento y calibración de drivers.)*
+## Pruebas registradas
+
+| Fecha | Prueba | Resultado |
+|---|---|---|
+| 2026-07-22 | [Diagnóstico alarma láser K30 (D12 flotante)](2026-07-22-diagnostico-alarma-laser-k30.md) | ✅ Causa raíz hallada |
+| 2026-08-17 | [`$5=1` (invert limit pins) y Z flotante](2026-08-17-invert-limit-pins-z-flotante.md) | ✅ Confirmado D-0011 |
+| 2026-08-17 | [Calibración Vref drivers ~700 mV](2026-08-17-calibracion-vref-drivers-700mv.md) | 🟡 Ajustado, falta validar bajo carga |
+| 2026-08-17 | [Motores + finales de carrera + homing OK (switch Z en SpnEn)](2026-08-17-homing-ok-switch-z-en-spnen.md) | ✅ Éxito |
+| 2026-08-17 | [Homing con Z primero (sube) y luego X/Y](2026-08-17-homing-z-primero-ok.md) | ✅ Éxito |

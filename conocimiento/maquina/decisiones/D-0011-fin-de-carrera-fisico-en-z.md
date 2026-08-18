@@ -52,9 +52,9 @@ Se instaló el fin de carrera físico de Z (posición **Z+**) cableado a **SpnEn
 - **#1–#3 (mecánico / tipo de switch / cableado a D12)**: ✅ hechos. Switch NC cableado a SpnEn/D12; se retiró el jumper temporal a GND.
 - **#2 tipo/lógica**: ✅ NC → `$5=1`. Switches en X-, Y-, Y+, Z+.
 - **#4 direcciones/velocidades de homing**: ✅ `$23=3`, `$24=1000`, `$25=1500`, `$26=250`, `$27=4`. Homing (`$H`) probado y correcto.
-- **#5 orden del ciclo en config.h**: ✅ Corregido 2026-08-17 — `HOMING_CYCLE_0=(1<<Z_AXIS)`, `HOMING_CYCLE_1=X|Y` (antes Z quedaba fuera del ciclo). Z homea primero (sube), luego horizontal. Detalle en [firmware-config-h.md](../parametros/grbl/firmware-config-h.md). ⏳ Falta probar `$H` con Z en el ciclo por primera vez (requiere recompilar/reflashear).
-- **#6 medir recorrido de Z → `$132`**: ✅ Medido 2026-08-17 = **85 mm**. Fijado en `$132` y horneado en `defaults.h`. Ver [D-0017](D-0017-area-trabajo-empirica-505x490.md) y [firmware-config-h.md](../parametros/grbl/firmware-config-h.md).
+- **#5 orden del ciclo en config.h**: ✅ Corregido y **probado** 2026-08-17 — `HOMING_CYCLE_0=(1<<Z_AXIS)`, `HOMING_CYCLE_1=X|Y`. Recompilado, reflasheado y `$H` verificado: Z sube primero, luego X/Y. Ver [prueba](../pruebas/2026-08-17-homing-z-primero-ok.md).
+- **#6 medir recorrido de Z → `$132`**: ✅ Medido 2026-08-17 = **85 mm**; soft limit fijado en **80 mm** (~5 mm de margen), horneado en `defaults.h`. Ver [D-0017](D-0017-area-trabajo-empirica-505x490.md).
 - **#7 reactivar `$20`/`$21`**: ✅ `$21=1` y `$20=1` (soft limits reactivados). Snapshot en [grbl-actual.yaml](../parametros/grbl/grbl-actual.yaml).
 - **#8 revertir mitigaciones temporales**: ✅ jumper temporal en D12 retirado (sustituido por el switch real).
 
-**Único pendiente real que queda: medir el recorrido de Z y fijar `$132`** para que el soft limit de Z sea correcto (hoy con `$20=1` se evalúa contra 200mm por defecto).
+**Decisión completamente implementada y probada (2026-08-17).** Switch de Z en D12, homing de Z funcionando, `$132` fijado (80 mm, sobre 85 medidos), soft/hard limits activos. Único pendiente ya no de esta decisión sino operativo: validar Z bajo carga (peso del cabezal de fresado) sin pérdida de pasos.

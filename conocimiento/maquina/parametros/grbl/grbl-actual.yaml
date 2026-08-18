@@ -48,4 +48,4 @@ parametros:
   $122: {valor: 100.000, nombre: "Aceleración Z (mm/s²)"}
   $130: {valor: 505.000, nombre: "Recorrido máx X (mm)", nota: "VALOR FINAL EMPÍRICO (medido en la máquina 2026-08-17). Es el área de trabajo máxima real de X. Se evalúa con $20=1. Ver D-0017."}
   $131: {valor: 490.000, nombre: "Recorrido máx Y (mm)", nota: "VALOR FINAL EMPÍRICO (medido en la máquina 2026-08-17). Es el área de trabajo máxima real de Y (~10mm bajo el nominal 500 de D-0015). Se evalúa con $20=1. Ver D-0017."}
-  $132: {valor: 85.000, nombre: "Recorrido máx Z (mm)", nota: "MEDIDO 2026-08-17 = 85 mm (recorrido real de Z). Cierra D-0011 #6. Horneado también en defaults.h (DEFAULT_Z_MAX_TRAVEL). ⚠️ Si la EEPROM aún tenía 200, escribir $132=85 o reflashear + $RST=$ para aplicarlo."}
+  $132: {valor: 80.000, nombre: "Recorrido máx Z (mm)", nota: "Recorrido real de Z MEDIDO = 85 mm; límite fijado en 80 mm (~5 mm de margen). Horneado en defaults.h (DEFAULT_Z_MAX_TRAVEL 80.0). Firmware recompilado y reflasheado 2026-08-17; homing de Z probado OK. Cierra D-0011 #6."}

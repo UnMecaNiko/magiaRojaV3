@@ -23,16 +23,19 @@ Con `HOMING_FORCE_SET_ORIGIN` activo + switch de Z arriba:
 
 ## `defaults.h` — perfil `DEFAULTS_GENERIC` personalizado (2026-08-17)
 
-El bloque `#ifdef DEFAULTS_GENERIC` de `defaults.h` se reescribió con **los valores reales de esta máquina** (snapshot `$$` 2026-08-17), para que un `$RST=$` restaure la Magia Roja v3 en vez de los genéricos de GRBL. Incluye **`DEFAULT_Z_MAX_TRAVEL 85.0`** (recorrido real de Z medido). Todos los `DEFAULT_*` reflejan [grbl-actual.yaml](grbl-actual.yaml).
+El bloque `#ifdef DEFAULTS_GENERIC` de `defaults.h` se reescribió con **los valores reales de esta máquina** (snapshot `$$` 2026-08-17), para que un `$RST=$` restaure la Magia Roja v3 en vez de los genéricos de GRBL. Incluye **`DEFAULT_Z_MAX_TRAVEL 80.0`** (recorrido real de Z = 85 mm; límite 80 con ~5 mm de margen). Todos los `DEFAULT_*` reflejan [grbl-actual.yaml](grbl-actual.yaml).
 
 ⚠️ Estos defaults solo se escriben en EEPROM al **recompilar + reflashear y luego ejecutar `$RST=$`** (o en un Arduino con EEPROM virgen). Un flasheo normal NO sobrescribe la EEPROM existente.
 
+## Estado (2026-08-17)
+
+- ✅ **Recompilado y reflasheado.**
+- ✅ **`$H` probado con Z en el ciclo**: Z sube primero (dirección correcta) y luego homean X/Y. Ver [prueba](../pruebas/2026-08-17-homing-z-primero-ok.md).
+
 ## Pendientes
 
-- ⏳ **Recompilar + reflashear** para aplicar `HOMING_CYCLE` (Z primero) y los nuevos `defaults.h`.
-- ⏳ **Probar `$H` con Z en el ciclo por primera vez** — Z se moverá PRIMERO; verificar que **sube** (no baja), dedo en el reset.
-- ⏳ Si la EEPROM tenía `$132=200`, escribir `$132=85` o hacer `$RST=$` tras reflashear.
 - ⏳ Revisar el resto de `config.h` (49 KB) por si hay más diferencias vs stock sin documentar.
+- ⏳ Validar Z bajo carga (peso del cabezal de fresado) sin pérdida de pasos con el Vref actual.
 
 ## Fuentes
 

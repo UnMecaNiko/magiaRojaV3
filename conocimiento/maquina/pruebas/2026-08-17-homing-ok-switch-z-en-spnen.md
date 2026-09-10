@@ -26,13 +26,13 @@ Poner en marcha el movimiento de los tres ejes y validar los finales de carrera 
 
 - Se **cierra la causa raíz de [D-0011](../decisiones/D-0011-fin-de-carrera-fisico-en-z.md)**: D12 ya no está flotando porque tiene el switch físico de Z (Z+) cableado a SpnEn. Esto elimina el jumper temporal a GND que se usaba como parche.
 - Con los tres pines de límite definidos en reposo, `$5=1` (NC) y `$21=1` (hard limits) operan sin falsas alarmas.
-- El homing confirma que `$22=1` está activo en la EEPROM (el último snapshot [grbl-actual.yaml](../parametros/grbl/grbl-actual.yaml) lo tenía en 0 → **quedó desactualizado**, hay que recapturar `$$`).
+- El homing confirmó `$22=1`; después se recapturó `$$` con límites/homing activos. El cambio posterior de `$132` a 80 quedó documentado, pero falta un dump crudo final que reúna ambos estados.
 
 ## Acciones / implicaciones
 
-- ⏳ **Recapturar `$$`** de la controladora y actualizar [grbl-actual.yaml](../parametros/grbl/grbl-actual.yaml) + respaldo crudo en `historico/` — el snapshot vigente es previo a habilitar homing y al switch físico.
-- ⏳ Medir el **recorrido real de Z** → `$132` (pendiente #6 de D-0011).
-- ⏳ Reevaluar reactivar **soft limits `$20=1`** ahora que los tres ejes homean (ver [D-0010](../decisiones/D-0010-soft-limits-apagados-hasta-fin-de-carrera-z.md)); al hacerlo, subir `$130`/`$131` a 500 (área 500×500, D-0015) y fijar `$132` al recorrido medido.
+- ✅ `$$` recapturado y respaldado en [historico/2026-08-17-homing.txt](../parametros/grbl/historico/2026-08-17-homing.txt) para límites/homing; ⏳ recapturar después de `$132=80`, porque ese dump todavía muestra 200.
+- ✅ Recorrido Z medido en 85 mm y límite `$132=80` aplicado con margen; ver [D-0017](../decisiones/D-0017-area-trabajo-empirica-505x490.md).
+- ✅ Soft limits reactivados (`$20=1`) junto con hard limits (`$21=1`).
 - ⏳ Validar Vref bajo carga, sobre todo en **Z** (al ~70 % del nominal) — pendiente de la [prueba de calibración](2026-08-17-calibracion-vref-drivers-700mv.md).
 
 ## Fuentes

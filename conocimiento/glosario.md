@@ -8,6 +8,7 @@ Términos técnicos usados en esta base de conocimiento, explicados para que cua
 | **ADR** | *Architecture Decision Record* — formato para registrar una decisión con su contexto y consecuencias. Usado en `decisiones/`. |
 | **BOM** | *Bill of Materials* — lista de materiales/componentes de la máquina. |
 | **Bujes lineales** | Casquillos que deslizan sobre ejes/guías lineales; dan soporte de precisión al movimiento (v2/v3). |
+| **Cadena portacables** | Guía articulada —también llamada oruga o cadena de arrastre— que conduce cables y mangueras en un eje móvil, controla su trayectoria y limita el radio repetitivo de flexión. |
 | **CNC** | Control Numérico Computarizado: máquina cuyos movimientos se controlan por instrucciones digitales (G-code). |
 | **CNC Shield** | Placa de expansión para Arduino que aloja los drivers de motores y expone las conexiones de una CNC. |
 | **Coolant control (M7/M8/M9)** | Códigos G de GRBL que activan/desactivan salidas digitales auxiliares de la CNC Shield: `M8` enciende el pin de *flood* (Cool.En, A3), `M7` el de *mist* (A4, requiere compilar GRBL con `ENABLE_M7`), `M9` apaga ambos. No están ligados al spindle/láser ni al movimiento — solo cambian si el G-code o el sender los manda explícitamente. GRBL los apaga automáticamente en cualquier reset o fin de programa (`M2`/`M30`) por seguridad. Detalle de pines en [control-grbl.md](maquina/subsistemas/control-grbl.md#pines-de-control-auxiliares-de-la-cnc-shield). |

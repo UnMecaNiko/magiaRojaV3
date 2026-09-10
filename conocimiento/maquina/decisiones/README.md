@@ -29,3 +29,4 @@ Cada decisión relevante — técnica de la máquina o estructural del repositor
 | [D-0015](D-0015-area-de-trabajo-500x500.md) | Área de trabajo corregida a 500 × 500 mm | Máquina | ✅ Vigente |
 | [D-0016](D-0016-eje-rotatorio-clonado-a-y.md) | Eje rotatorio en slot A clonado a Y, conmutación por conectores manuales | Máquina | ✅ Vigente |
 | [D-0017](D-0017-area-trabajo-empirica-505x490.md) | Área de trabajo real medida (soft limits): 505 × 490 mm; Z = 85 mm | Máquina | ✅ Vigente |
+| [D-0018](D-0018-finales-carrera-nc-y-en-serie.md) | Finales NC; Y− y Y+ en serie sobre la entrada compartida D10 | Máquina | ✅ Vigente e implementada |

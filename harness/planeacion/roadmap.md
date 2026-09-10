@@ -1,6 +1,6 @@
 # Roadmap — desarrollos a futuro
 
-> Qué viene después, en orden aproximado. Se revisa al cerrar cada fase. Última revisión: 2026-07-04.
+> Qué viene después, en orden aproximado. Se revisa al cerrar cada fase. Última revisión: 2026-08-24.
 
 ## Fase actual: Electrónica y eléctrica (v3)
 
@@ -9,7 +9,7 @@ Ver [plan-de-trabajo.md](plan-de-trabajo.md) para el detalle accionable.
 ## Horizonte 1 — terminar la máquina
 
 - [ ] Electrónica y eléctrica completa (fase en curso)
-- [ ] Configuración GRBL inicial + calibración (drivers, pasos/mm, aceleraciones)
+- [ ] Completar calibración: configuración GRBL inicial y homing ✅; faltan validar Vref bajo carga, pasos/mm y repetibilidad
 - [ ] Integración y pruebas del K30 (potencia, foco con eje Z)
 - [ ] Pruebas de materiales → primera librería de parámetros validados
 - [ ] Seguridad: validar protección ocular para 30W @ 450 nm, extracción de humos
@@ -34,5 +34,6 @@ Ver [plan-de-trabajo.md](plan-de-trabajo.md) para el detalle accionable.
 ## Horizonte 4 — ideas sin compromiso
 
 - Traducción al inglés (generada en `salidas/`, D-0001)
-- ¿4º eje rotativo? (requeriría revisar D-0006 — límite de 3 ejes de GRBL/Uno)
+- Eje rotatorio clonado a Y ya definido en [D-0016](../../conocimiento/maquina/decisiones/D-0016-eje-rotatorio-clonado-a-y.md); un 4.º eje coordinado independiente requeriría revisar D-0006.
+- ¿Migrar a grblHAL 32 bits con E/S aislada? Solo si aparece un requisito medible: >30 kHz, autoescuadrado/límites independientes, más E/S, VFD/RS485, red o SD.
 - ¿Producción en serie de la v3 para venta?

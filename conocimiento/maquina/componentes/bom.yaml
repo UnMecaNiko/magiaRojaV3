@@ -4,7 +4,7 @@
 # estado: instalado | en-integracion | pendiente | por-definir
 
 version_maquina: magia-roja-v3
-actualizado: "2026-07-04"
+actualizado: "2026-08-24"
 
 componentes:
   - id: laser-k30
@@ -64,6 +64,41 @@ componentes:
     ficha: fichas/motor-nema17.md
     notas: "Nuevo en v3 — eje Z motorizado. 2 A nominal, 59 Ncm"
 
+  - id: tira-led-interior
+    nombre: Tira LED perimetral interior de 12 V
+    categoria: electrica
+    descripcion: Iluminación del área de trabajo alrededor de la periferia interna
+    cantidad: 1
+    estado: instalado
+    proveedor: null
+    notas: "Conectada al segundo interruptor del panel, contando de izquierda a derecha. ⏳ PENDIENTE: fabricante/modelo, longitud, potencia/consumo, calibre y protección."
+
+  - id: finales-carrera
+    nombre: Finales de carrera
+    categoria: electronica
+    descripcion: Entradas de límite y homing en lógica normalmente cerrada
+    cantidad: 4
+    estado: instalado
+    proveedor: null
+    notas: "Posiciones X-, Y-, Y+ y Z+. Y-/Y+ en serie porque comparten D10; Z+ conectado a D12/SpnEn. ⏳ PENDIENTE: fabricante/modelo y tipo físico."
+
+  - id: protector-espiral-mazo-movil
+    nombre: Protector espiral del mazo móvil
+    categoria: cableado
+    descripcion: Protección provisional de cables móviles de motores, finales y control del láser
+    cantidad: 1
+    estado: instalado
+    notas: "Mazo fijado el 2026-08-17. Se reemplazará por una cadena portacables dimensionada."
+
+  - id: cadena-portacables
+    nombre: Cadena portacables del mazo móvil
+    categoria: cableado
+    descripcion: Guía articulada industrial para controlar trayectoria y radio de flexión
+    cantidad: 1
+    estado: por-definir
+    ficha: fichas/cadena-portacables.md
+    notas: "No comprar por medida nominal solamente. ⏳ PENDIENTE: medir carrera, sección/peso del mazo, radios dinámicos, envolvente y puntos de anclaje."
+
   - id: motor-fresado
     nombre: Motor de fresado (motor tool)
     categoria: herramienta
@@ -72,6 +107,6 @@ componentes:
     estado: por-definir
     notas: Modelo no prioritario por ahora (decisión 2026-07)
 
-# ⏳ PENDIENTE: estructura mecánica (perfiles, tornillos, bujes), cableado,
-# conectores, protecciones (paro de emergencia, fusibles), ventilación.
+# ⏳ PENDIENTE: estructura mecánica (perfiles, tornillos, bujes), resto del cableado,
+# conectores, protecciones (paro de emergencia, fusibles) y datos de ventilación.
 # Agregar a medida que se documente la fase eléctrica/electrónica.

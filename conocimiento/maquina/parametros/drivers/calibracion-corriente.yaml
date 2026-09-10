@@ -9,28 +9,89 @@ fuente_formula: "conocimiento/maquina/componentes/fichas/driver-drv8825.md"
 fecha_calculo: "2026-07-04"
 fecha_medicion: "2026-08-17"  # Vref ajustado físicamente en los tres ejes — ver conocimiento/maquina/pruebas/2026-08-17-calibracion-vref-drivers-700mv.md
 validado: false               # ⏳ PENDIENTE: Vref ya ajustado (~0.70V los tres), falta validar BAJO CARGA (sin pérdida de pasos ni sobrecalentamiento), sobre todo en Z
+fecha_revision_diagnostico: "2026-08-04"
+
+advertencias:
+  - "La corriente nominal del motor es un máximo por fase, no un objetivo obligatorio. Usar el menor límite que entregue movimiento fiable bajo la carga real."
+  - "No conectar, desconectar ni intercambiar un motor o driver con la alimentación aplicada; puede destruir el DRV8825."
+  - "Verificar un capacitor electrolítico de al menos 47 µF entre VMOT y GND, físicamente cerca de los drivers, para limitar picos LC."
+  - "Si se comprueba corriente de bobina en full-step, el DRV8825 entrega aproximadamente 70% del límite configurado en cada bobina; no confundir esa lectura con Ilimite."
+fuentes_revision:
+  - url: "https://www.ti.com/lit/ds/symlink/drv8825.pdf"
+    consulta: "2026-08-04"
+    uso: "Protección térmica, temporización STEP, regulación y modos DECAY."
+  - url: "https://www.pololu.com/product-info-merged/2133"
+    consulta: "2026-08-04"
+    uso: "Vref, capacidad térmica, capacitor de VMOT, medición en full-step y prohibición de hot-plug."
 
 ejes:
   x:
     motor_ficha: "../../componentes/fichas/motor-nema17.md"
     corriente_nominal_a: 1.7
-    vref_max_v: 0.85          # 100% de la corriente nominal (tope recomendado por Pololu)
-    vref_recomendado_v: 0.80  # punto de partida conservador (~1.6 A) hasta confirmar refrigeración
+    vref_tope_por_motor_v: 0.85  # 100% de la corriente nominal; no exceder
+    vref_anterior_propuesto_v: 0.80  # ~1.6 A; no estaba validado y no es conservador térmicamente
+    vref_inicio_diagnostico_v: 0.65  # ~1.3 A; punto temporal previo a la medición
     vref_medido_v: 0.70       # 2026-08-17: ajustado a ~0.70V (~1.4A, ~82% del nominal) — conservador, OK
-    nota: "Por encima de 1.5A sin refrigeración — requiere disipador/ventilación activa en el driver."
+    vref_objetivo_validado_v: null
+    nota: "Medición realizada; falta demostrar bajo carga que 0.70 V es el menor valor fiable. Por encima de 1.5 A el portador requiere refrigeración efectiva."
   y:
     motor_ficha: "../../componentes/fichas/motor-nema17.md"
     corriente_nominal_a: 1.7
-    vref_max_v: 0.85
-    vref_recomendado_v: 0.80
+    vref_tope_por_motor_v: 0.85
+    vref_anterior_propuesto_v: 0.80
+    vref_inicio_diagnostico_v: 0.65
     vref_medido_v: 0.70       # 2026-08-17: ajustado a ~0.70V (~1.4A, ~82% del nominal) — conservador, OK
-    nota: "Mismo motor y misma nota que el eje X."
+    vref_objetivo_validado_v: null
+    nota: "Misma medición y criterio pendiente de validación que el eje X."
   z:
     motor_ficha: "../../componentes/fichas/motor-nema17.md"
     corriente_nominal_a: 2.0
-    vref_max_v: 1.00
-    vref_recomendado_v: 0.90  # punto de partida (~1.8 A); subir a 1.00V solo si la temperatura del driver se mantiene controlada
+    vref_tope_por_motor_v: 1.00
+    vref_anterior_propuesto_v: 0.90  # ~1.8 A; no estaba validado y exige refrigeración efectiva
+    vref_inicio_diagnostico_v: 0.75  # ~1.5 A; punto temporal previo a la medición
     vref_medido_v: 0.70       # 2026-08-17: ajustado a ~0.70V (~1.4A, solo ~70% del nominal) — ⚠️ vigilar pérdida de pasos/caída del eje; subir a 0.80-0.90V si ocurre
-    nota: "Cerca del máximo del DRV8825 con refrigeración (2.2A) — refrigeración activa obligatoria."
+    vref_objetivo_validado_v: null
+    nota: "Medición realizada; falta validar que Z sostenga y mueva la carga sin pérdida de pasos ni calentamiento excesivo. No subir sin prueba; refrigeración activa obligatoria al superar aproximadamente 1.5 A."
 
-siguiente_paso: "Registrar una prueba en conocimiento/maquina/pruebas/ una vez calibrado físicamente cada eje, con temperatura del driver y comportamiento bajo carga (con y sin pérdida de pasos)."
+siguiente_paso: "Completar la prueba 2026-08-17-calibracion-vref-drivers-700mv.md con temperatura, duración y comportamiento bajo carga para definir vref_objetivo_validado_v por eje."
+
+protocolo_diagnostico:
+  estado: pendiente
+  motivo: "Pérdida repentina de pasos informada el 2026-08-04; cambiar por un driver frío parece resolverla, pero aún no se distingue protección térmica de daño permanente."
+  condiciones_informadas:
+    velocidad_mm_min: 1800
+    aceleracion_mm_s2: 250
+    ejes_aplicados: null  # ⏳ PENDIENTE: confirmar si son X, Y, Z o todos
+    calculo_x:
+      pasos_mm: 200
+      frecuencia_step_hz: 6000
+      rpm_motor: 225
+      tiempo_hasta_velocidad_s: 0.12
+      nota: "Cálculo válido solo para X con los datos actualmente documentados: 1/8, 200 pasos/mm y tornillo de 8 mm/vuelta. La frecuencia está muy por debajo del límite lógico del DRV8825; velocidad/aceleración pueden reducir el margen de par, pero no explican por sí solas daño permanente."
+  configuracion_a_registrar:
+    - "Vref medida de X, Y y Z antes de la prueba."
+    - "Valor real de GRBL $0, $1, $110-$112 y $120-$122."
+    - "Jumpers MODE0/MODE1/MODE2 y modo DECAY de cada placa."
+    - "Valor, voltaje y ubicación del capacitor electrolítico entre VMOT y GND."
+    - "Estado del disipador, ventilador y dirección real del flujo de aire."
+  observaciones_por_intento:
+    - "Eje y driver marcado."
+    - "Tiempo desde encendido hasta la pérdida de pasos."
+    - "Movimiento, velocidad, aceleración y carga cuando falla."
+    - "Si nFAULT pasa a LOW, cuando sea accesible."
+    - "Si el mismo driver vuelve a funcionar tras enfriarse."
+    - "Si la falla sigue al driver al intercambiarlo con otro eje, siempre con la máquina apagada."
+  criterios:
+    probable_proteccion_termica: "La falla aparece al calentarse y el mismo driver se recupera en frío."
+    probable_driver_danado: "La falla sigue al driver en otro eje y no desaparece después de enfriarlo, con Vref/alimentación/cableado verificados."
+    probable_eje_o_cableado: "La falla permanece en el mismo eje al intercambiar drivers."
+    probable_margen_movimiento: "La falla desaparece al reducir velocidad/aceleración sin cambiar el driver."
+  aislamiento_velocidad_aceleracion:
+    - {velocidad_mm_min: 1800, aceleracion_mm_s2: 250, objetivo: "Referencia informada."}
+    - {velocidad_mm_min: 1800, aceleracion_mm_s2: 100, objetivo: "Aísla el efecto de reducir solo aceleración."}
+    - {velocidad_mm_min: 900, aceleracion_mm_s2: 250, objetivo: "Aísla el efecto de reducir solo velocidad."}
+    - {velocidad_mm_min: 900, aceleracion_mm_s2: 100, objetivo: "Punto conservador para comparación."}
+  interpretacion:
+    falla_en_arranque_frenado_reversa: "Priorizar bajar aceleración del eje correspondiente ($120-$122)."
+    falla_en_tramo_rapido_sostenido: "Priorizar bajar velocidad máxima/feed ($110-$112 o F)."
+    falla_por_tiempo_similar_en_todos_los_casos: "Priorizar diagnóstico térmico: Vref, refrigeración y $1; la aceleración no controla directamente la corriente del DRV8825."

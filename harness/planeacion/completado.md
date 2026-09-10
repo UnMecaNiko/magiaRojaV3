@@ -4,8 +4,20 @@
 
 ## 2026
 
+### 2026-08-24 — Actualización eléctrica e investigación de mejoras
+- Documentada la sesión física del 17 de agosto: tira LED interior a 12 V en el segundo interruptor, mazo móvil fijado, finales NC, Y−/Y+ en serie, Z+ en D12 y homing de tres ejes.
+- [D-0018](../../conocimiento/maquina/decisiones/D-0018-finales-carrera-nc-y-en-serie.md): formalizada la topología de límites y cerrado el seguimiento de la alarma por EMI.
+- Investigada la cadena portacables definitiva; quedaron definidos criterios y mediciones necesarias, sin inventar una referencia.
+- Revaluados drivers y controladora: se mantienen DRV8825 y Arduino/GRBL hasta que pruebas o requisitos medibles justifiquen migrar.
+
+### 2026-08-17 — Puesta en marcha de límites, homing y Vref
+- Fin de carrera Z+ instalado en D12/SpnEn; finales X−, Y−, Y+ y Z+ operativos en NC.
+- Homing configurado con Z primero y luego X/Y; soft/hard limits reactivados (`$20=1`, `$21=1`).
+- Vref ajustado a aproximadamente 0,70 V en los tres DRV8825; queda pendiente validación térmica y bajo carga.
+- Configuración `$$` real capturada y recorridos empíricos registrados.
+
 ### 2026-07-26 — Dimensiones y oferta comercial definidas
-- Confirmadas las dimensiones externas de **500 × 500 mm** y el área útil de **400 × 400 mm** ([D-0012](../../conocimiento/maquina/decisiones/D-0012-dimensiones-generales-y-area-trabajo.md)).
+- Confirmadas las dimensiones externas de **500 × 500 mm** y un área útil inicialmente estimada en 400 × 400 mm ([D-0012](../../conocimiento/maquina/decisiones/D-0012-dimensiones-generales-y-area-trabajo.md)); el área quedó reemplazada después por [D-0015](../../conocimiento/maquina/decisiones/D-0015-area-de-trabajo-500x500.md) y por la medición empírica de [D-0017](../../conocimiento/maquina/decisiones/D-0017-area-trabajo-empirica-505x490.md).
 - Definidas la identidad **VELO inc** y la cobertura de mantenimiento por seis meses con tres servicios ([D-0013](../../conocimiento/maquina/decisiones/D-0013-identidad-velo-y-plan-mantenimiento.md)).
 - Completada la primera landing promocional en `salidas/web/`, con 20 imágenes generadas, contacto medible por WhatsApp y configuración para despliegue en VPS.
 

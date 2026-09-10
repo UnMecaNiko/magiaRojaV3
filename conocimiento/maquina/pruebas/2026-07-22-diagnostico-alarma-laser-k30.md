@@ -50,6 +50,27 @@ Alternativas evaluadas y descartadas por ahora (documentadas por si se necesitan
 - Capacitor de desacople (100nF) entre D12 y GND — mitiga el ruido sin resolver la causa (D12 seguiría sin switch real).
 - Excluir a Z de `LIMIT_MASK` en `cpu_map.h` (recompilar firmware) — resuelve el síntoma pero dejaría a Z permanentemente sin ninguna protección de hard limit, en vez de resolverlo con un switch real.
 
+## Prueba de seguimiento propuesta — 2026-08-05
+
+**Objetivo:** comprobar si mantener las entradas de límites en un estado NC de baja impedancia evita que el K30 provoque la falsa alarma.
+
+1. Con la máquina y el láser desenergizados, puentear cada entrada de límite activa entre **señal y GND**, simulando un switch NC sin accionar. Para Z, usar obligatoriamente **D12 / "SpnEn"**; no usar el terminal "Z-", que en modo láser es D11/PWM.
+2. Configurar `$5=1` para invertir las entradas y hacerlas compatibles con NC. Hacer este cambio con `$21=0`.
+3. Energizar primero sin disparar el láser y consultar `?`: en reposo no debe aparecer `Pn:X`, `Pn:Y` ni `Pn:Z`. Retirar brevemente un jumper por vez, todavía con `$21=0`, y verificar que aparezca el pin correspondiente; reinstalarlo antes de continuar.
+4. Reactivar `$21=1` y repetir el mismo trabajo o patrón que antes provocaba la falla, con la misma potencia alta del K30 y todas las medidas de seguridad láser.
+5. No desplazar la máquina hacia sus extremos durante esta prueba: los jumpers inmovilizan eléctricamente las entradas y, por tanto, los finales de carrera físicos no pueden detenerla.
+
+**Interpretación:**
+
+- Si la alarma desaparece, respalda que una entrada abierta/flotante o el cableado NO susceptible a EMI era el mecanismo. Después se debe repetir con los switches NC y su cableado definitivo: el jumper corto no reproduce el cable largo que puede captar ruido.
+- Si la alarma continúa, revisar el mensaje exacto de GRBL/LaserGRBL. Si es `ALARM:1`, el acoplamiento supera incluso la sujeción a GND o hay una conexión intermitente; si es reinicio/desconexión y no `ALARM:1`, hay que investigar alimentación, masa o USB y no atribuirlo a los finales de carrera.
+
+## Cierre ejecutado — 2026-08-17
+
+La solución definitiva ya se instaló: finales X−, Y−, Y+ y Z+ en lógica NC (`$5=1`), Z+ conectado a D12/SpnEn y Y−/Y+ cableados en serie sobre D10. Con `$20=1`, `$21=1`, `$22=1` y homing de los tres ejes, la máquina quedó operativa sin la falsa alarma reportada.
+
+La topología y el resultado están registrados en [D-0018](../decisiones/D-0018-finales-carrera-nc-y-en-serie.md) y en la [prueba del 17 de agosto](2026-08-17-finales-nc-y-en-serie.md). Falta cuantificar una ejecución prolongada con potencia, duración y número de ciclos registrados.
+
 ## Fuentes (consultadas 2026-07-22)
 
 - [gnea/grbl, `grbl/cpu_map.h`](https://github.com/gnea/grbl/blob/master/grbl/cpu_map.h) — mapeo de pines Uno, sección `VARIABLE_SPINDLE`.
@@ -57,6 +78,11 @@ Alternativas evaluadas y descartadas por ahora (documentadas por si se necesitan
 - [gnea/grbl, `grbl/spindle_control.c`](https://github.com/gnea/grbl/blob/master/grbl/spindle_control.c) — generación de PWM por Timer2 (frecuencia ~0.98kHz, resolución 8 bits).
 - [gnea/grbl wiki, "Connecting Grbl"](https://github.com/gnea/grbl/wiki/Connecting-Grbl) — confirma el intercambio D11/D12 documentado por el propio proyecto.
 - [arkypita/LaserGRBL, `LaserGRBL/Core/GrblCore.cs`](https://github.com/arkypita/LaserGRBL/blob/master/LaserGRBL/Core/GrblCore.cs) y [`ResumeJobForm.es.resx`](https://github.com/arkypita/LaserGRBL/blob/master/LaserGRBL/ResumeJobForm.es.resx) — origen exacto del aviso "problema con tu placa" (diálogo "Reanudar Trabajo", causas `StopResponding`/`UnexpectedReset`/`UnexpectedDisconnect`/`MachineAlarm`).
+
+Fuentes adicionales consultadas 2026-08-05:
+
+- [gnea/grbl, issue #96: "Limit Switch Wiring"](https://github.com/gnea/grbl/issues/96) — uso de NC con inversión de entradas y discusión de filtrado frente a ruido.
+- [gnea/grbl, issue #776: `ALARM:1`](https://github.com/gnea/grbl/issues/776) — confirma que pulsos de ruido en las entradas pueden disparar el hard limit.
 
 ## Media
 

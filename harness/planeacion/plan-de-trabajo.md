@@ -1,28 +1,24 @@
 # Plan de trabajo — fase actual
 
-> El "qué sigue" accionable. Al completar un ítem: moverlo a [completado.md](completado.md) y anotar [changelog.md](changelog.md). Última revisión: 2026-07-04.
+> El "qué sigue" accionable. Al completar un ítem: moverlo a [completado.md](completado.md) y anotar [changelog.md](changelog.md). Última revisión: 2026-08-24.
 
 ## Fase actual: Electrónica y eléctrica de la v3
 
 ### En curso
 
-- [ ] Diseñar el layout eléctrico de dos rieles (12V/10A + 24V/5A del K30) **antes de cablear**
+- [ ] **Validar los DRV8825 a 0,70 V bajo carga**: registrar temperatura, duración y pérdida de pasos por eje; especial atención a Z. Confirmar capacitor ≥47 µF, flujo de aire y si cualquier falla sigue al driver en frío. Protocolo en [calibracion-corriente.yaml](../../conocimiento/maquina/parametros/drivers/calibracion-corriente.yaml).
+- [ ] **Medir y seleccionar la cadena portacables**: carrera, puntos de anclaje, envolvente, lista/diámetro/peso de cables y radios dinámicos. Después elegir serie, radio y sección con la [ficha de selección](../../conocimiento/maquina/componentes/fichas/cadena-portacables.md).
+- [ ] **Completar el diseño eléctrico y protecciones**: documentar layout de 12 V + 24 V, consumo/protección de la tira LED, calibres, conectores, fusibles y paro de emergencia de doble riel.
 
 ### Siguiente
 
-- [ ] Decidir qué hacer con `HOMING_INIT_LOCK`/`HOMING_FORCE_SET_ORIGIN` heredados de la máquina anterior (`config.h`) → ver hallazgo en [control-grbl.md](../../conocimiento/maquina/subsistemas/control-grbl.md). (El eje Z fuera del ciclo de homing ya quedó decidido — [D-0009](../../conocimiento/maquina/decisiones/D-0009-z-sin-fin-de-carrera-soft-limits.md).)
-- [ ] **Instalar fin de carrera físico en Z** (posición Z+, arriba/retraído) — ver [D-0011](../../conocimiento/maquina/decisiones/D-0011-fin-de-carrera-fisico-en-z.md) y checklist en [eje-z.md](../../conocimiento/maquina/subsistemas/eje-z.md). Motivo: resuelve de raíz la falsa alarma de hard limit que el K30 disparaba a alta potencia (ver [prueba 2026-07-22](../../conocimiento/maquina/pruebas/2026-07-22-diagnostico-alarma-laser-k30.md)). Pasos:
-  - [ ] 🔧 Resolver la mecánica de montaje del switch en Z+ (en investigación)
-  - [ ] Elegir tipo de switch (mecánico/óptico/inductivo) y NO/NC
-  - [ ] Cablear la señal al header **D12 ("SpnEn")** de la CNC Shield — no al terminal "Z-" (ocupado por el PWM del láser)
-  - [ ] Definir `$23`, `$24`, `$25`, `$26`, `$27` para Z; decidir orden del ciclo de homing en `config.h`
-  - [ ] Medir recorrido real de Z → `$132`
-  - [ ] Reactivar `$20` y `$21` una vez instalado y probado; actualizar `grbl-actual.yaml`
 - [ ] Confirmar físicamente los jumpers MODE0/1/2 (1/8 de paso) en la CNC Shield de los tres ejes → [parametros/drivers/microstepping.yaml](../../conocimiento/maquina/parametros/drivers/microstepping.yaml)
 - [ ] Investigar y seleccionar conectores + calibres de cable (con fuentes de internet citadas)
 - [ ] Extraer pinout PWM/TTL del manual del K30 → actualizar [ficha](../../conocimiento/maquina/componentes/fichas/laser-tree-k30.md)
-- [ ] Montar controladora + cablear motores X/Y/Z
-- [ ] Paro de emergencia de doble riel + protecciones
+- [ ] Ejecutar una prueba EMI prolongada (1–2 h) con K30 y motores: registrar potencia, trabajo, ciclos y cualquier alarma → [protocolo](../../conocimiento/maquina/pruebas/2026-08-17-finales-nc-y-en-serie.md).
+- [ ] Medir repetibilidad de homing (30 ciclos) y posición final por eje antes de considerar otra controladora.
+- [ ] Recapturar `$$` después de `$132=80`: el último dump crudo de homing todavía muestra el valor previo 200; alinear [grbl-actual.yaml](../../conocimiento/maquina/parametros/grbl/grbl-actual.yaml) con un respaldo final restaurable.
+- [ ] Reevaluar grblHAL únicamente si aparece un requisito de D-0006: >30 kHz, límites/autoescuadrado independientes, más E/S, VFD/RS485, red o SD.
 
 ### Presupuesto
 

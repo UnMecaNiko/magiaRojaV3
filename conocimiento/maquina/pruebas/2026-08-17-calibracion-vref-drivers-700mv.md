@@ -33,7 +33,7 @@ Fijar el límite de corriente de los drivers **DRV8825** de X, Y y Z ajustando e
 ## Acciones / implicaciones
 
 - ⏳ PENDIENTE de validación bajo carga: mover cada eje con carga real y verificar **sin pérdida de pasos** y con **temperatura del driver controlada**. Prestar especial atención a Z al subir.
-- Actualizado el campo `medido_v` de cada eje en [calibracion-corriente.yaml](../parametros/drivers/calibracion-corriente.yaml). `validado` sigue en `false` hasta comprobar bajo carga.
+- Actualizado el campo `vref_medido_v` de cada eje en [calibracion-corriente.yaml](../parametros/drivers/calibracion-corriente.yaml). `validado` sigue en `false` hasta comprobar bajo carga.
 
 ## Fuentes
 

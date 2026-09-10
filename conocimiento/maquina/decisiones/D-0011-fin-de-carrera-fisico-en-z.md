@@ -4,7 +4,7 @@
 - **Ámbito**: Máquina (mecánica + GRBL)
 - **Estado**: ✅ Vigente
 - **Decisor**: Nicolas Velasquez
-- **Relacionada con**: [D-0009](D-0009-z-sin-fin-de-carrera-soft-limits.md), [D-0010](D-0010-soft-limits-apagados-hasta-fin-de-carrera-z.md)
+- **Relacionada con**: [D-0009](D-0009-z-sin-fin-de-carrera-soft-limits.md), [D-0010](D-0010-soft-limits-apagados-hasta-fin-de-carrera-z.md), [D-0018](D-0018-finales-carrera-nc-y-en-serie.md)
 
 ## Contexto
 
@@ -51,6 +51,7 @@ Se instaló el fin de carrera físico de Z (posición **Z+**) cableado a **SpnEn
 
 - **#1–#3 (mecánico / tipo de switch / cableado a D12)**: ✅ hechos. Switch NC cableado a SpnEn/D12; se retiró el jumper temporal a GND.
 - **#2 tipo/lógica**: ✅ NC → `$5=1`. Switches en X-, Y-, Y+, Z+.
+- **Topología de Y**: ✅ Y− y Y+ están en serie sobre D10 porque los dos headers comparten la misma entrada; ver [D-0018](D-0018-finales-carrera-nc-y-en-serie.md).
 - **#4 direcciones/velocidades de homing**: ✅ `$23=3`, `$24=1000`, `$25=1500`, `$26=250`, `$27=4`. Homing (`$H`) probado y correcto.
 - **#5 orden del ciclo en config.h**: ✅ Corregido y **probado** 2026-08-17 — `HOMING_CYCLE_0=(1<<Z_AXIS)`, `HOMING_CYCLE_1=X|Y`. Recompilado, reflasheado y `$H` verificado: Z sube primero, luego X/Y. Ver [prueba](../pruebas/2026-08-17-homing-z-primero-ok.md).
 - **#6 medir recorrido de Z → `$132`**: ✅ Medido 2026-08-17 = **85 mm**; soft limit fijado en **80 mm** (~5 mm de margen), horneado en `defaults.h`. Ver [D-0017](D-0017-area-trabajo-empirica-505x490.md).

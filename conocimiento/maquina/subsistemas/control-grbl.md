@@ -1,7 +1,7 @@
 # Subsistema: Control (GRBL)
 
 > **Estado: ✅ Operativo** (motores, finales de carrera y homing en los tres ejes funcionando)
-> Última actualización: 2026-08-17
+> Última actualización: 2026-08-24
 
 ## Resumen
 
@@ -21,6 +21,15 @@ La configuración GRBL vigente, su histórico y el porqué de cada cambio viven 
 - `grbl-actual.yaml` — config vigente anotada.
 - `historico/` — snapshots fechados (dump `$$` crudo + YAML).
 - `CHANGELOG.md` — bitácora de cambios con su motivo.
+
+## Topología de finales de carrera
+
+- `$5=1`: todos los contactos trabajan como normalmente cerrados.
+- X− usa D9.
+- Y− y Y+ comparten D10 y forman un único lazo **en serie**; abrir cualquiera activa `Pn:Y`.
+- Z+ usa D12/SpnEn porque `VARIABLE_SPINDLE` reserva D11 para el PWM del K30.
+
+Los conectores `+` y `−` de un mismo eje en la CNC Shield no representan entradas separadas. En Y, conectar dos NC por separado a esos headers los dejaría en paralelo; por eso se usa un solo circuito serie. GRBL identifica el eje Y activado, no cuál extremo abrió. Ver [D-0018](../decisiones/D-0018-finales-carrera-nc-y-en-serie.md).
 
 ## Pines de control auxiliares de la CNC Shield
 
@@ -48,6 +57,8 @@ Fuentes: [gnea/grbl cpu_map.h](https://github.com/gnea/grbl/blob/master/grbl/cpu
 ⚠️ **Hallazgo crítico (2026-07-22)**: con `$32=1` (modo láser), GRBL usa `VARIABLE_SPINDLE`, que **reasigna el límite de Z de D11 a D12** para liberar D11 como PWM de hardware. El terminal "Z-" de la CNC Shield está cableado a D11 (por eso el K30 recibe bien el PWM ahí), pero deja **D12 flotando** — con `$21=1` esto causaba una falsa alarma de hard limit al usar el K30 a alta potencia (el ruido EMI del driver, proporcional a la corriente, se leía como "switch de Z activado"), reportada por LaserGRBL como "problema con la placa". Confirmado con tres pruebas controladas — ver [prueba 2026-07-22](../pruebas/2026-07-22-diagnostico-alarma-laser-k30.md). Por eso `$21` también quedó en `0` mientras tanto. Solución definitiva: instalar fin de carrera físico en Z, cableado a D12 (no a "Z-") — ver [D-0011](../decisiones/D-0011-fin-de-carrera-fisico-en-z.md).
 
 ✅ **Resuelto (2026-08-17)**: instalado el fin de carrera físico de Z (Z+, cableado a D12/SpnEn) y **reactivados `$20=1`/`$21=1`**. Con los tres pines de límite definidos en reposo (`$5=1` NC) desaparecen las falsas alarmas. Homing (`$H`) incorpora Z (sube primero) y funciona. Esto **supera a [D-0010](../decisiones/D-0010-soft-limits-apagados-hasta-fin-de-carrera-z.md)** (que había apagado `$20`). Ver [D-0011](../decisiones/D-0011-fin-de-carrera-fisico-en-z.md), [D-0017](../decisiones/D-0017-area-trabajo-empirica-505x490.md) y pruebas del 2026-08-17.
+
+✅ **Resuelto (2026-08-17, documentado 2026-08-24)**: Y− y Y+ quedaron en serie sobre D10. La topología NC definitiva y sus límites —incluida la imposibilidad de distinguir extremos o autoescuadrar con una sola entrada— están en [D-0018](../decisiones/D-0018-finales-carrera-nc-y-en-serie.md).
 
 ⏳ PENDIENTE:
 

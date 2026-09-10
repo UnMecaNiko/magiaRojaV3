@@ -19,3 +19,4 @@ Registro de toda prueba realizada sobre la máquina: pruebas de movimiento, cali
 | 2026-08-17 | [Calibración Vref drivers ~700 mV](2026-08-17-calibracion-vref-drivers-700mv.md) | 🟡 Ajustado, falta validar bajo carga |
 | 2026-08-17 | [Motores + finales de carrera + homing OK (switch Z en SpnEn)](2026-08-17-homing-ok-switch-z-en-spnen.md) | ✅ Éxito |
 | 2026-08-17 | [Homing con Z primero (sube) y luego X/Y](2026-08-17-homing-z-primero-ok.md) | ✅ Éxito |
+| 2026-08-17 | [Finales NC y Y−/Y+ en serie](2026-08-17-finales-nc-y-en-serie.md) | ✅ Operativo; falta prueba EMI prolongada |

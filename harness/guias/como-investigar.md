@@ -43,3 +43,6 @@ Lista viva — agregar aquí lo que surja:
 - [ ] Competencia: xTool, Atomstack, Sculpfun, kits CNC (para comercial)
 - [ ] Tarifas de mercado por hora en Colombia para los roles mecánico, electricista, electrónico y programador (para la hoja Tarifas del presupuesto 🔒)
 - [ ] Disponibilidad local (Colombia) de acrílico naranja con OD certificada para 405–450 nm, o costo de importarlo
+- [x] ~~Nombre y criterios de selección del reemplazo industrial para el protector espiral~~ → **resuelto 2026-08-24**: cadena portacables articulada; faltan mediciones físicas para elegir referencia. Ver [ficha](../../conocimiento/maquina/componentes/fichas/cadena-portacables.md).
+- [x] ~~Comparar drivers de mejor calidad para los NEMA 17~~ → **resuelto 2026-08-24**: DRV8825 trazable como mínimo cambio; TMC2209 condicionado a corriente/térmica; DM542E exige rediseño de alimentación. Ver [ficha DRV8825](../../conocimiento/maquina/componentes/fichas/driver-drv8825.md).
+- [x] ~~Evaluar reemplazo de Arduino Uno + CNC Shield~~ → **resuelto 2026-08-24**: mantener mientras pase pruebas y el presupuesto de pulsos; grblHAL aislado si aparecen requisitos de expansión. Ver [D-0006](../../conocimiento/maquina/decisiones/D-0006-mantener-plataforma-grbl.md).

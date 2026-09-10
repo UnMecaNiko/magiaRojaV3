@@ -30,7 +30,7 @@ El bloque `#ifdef DEFAULTS_GENERIC` de `defaults.h` se reescribió con **los val
 ## Estado (2026-08-17)
 
 - ✅ **Recompilado y reflasheado.**
-- ✅ **`$H` probado con Z en el ciclo**: Z sube primero (dirección correcta) y luego homean X/Y. Ver [prueba](../pruebas/2026-08-17-homing-z-primero-ok.md).
+- ✅ **`$H` probado con Z en el ciclo**: Z sube primero (dirección correcta) y luego homean X/Y. Ver [prueba](../../pruebas/2026-08-17-homing-z-primero-ok.md).
 
 ## Pendientes
 

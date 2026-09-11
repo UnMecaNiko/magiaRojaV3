@@ -13,6 +13,7 @@
 
 :root {
   --color-rojo-500: #e32636;
+  --color-rojo-500-rgb: 227 38 54;
   --color-rojo-600: #d12332;
   --color-rojo-300: #ff5c68;
   --color-negro-900: #10100f;
@@ -47,8 +48,11 @@
   --peso-medio: 680;
   --peso-fuerte: 760;
   --peso-marca: 820;
+  --peso-serif: 500;
   --tamano-display-xl: clamp(4rem, 6.8vw, 7.7rem);
+  --tamano-display-xl-movil: clamp(3.4rem, 18vw, 5.2rem);
   --tamano-display-lg: clamp(2.6rem, 5vw, 5.4rem);
+  --tamano-display-lg-movil: clamp(2.5rem, 13vw, 4rem);
   --tamano-display-md: clamp(1.5rem, 2.2vw, 2.35rem);
   --tamano-display-sm: 2.75rem;
   --tamano-lead: clamp(1rem, 1.4vw, 1.25rem);
@@ -101,6 +105,7 @@
   --texto-inverso-suave: var(--color-blanco-suave);
   --texto-inverso-secundario: var(--color-gris-300);
   --acento: var(--color-rojo-500);
+  --acento-rgb: var(--color-rojo-500-rgb);
   --acento-texto: var(--color-rojo-600);
   --acento-sobre-oscuro: var(--color-rojo-300);
   --texto-sobre-acento: var(--color-blanco);

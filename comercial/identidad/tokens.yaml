@@ -45,6 +45,11 @@ primitivas:
       nota: >-
         Rojo Magia Roja. Aparecía 10 veces y es el valor canónico: no se toca.
         Uso exclusivo como relleno y como color de marca, nunca como texto.
+    # Componentes del rojo de marca, sin envoltorio. Existe para los degradados
+    # y halos que necesitan el rojo con transparencia: `rgb(var(--acento-rgb) /
+    # 0.2)`. Sin esto quedaban como `rgba(227, 38, 54, 0.2)` literal, y un
+    # cambio de marca los habría dejado atrás en silencio.
+    rojo-500-rgb: "227 38 54"
     rojo-600:
       valor: "#d12332"
       nota: >-
@@ -155,6 +160,11 @@ primitivas:
     medio: 680
     fuerte: 760
     marca: 820
+    # Excepción deliberada: Cormorant Garamond se carga solo en 500 y 600, así
+    # que no es variable como Manrope. Pedirle 560 obligaría al navegador a
+    # sintetizar el peso y el trazo saldría sucio. Único uso: el énfasis en
+    # cursiva del titular del héroe.
+    serif: 500
 
   # DOS escalas, deliberadamente.
   #
@@ -273,6 +283,7 @@ semanticas:
 
     # Acento
     acento: rojo-500              # rellenos y marca
+    acento-rgb: rojo-500-rgb      # para transparencias: rgb(var(--acento-rgb) / 0.2)
     acento-texto: rojo-600        # texto acento sobre claro
     acento-sobre-oscuro: rojo-300 # texto acento sobre oscuro
     texto-sobre-acento: blanco

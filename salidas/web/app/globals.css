@@ -1,19 +1,22 @@
-:root {
-  --background: #fbfaf7;
-  --foreground: #171716;
-  --red: #e32636;
-}
+@import "./tokens.css";
+
+/* Estilos base del sitio.
+ *
+ * Todo color, tamaño y peso sale de tokens.css, que se genera desde
+ * comercial/identidad/tokens.yaml. Si hace falta un valor que no existe como
+ * token, se agrega al YAML y se regenera — no se escribe acá.
+ * Ver ./harness/scripts/generar-tokens.sh */
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 1rem;
+  scroll-padding-top: var(--espacio-4);
 }
 
 body {
   min-height: 100vh;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  color: var(--texto);
+  background: var(--fondo);
+  font-family: var(--fuente-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -40,15 +43,19 @@ img {
 }
 
 :focus-visible {
-  outline: 3px solid rgba(227, 38, 54, 0.45);
+  outline: 3px solid var(--acento);
   outline-offset: 4px;
 }
 
+/* El eyebrow abre cada sección del sitio: es el texto de marca más repetido.
+ * Usa --acento-texto (no --acento) porque el rojo de marca sobre crema da
+ * 4.38:1 y no alcanza el mínimo AA. Ver comercial/identidad/auditoria-2026-09-10.md */
 .eyebrow {
-  color: var(--red);
-  font-size: 0.72rem;
-  font-weight: 820;
-  letter-spacing: 0.14em;
+  color: var(--acento-texto);
+  font-size: var(--tamano-xs);
+  font-weight: var(--peso-fuerte);
+  line-height: var(--interlinea-ajustada);
+  letter-spacing: var(--espaciado-letra-versales);
   text-transform: uppercase;
 }
 
@@ -62,25 +69,31 @@ img {
 }
 
 .section-heading h2 {
-  margin-top: 0.8rem;
-  color: #171716;
-  font-size: clamp(2.7rem, 5.6vw, 5.9rem);
-  font-weight: 560;
-  line-height: 0.97;
-  letter-spacing: -0.06em;
+  margin-top: var(--espacio-3);
+  color: var(--texto-display);
+  font-size: var(--tamano-display-lg);
+  font-weight: var(--peso-display);
+  line-height: 0.99;
+  letter-spacing: var(--espaciado-letra-display);
   text-wrap: balance;
 }
 
 .section-description {
-  max-width: 650px;
-  margin-top: 1.3rem;
-  color: #6e6a63;
-  font-size: 1rem;
-  line-height: 1.75;
+  max-width: var(--ancho-medida);
+  margin-top: var(--espacio-5);
+  color: var(--texto-secundario);
+  font-size: var(--tamano-base);
+  line-height: var(--interlinea-comoda);
 }
 
 .section-heading--center .section-description {
   margin-inline: auto;
+}
+
+@media (max-width: 720px) {
+  .section-heading h2 {
+    font-size: var(--tamano-display-lg-movil);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -70,6 +70,17 @@ if [ "$CON_PULL" = 1 ]; then
   fi
 fi
 
+paso "Sistema de diseño"
+# tokens.css es un artefacto generado desde comercial/identidad/tokens.yaml,
+# pero viaja al VPS como archivo versionado (aquí solo se suben archivos de
+# git). Si alguien lo editó a mano, o cambió el YAML sin regenerar, el sitio
+# publicado dejaría de coincidir con la fuente de la verdad — y en silencio.
+if ! "$RAIZ/harness/scripts/generar-tokens.sh" --verificar; then
+  error "tokens.css no corresponde a tokens.yaml"
+  error "corre ./harness/scripts/generar-tokens.sh y commitea el resultado"
+  exit 1
+fi
+
 cd "$FUENTE"
 
 paso "Estado del repositorio"

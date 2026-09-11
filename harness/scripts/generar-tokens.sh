@@ -106,7 +106,16 @@ generar() {
       if (match($0, /^      valor:/) && pendiente != "") {     # cierra forma B
         v = $0; sub(/^      valor:/, "", v); v = limpiar(v)
         if (v != "") { emitir(seccion "-", pendiente, v); n++ }
+        ultima = pendiente
         pendiente = ""
+        next
+      }
+      # `movil:` es la variante del mismo token bajo el punto de quiebre chico.
+      # Se emite como <token>-movil para que el media query la consuma en vez
+      # de repetir el clamp a mano.
+      if (match($0, /^      movil:/) && ultima != "") {
+        v = $0; sub(/^      movil:/, "", v); v = limpiar(v)
+        if (v != "") { emitir(seccion "-", ultima "-movil", v); n++ }
         next
       }
       if (match($0, /^    "?[A-Za-z0-9_-]+"?:[ \t]*[^ \t]/)) { # forma A

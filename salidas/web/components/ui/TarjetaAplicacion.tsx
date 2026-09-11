@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Pildora } from "./Pildora";
 import estilos from "./tarjeta-aplicacion.module.css";
 
@@ -35,16 +34,7 @@ export function TarjetaAplicacion({
         .join(" ")}
       id={id}
     >
-      <Image
-        src={imagen}
-        alt={alt}
-        fill
-        sizes={
-          ancha
-            ? "(max-width: 760px) 100vw, 66vw"
-            : "(max-width: 760px) 100vw, 33vw"
-        }
-      />
+      <img src={imagen} alt={alt} loading="lazy" />
       <div className={estilos.velo} />
       <div className={estilos.contenido}>
         <p className={estilos.eyebrow}>{eyebrow}</p>

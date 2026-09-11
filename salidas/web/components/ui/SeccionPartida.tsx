@@ -1,4 +1,3 @@
-import Image from "next/image";
 import type { CSSProperties, ReactNode } from "react";
 import estilos from "./seccion-partida.module.css";
 
@@ -13,8 +12,6 @@ type SeccionPartidaProps = {
   ladoImagen?: "izquierda" | "derecha";
   /** Fondo de la sección. `oscuro` y `tinta` invierten el color del texto. */
   tono?: TonoSeccion;
-  /** `sizes` de next/image. Solo si el reparto de columnas no es el de siempre. */
-  sizes?: string;
   alturaMinima?: number;
 };
 
@@ -33,7 +30,6 @@ export function SeccionPartida({
   id,
   ladoImagen = "derecha",
   tono = "claro",
-  sizes = "(max-width: 900px) 100vw, 50vw",
   alturaMinima,
 }: SeccionPartidaProps) {
   const clase = [
@@ -50,7 +46,7 @@ export function SeccionPartida({
     <section className={clase} id={id} style={estiloEnLinea}>
       <div className={estilos.copia}>{children}</div>
       <div className={estilos.imagen}>
-        <Image src={imagen} alt={alt} fill sizes={sizes} />
+        <img src={imagen} alt={alt} loading="lazy" />
       </div>
     </section>
   );

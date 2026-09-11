@@ -1,0 +1,28 @@
+{
+  "projectId": "96b28ea5-3560-4b03-84fe-ad144c42c0d1",
+  "pkg": "web",
+  "globalName": "MagiaRojaUI",
+  "shape": "package",
+  "srcDir": "components/ui",
+  "entry": "components/ui/index.ts",
+  "tsconfig": "tsconfig.json",
+  "cssEntry": ".design-sync/bundled-styles.css",
+  "extraFonts": [".design-sync/extra-fonts.css"],
+  "componentSrcMap": {
+    "Acordeon": "components/ui/Acordeon.tsx",
+    "Boton": "components/ui/Boton.tsx",
+    "Cifras": "components/ui/Cifras.tsx",
+    "EnlaceTexto": "components/ui/EnlaceTexto.tsx",
+    "ListaDatos": "components/ui/ListaDatos.tsx",
+    "Marca": "components/ui/Marca.tsx",
+    "Pildora": "components/ui/Pildora.tsx",
+    "SeccionPartida": "components/ui/SeccionPartida.tsx",
+    "SectionHeading": "components/ui/SectionHeading.tsx",
+    "TarjetaAplicacion": "components/ui/TarjetaAplicacion.tsx",
+    "WhatsAppLink": "components/ui/WhatsAppLink.tsx"
+  },
+  "readmeHeader": ".design-sync/conventions.md",
+  "overrides": {
+    "SeccionPartida": { "cardMode": "column" }
+  }
+}

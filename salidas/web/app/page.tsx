@@ -185,7 +185,6 @@ export default function Home() {
           alturaMinima={750}
           imagen="/images/aplicaciones/materiales-muestrario-16x9.png"
           alt="Muestrario de materiales grabados y cortados"
-          sizes="(max-width: 900px) 100vw, 52vw"
         >
           <p className="eyebrow">Materiales</p>
           <h2>La potencia se entiende mejor cuando se convierte en opciones.</h2>
@@ -242,7 +241,6 @@ export default function Home() {
           ladoImagen="derecha"
           imagen="/images/maquina/hero-maquina-cerrada-vertical-4x5.png"
           alt="CNC Magia Roja v3 con su tapa roja cerrada"
-          sizes="(max-width: 900px) 100vw, 42vw"
         >
           <p className="eyebrow">Magia Roja v3</p>
           <h2>La máquina detrás de las posibilidades.</h2>
@@ -264,7 +262,6 @@ export default function Home() {
           ladoImagen="izquierda"
           imagen="/images/proceso/velo-inc-ensamble-cnc-16x9.png"
           alt="Verificación técnica de una CNC Magia Roja"
-          sizes="(max-width: 900px) 100vw, 55vw"
         >
           <p className={styles.companyLogo}>
             VELO <small>inc</small>
@@ -282,7 +279,6 @@ export default function Home() {
           ladoImagen="derecha"
           imagen="/images/proceso/mantenimiento-tecnico-4x3.png"
           alt="Servicio de mantenimiento de la CNC Magia Roja"
-          sizes="(max-width: 900px) 100vw, 48vw"
         >
           <p className="eyebrow">Mantenimiento incluido</p>
           <h2>La relación continúa después de ponerla en marcha.</h2>

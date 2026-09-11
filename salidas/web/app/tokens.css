@@ -1,0 +1,182 @@
+/* ---------------------------------------------------------------
+ * GENERADO — no editar a mano.
+ *
+ * Fuente: comercial/identidad/tokens.yaml
+ * Regenerar: ./harness/scripts/generar-tokens.sh
+ * Verificar: ./harness/scripts/generar-tokens.sh --verificar
+ *
+ * Los componentes consumen SOLO tokens semánticos (--fondo, --texto,
+ * --acento...) y las clases de rol tipográfico (.t-*). Usar una
+ * primitiva (--color-rojo-500) directamente rompe la posibilidad de
+ * cambiar la marca sin tocar componentes.
+ * --------------------------------------------------------------- */
+
+:root {
+  --color-rojo-500: #e32636;
+  --color-rojo-600: #d12332;
+  --color-rojo-300: #ff5c68;
+  --color-negro-900: #10100f;
+  --color-negro-800: #171716;
+  --color-gris-700: #55534f;
+  --color-gris-500: #6e6a63;
+  --color-gris-300: #bdbdb7;
+  --color-gris-200: #d7d4ce;
+  --color-crema-50: #fbfaf7;
+  --color-crema-100: #f7f5f1;
+  --color-crema-200: #f0eee9;
+  --color-crema-300: #ece9e5;
+  --color-blanco: #ffffff;
+  --color-blanco-suave: #f4f4f0;
+  --color-verde-whatsapp: #158657;
+  --espacio-1: 0.25rem;
+  --espacio-2: 0.5rem;
+  --espacio-3: 0.75rem;
+  --espacio-4: 1rem;
+  --espacio-5: 1.25rem;
+  --espacio-6: 1.5rem;
+  --espacio-8: 2rem;
+  --espacio-10: 2.5rem;
+  --espacio-12: 3rem;
+  --espacio-14: 3.5rem;
+  --espacio-16: 4rem;
+  --espacio-20: 5rem;
+  --espacio-24: 6rem;
+  --espacio-32: 8rem;
+  --peso-regular: 400;
+  --peso-display: 560;
+  --peso-medio: 680;
+  --peso-fuerte: 760;
+  --peso-marca: 820;
+  --tamano-display-xl: clamp(4rem, 6.8vw, 7.7rem);
+  --tamano-display-lg: clamp(2.6rem, 5vw, 5.4rem);
+  --tamano-display-md: clamp(1.5rem, 2.2vw, 2.35rem);
+  --tamano-display-sm: 2.75rem;
+  --tamano-lead: clamp(1rem, 1.4vw, 1.25rem);
+  --tamano-xs: 0.75rem;
+  --tamano-sm: 0.875rem;
+  --tamano-base: 1rem;
+  --tamano-md: 1.125rem;
+  --tamano-lg: 1.25rem;
+  --interlinea-display: 0.9;
+  --interlinea-titulo: 1.08;
+  --interlinea-ajustada: 1.4;
+  --interlinea-normal: 1.5;
+  --interlinea-comoda: 1.75;
+  --espaciado-letra-display-xl: -0.072em;
+  --espaciado-letra-display: -0.06em;
+  --espaciado-letra-ajustada: -0.03em;
+  --espaciado-letra-normal: 0;
+  --espaciado-letra-ancha: 0.08em;
+  --espaciado-letra-versales: 0.12em;
+  --radio-sm: 10px;
+  --radio-md: 14px;
+  --radio-lg: 24px;
+  --radio-pastilla: 999px;
+  --radio-circulo: 50%;
+  --sombra-acento-sm: 0 10px 25px rgb(227 38 54 / 0.2);
+  --sombra-acento-md: 0 14px 34px rgb(227 38 54 / 0.25);
+  --sombra-flotante: 0 20px 50px rgb(24 20 18 / 0.12);
+  --sombra-imagen: 0 42px 42px rgb(22 18 16 / 0.22);
+  --sombra-canal: 0 15px 35px rgb(15 90 57 / 0.28);
+  --transicion-rapida: 180ms ease;
+  --transicion-lenta: 600ms cubic-bezier(0.2, 0.6, 0.2, 1);
+  --ancho-maximo: 1380px;
+  --ancho-contenido: 1240px;
+  --ancho-medida: 650px;
+  --ancho-medida-corta: 550px;
+  --punto-quiebre-lg: 1100px;
+  --punto-quiebre-sm: 720px;
+  --fondo: var(--color-crema-50);
+  --fondo-alterno: var(--color-crema-100);
+  --fondo-seccion: var(--color-crema-200);
+  --fondo-degradado-fin: var(--color-crema-300);
+  --fondo-oscuro: var(--color-negro-900);
+  --fondo-seccion-oscura: var(--color-negro-800);
+  --superficie: var(--color-blanco);
+  --texto: var(--color-negro-800);
+  --texto-display: var(--color-negro-900);
+  --texto-fuerte: var(--color-gris-700);
+  --texto-secundario: var(--color-gris-500);
+  --texto-inverso: var(--color-blanco);
+  --texto-inverso-suave: var(--color-blanco-suave);
+  --texto-inverso-secundario: var(--color-gris-300);
+  --acento: var(--color-rojo-500);
+  --acento-texto: var(--color-rojo-600);
+  --acento-sobre-oscuro: var(--color-rojo-300);
+  --texto-sobre-acento: var(--color-blanco);
+  --borde: var(--color-gris-200);
+  --canal-whatsapp: var(--color-verde-whatsapp);
+  --fuente-sans: var(--font-sans), Arial, Helvetica, sans-serif;
+  --fuente-serif: var(--font-serif), Georgia, serif;
+}
+
+.t-display-hero {
+  font-size: var(--tamano-display-xl);
+  font-weight: var(--peso-display);
+  line-height: 0.86;
+  letter-spacing: var(--espaciado-letra-display-xl);
+}
+
+.t-display-seccion {
+  font-size: var(--tamano-display-lg);
+  font-weight: var(--peso-display);
+  line-height: 0.99;
+  letter-spacing: var(--espaciado-letra-display);
+}
+
+.t-display-tarjeta {
+  font-size: var(--tamano-display-md);
+  font-weight: var(--peso-display);
+  line-height: var(--interlinea-titulo);
+  letter-spacing: var(--espaciado-letra-ajustada);
+}
+
+.t-cifra {
+  font-size: var(--tamano-display-sm);
+  font-weight: var(--peso-display);
+  line-height: var(--interlinea-titulo);
+  letter-spacing: var(--espaciado-letra-display);
+}
+
+.t-entrada {
+  font-size: var(--tamano-lead);
+  font-weight: var(--peso-regular);
+  line-height: var(--interlinea-comoda);
+  letter-spacing: var(--espaciado-letra-normal);
+}
+
+.t-cuerpo {
+  font-size: var(--tamano-base);
+  font-weight: var(--peso-regular);
+  line-height: var(--interlinea-comoda);
+  letter-spacing: var(--espaciado-letra-normal);
+}
+
+.t-interfaz {
+  font-size: var(--tamano-sm);
+  font-weight: var(--peso-medio);
+  line-height: var(--interlinea-normal);
+  letter-spacing: var(--espaciado-letra-normal);
+}
+
+.t-boton {
+  font-size: var(--tamano-sm);
+  font-weight: var(--peso-fuerte);
+  line-height: var(--interlinea-normal);
+  letter-spacing: var(--espaciado-letra-normal);
+}
+
+.t-versales {
+  font-size: var(--tamano-xs);
+  font-weight: var(--peso-fuerte);
+  line-height: var(--interlinea-ajustada);
+  letter-spacing: var(--espaciado-letra-versales);
+  text-transform: uppercase;
+}
+
+.t-marca {
+  font-size: var(--tamano-lg);
+  font-weight: var(--peso-marca);
+  line-height: var(--interlinea-normal);
+  letter-spacing: var(--espaciado-letra-ajustada);
+}

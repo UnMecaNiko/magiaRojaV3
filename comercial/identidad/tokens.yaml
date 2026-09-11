@@ -1,0 +1,360 @@
+# Tokens de identidad — VELO inc / CNC Magia Roja v3
+#
+# FUENTE DE LA VERDAD del sistema de diseño. Este archivo no se edita desde
+# `salidas/`: se edita aquí y se regenera todo lo derivado.
+#
+# Dos capas, y la distinción importa:
+#   - `primitivas`: los valores crudos. Nunca se consumen directamente.
+#   - `semanticas`: el vocabulario que usan los componentes. Solo estas.
+# Un componente que use una primitiva rompe la posibilidad de cambiar la marca
+# o agregar modo oscuro sin tocar componentes.
+#
+# Origen: auditoría del 2026-09-10 sobre salidas/web.
+# Ver `auditoria-2026-09-10.md` para los hallazgos, las mediciones de contraste
+# y las fuentes. Cada primitiva registra de qué valores originales salió.
+#
+# Todo par texto/fondo de este archivo cumple WCAG 2.2 nivel AA (SC 1.4.3).
+# Antes de cambiar un color, volver a correr la verificación de contraste.
+
+version: 1
+actualizado: 2026-09-10
+
+# ---------------------------------------------------------------------------
+# Reglas duras. No son estilo, son restricciones: romper una de estas
+# reintroduce un fallo de accesibilidad que ya se corrigió una vez.
+# ---------------------------------------------------------------------------
+reglas:
+  - Ningún texto por debajo de 12px (0.75rem). El original bajaba a 10.7px.
+  - >-
+    `rojo-500` nunca como color de TEXTO sobre fondo claro (4.38:1, insuficiente).
+    Para texto acento sobre claro se usa `rojo-600`.
+  - >-
+    `rojo-500` nunca como color de TEXTO sobre fondo oscuro (3.93:1).
+    Para acento sobre oscuro se usa `rojo-300`.
+  - >-
+    `rojo-500` sí se usa como RELLENO (botones, marca): el blanco encima
+    da 4.57:1 y cumple.
+  - Los componentes consumen solo tokens semánticos, nunca primitivas.
+
+primitivas:
+
+  color:
+    # --- Rojo de marca. El único color con carga simbólica del sistema. ---
+    rojo-500:
+      valor: "#e32636"
+      nota: >-
+        Rojo Magia Roja. Aparecía 10 veces y es el valor canónico: no se toca.
+        Uso exclusivo como relleno y como color de marca, nunca como texto.
+    rojo-600:
+      valor: "#d12332"
+      nota: >-
+        Variante de TEXTO del rojo de marca, para acentos sobre fondo claro.
+        Existe porque rojo-500 sobre crema da 4.38:1 y no alcanza el mínimo AA;
+        este da 5.03:1 sobre crema-50 y 4.53:1 sobre crema-200.
+        Separar el rojo de marca del rojo accesible de texto es la práctica
+        estándar en sistemas maduros, y evita tener que degradar la marca.
+    rojo-300:
+      valor: "#ff5c68"
+      nota: >-
+        Acento sobre fondos oscuros, donde rojo-500 solo llega a 3.93:1.
+        Colapsa #ff5360, #ff5c68 y #ff7b85 — indistinguibles entre sí.
+
+    # --- Neutros oscuros. Texto principal y superficies oscuras. ---
+    negro-900:
+      valor: "#10100f"
+      nota: Superficies oscuras y titulares display. Colapsa #10100f, #121211, #111.
+    negro-800:
+      valor: "#171716"
+      nota: >-
+        Texto principal y superficies oscuras de sección.
+        Colapsa #171716, #1a1918, #222, #272725.
+
+    # --- Neutros medios. Jerarquía de texto secundario. ---
+    gris-700:
+      valor: "#55534f"
+      nota: Texto secundario fuerte y navegación. Colapsa #454542 y #555551.
+    gris-500:
+      valor: "#6e6a63"
+      nota: >-
+        Texto secundario, el más usado del sistema. Es también el gris MÁS CLARO
+        que cumple AA sobre las superficies del sistema (4.64:1 sobre crema-200),
+        así que absorbe además todo lo que antes era texto terciario.
+        Colapsa #68645e, #6e6a63, #716d66, #77736c, #868681 y #8a857e.
+    gris-300:
+      valor: "#bdbdb7"
+      nota: >-
+        Texto secundario SOBRE fondo oscuro (9.51:1 sobre negro-800).
+        Colapsa #bdbdb7 y #d6d6d2.
+    gris-200:
+      valor: "#d7d4ce"
+      nota: >-
+        Único borde y divisor del sistema. Colapsa seis valores que nadie podía
+        distinguir: #d2cec6, #d7d4ce, #d7d7d3, #d9d6cf, #deddd7, #deddd8.
+        Su contraste es 1.42:1, y eso es correcto: SC 1.4.11 no exige 3:1 a
+        divisores decorativos ni al borde de un control que ya tiene texto visible.
+
+    # --- Superficies claras. La base cálida de la marca. ---
+    crema-50:
+      valor: "#fbfaf7"
+      nota: Fondo base del sitio.
+    crema-100:
+      valor: "#f7f5f1"
+      nota: Superficie alterna (pie de página). Colapsa #f7f5f1 y #f8f8f6.
+    crema-200:
+      valor: "#f0eee9"
+      nota: >-
+        Superficie de sección clara. Colapsa #f0eee9 y #f4f2ee.
+        Es el fondo más oscuro del modo claro, así que es el caso peor
+        contra el que se verifica todo texto.
+    crema-300:
+      valor: "#ece9e5"
+      nota: Cierre del degradado del hero. Solo decorativo, nunca lleva texto.
+
+    blanco:
+      valor: "#ffffff"
+    blanco-suave:
+      valor: "#f4f4f0"
+      nota: >-
+        Texto sobre oscuro que no debe competir con el blanco puro.
+        Colapsa #f4f4f0 y #eee.
+
+    # --- Funcional, fuera de la marca. ---
+    verde-whatsapp:
+      valor: "#158657"
+      nota: >-
+        Color de canal, no de marca: solo para los accesos a WhatsApp, donde el
+        reconocimiento del canal importa más que la identidad. Oscurecido desde
+        #168c5b, que con texto blanco daba 4.25:1 y no cumplía; este da 4.59:1.
+
+  # Espaciado en base 4px. Toda medida del sistema sale de acá.
+  # La rejilla de 4/8px es el estándar de facto porque todo alto de línea y
+  # toda altura de control caen en múltiplos enteros, sin medios píxeles.
+  espacio:
+    "1": 0.25rem   #   4px
+    "2": 0.5rem    #   8px
+    "3": 0.75rem   #  12px
+    "4": 1rem      #  16px
+    "5": 1.25rem   #  20px
+    "6": 1.5rem    #  24px
+    "8": 2rem      #  32px
+    "10": 2.5rem   #  40px
+    "12": 3rem     #  48px
+    "14": 3.5rem   #  56px
+    "16": 4rem     #  64px
+    "20": 5rem     #  80px
+    "24": 6rem     #  96px
+    "32": 8rem     # 128px
+
+  # Cinco pesos. La auditoría encontró quince: 400 500 550 560 580 600 620 650
+  # 680 700 750 760 790 800 820. Manrope es variable, así que técnicamente
+  # funcionaban todos — pero 560 contra 580 no lo distingue nadie, y cada peso
+  # suelto era una decisión sin criterio.
+  peso:
+    regular: 400
+    display: 560   # el peso ligero característico de los titulares grandes
+    medio: 680
+    fuerte: 760
+    marca: 820
+
+  # DOS escalas, deliberadamente.
+  #
+  # 1) Rampa de interfaz (discreta): 12 / 14 / 16 / 18 / 20 px, alineada a la
+  #    rejilla de 4px. No es una escala modular a propósito: una razón de 1.25
+  #    por debajo de 16px da saltos de 12.8 → 16 que dejan huecos donde la
+  #    interfaz necesita precisión. Los sistemas de producto serios afinan este
+  #    tramo a mano; la escala modular se reserva para los titulares.
+  #    El piso de 12px es el cambio más grande respecto del original, que
+  #    bajaba a 10.7px — el texto diminuto es a la vez el fallo de
+  #    accesibilidad más común y la señal más clara de amateurismo.
+  #
+  # 2) Escalones display (fluidos, con clamp): son una decisión EDITORIAL, no
+  #    aritmética. Los saltos grandes entre titular de héroe y titular de
+  #    sección son lo que ya funciona de esta marca y lo que da la presencia
+  #    que se busca; racionalizarlos a una razón fija los aplanaría.
+  tamano:
+    display-xl:
+      valor: "clamp(4rem, 6.8vw, 7.7rem)"
+      movil: "clamp(3.4rem, 18vw, 5.2rem)"
+      nota: Titular del héroe. Único en el sitio.
+    display-lg:
+      valor: "clamp(2.6rem, 5vw, 5.4rem)"
+      movil: "clamp(2.5rem, 13vw, 4rem)"
+      nota: >-
+        Titulares de sección. Colapsa clamp(2.7rem,5.6vw,5.9rem) y
+        clamp(2.5rem,4.5vw,5rem) — dos escalas que convivían sin razón.
+    display-md:
+      valor: "clamp(1.5rem, 2.2vw, 2.35rem)"
+      nota: Titulares de tarjeta.
+    display-sm:
+      valor: "2.75rem"
+      nota: Cifras destacadas. 44px, alineado a la rejilla de 4px.
+    lead:
+      valor: "clamp(1rem, 1.4vw, 1.25rem)"
+      nota: Párrafo de entrada del héroe.
+    xs: 0.75rem      # 12px — versales y pies. Piso absoluto del sistema.
+    sm: 0.875rem     # 14px — texto de interfaz, navegación, botones
+    base: 1rem       # 16px — cuerpo
+    md: 1.125rem     # 18px — cuerpo destacado
+    lg: 1.25rem      # 20px — marca
+
+  interlinea:
+    display: 0.9
+    titulo: 1.08
+    ajustada: 1.4
+    normal: 1.5
+    comoda: 1.75
+
+  # Doce valores distintos en el original; seis con propósito real.
+  espaciado-letra:
+    display-xl: "-0.072em"
+    display: "-0.06em"
+    ajustada: "-0.03em"
+    normal: "0"
+    ancha: "0.08em"      # colapsa 0.04 / 0.07 / 0.09
+    versales: "0.12em"   # colapsa 0.11 / 0.12 / 0.14
+
+  radio:
+    sm: 10px
+    md: 14px
+    lg: 24px    # colapsa 22px y 26px
+    pastilla: 999px
+    circulo: 50%
+
+  sombra:
+    acento-sm: "0 10px 25px rgb(227 38 54 / 0.2)"
+    acento-md: "0 14px 34px rgb(227 38 54 / 0.25)"
+    flotante: "0 20px 50px rgb(24 20 18 / 0.12)"
+    imagen: "0 42px 42px rgb(22 18 16 / 0.22)"
+    canal: "0 15px 35px rgb(15 90 57 / 0.28)"
+
+  transicion:
+    rapida: "180ms ease"
+    lenta: "600ms cubic-bezier(0.2, 0.6, 0.2, 1)"
+
+  ancho:
+    maximo: 1380px      # cabecera y héroe
+    contenido: 1240px   # secciones
+    medida: 650px       # medida de lectura cómoda
+    medida-corta: 550px
+
+  punto-quiebre:
+    lg: 1100px
+    sm: 720px
+
+# ---------------------------------------------------------------------------
+# Capa semántica: lo ÚNICO que consumen los componentes.
+# Cada entrada apunta a una primitiva, nunca a un valor crudo.
+# ---------------------------------------------------------------------------
+semanticas:
+
+  color:
+    # Superficies
+    fondo: crema-50
+    fondo-alterno: crema-100
+    fondo-seccion: crema-200
+    fondo-degradado-fin: crema-300
+    fondo-oscuro: negro-900
+    fondo-seccion-oscura: negro-800
+    superficie: blanco
+
+    # Texto sobre fondo claro
+    texto: negro-800
+    texto-display: negro-900
+    texto-fuerte: gris-700
+    texto-secundario: gris-500
+    # `texto-terciario` ya no existe como nivel propio: el gris que lo servía
+    # (#8a857e) no cumple AA, y cualquier valor que sí cumpla colapsa en
+    # gris-500. Un nivel de jerarquía que no se puede leer no es un nivel.
+
+    # Texto sobre fondo oscuro
+    texto-inverso: blanco
+    texto-inverso-suave: blanco-suave
+    texto-inverso-secundario: gris-300
+
+    # Acento
+    acento: rojo-500              # rellenos y marca
+    acento-texto: rojo-600        # texto acento sobre claro
+    acento-sobre-oscuro: rojo-300 # texto acento sobre oscuro
+    texto-sobre-acento: blanco
+
+    # Estructura
+    borde: gris-200
+
+    # Canal
+    canal-whatsapp: verde-whatsapp
+
+  # Roles tipográficos completos: cada uno fija tamaño, peso, interlínea y
+  # espaciado de letra juntos. Un rol se aplica entero, no por partes.
+  texto:
+    display-hero:
+      tamano: display-xl
+      peso: display
+      interlinea: 0.86
+      espaciado-letra: display-xl
+    display-seccion:
+      tamano: display-lg
+      peso: display
+      interlinea: 0.99
+      espaciado-letra: display
+    display-tarjeta:
+      tamano: display-md
+      peso: display
+      interlinea: titulo
+      espaciado-letra: ajustada
+    cifra:
+      tamano: display-sm
+      peso: display
+      interlinea: titulo
+      espaciado-letra: display
+    entrada:
+      tamano: lead
+      peso: regular
+      interlinea: comoda
+      espaciado-letra: normal
+    cuerpo:
+      tamano: base
+      peso: regular
+      interlinea: comoda
+      espaciado-letra: normal
+    interfaz:
+      tamano: sm
+      peso: medio
+      interlinea: normal
+      espaciado-letra: normal
+    boton:
+      tamano: sm
+      peso: fuerte
+      interlinea: normal
+      espaciado-letra: normal
+    versales:
+      tamano: xs
+      peso: fuerte
+      interlinea: ajustada
+      espaciado-letra: versales
+      transformar: uppercase
+    marca:
+      tamano: lg
+      peso: marca
+      interlinea: normal
+      espaciado-letra: ajustada
+
+  tipografia:
+    sans: "var(--font-sans), Arial, Helvetica, sans-serif"
+    serif: "var(--font-serif), Georgia, serif"
+
+  # Fuentes cargadas por next/font en salidas/web/app/layout.tsx.
+  # Se declaran acá porque son identidad, no detalle de implementación web.
+  fuentes:
+    sans:
+      familia: Manrope
+      origen: Google Fonts
+      variable: true
+      uso: Todo el sistema.
+    serif:
+      familia: Cormorant Garamond
+      origen: Google Fonts
+      pesos: [500, 600]
+      uso: >-
+        Exclusivamente el énfasis en cursiva dentro del titular del héroe.
+        Es el único punto donde la marca se permite un gesto editorial;
+        si aparece en más lugares, deja de ser un gesto.

@@ -1,0 +1,122 @@
+/* Sección partida: imagen a un lado, texto al otro.
+ *
+ * Este componente reemplaza cuatro bloques que eran el mismo patrón escrito
+ * cuatro veces (.materials, .machine, .company, .maintenance), con selectores
+ * agrupados a mano para compartir reglas. Ver la auditoría del 2026-09-10. */
+
+.seccion {
+  display: grid;
+  min-height: var(--altura-minima, 580px);
+  grid-template-columns: 1.05fr 0.95fr;
+}
+
+.imagen {
+  position: relative;
+  min-height: 600px;
+}
+
+.imagen img {
+  object-fit: cover;
+}
+
+/* En el DOM el texto va SIEMPRE primero: es el orden correcto para lector de
+ * pantalla y para el recorrido con teclado, y es el que queda en móvil. Cuando
+ * la imagen debe verse a la izquierda, se reordena solo visualmente. */
+.imagenIzquierda .imagen {
+  order: -1;
+}
+
+.copia {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Con la imagen a la izquierda, el texto queda suelto a la derecha y solo
+ * necesita un respiro simétrico. */
+.imagenIzquierda .copia {
+  max-width: var(--ancho-medida);
+  padding: var(--espacio-20) clamp(2rem, 6vw, 7rem);
+}
+
+/* Con la imagen a la derecha, el texto arranca en el borde izquierdo de la
+ * página y tiene que alinearse con la rejilla de contenido del resto del
+ * sitio, o se ve descolgado respecto de las secciones vecinas. */
+.imagenDerecha .copia {
+  padding: var(--espacio-32) max(2rem, calc((100vw - var(--ancho-contenido)) / 2));
+  padding-right: clamp(2rem, 7vw, 8rem);
+}
+
+.copia h2 {
+  margin: var(--espacio-3) 0 var(--espacio-5);
+  font-size: var(--tamano-display-lg);
+  font-weight: var(--peso-display);
+  line-height: 0.99;
+  letter-spacing: var(--espaciado-letra-display);
+}
+
+.copia > p:not(:first-child) {
+  max-width: var(--ancho-medida);
+  line-height: var(--interlinea-comoda);
+}
+
+/* --- Tonos ------------------------------------------------------------ */
+
+.claro {
+  background: var(--fondo);
+}
+
+.crema {
+  background: var(--fondo-seccion);
+}
+
+.oscuro {
+  color: var(--texto-inverso);
+  background: var(--fondo-seccion-oscura);
+}
+
+.tinta {
+  color: var(--texto-inverso);
+  background: var(--fondo-oscuro);
+}
+
+.claro .copia > p:not(:first-child),
+.crema .copia > p:not(:first-child) {
+  color: var(--texto-secundario);
+}
+
+.oscuro .copia > p:not(:first-child),
+.tinta .copia > p:not(:first-child) {
+  color: var(--texto-inverso-secundario);
+}
+
+@media (max-width: 1100px) {
+  .seccion {
+    grid-template-columns: 1fr;
+  }
+
+  .imagen {
+    min-height: 560px;
+  }
+
+  /* En una sola columna se anula el reordenamiento: vuelve el orden del DOM,
+   * o sea el titular primero y la imagen debajo. */
+  .imagenIzquierda .imagen {
+    order: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .imagen {
+    min-height: 420px;
+  }
+
+  .imagenIzquierda .copia,
+  .imagenDerecha .copia {
+    padding: var(--espacio-16) var(--espacio-4);
+  }
+
+  .copia h2 {
+    font-size: var(--tamano-display-lg-movil);
+  }
+}

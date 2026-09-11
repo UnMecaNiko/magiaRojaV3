@@ -3,9 +3,40 @@ import { applications } from "@/content/applications";
 import { faqItems } from "@/content/faq";
 import { materialGroups, specifications } from "@/content/specifications";
 import { siteConfig } from "@/content/site";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { WhatsAppLink } from "@/components/ui/WhatsAppLink";
+import {
+  Acordeon,
+  Cifras,
+  EnlaceTexto,
+  ListaDatos,
+  Marca,
+  SeccionPartida,
+  SectionHeading,
+  TarjetaAplicacion,
+  WhatsAppLink,
+} from "@/components/ui";
 import styles from "./page.module.css";
+
+/** Las tarjetas 1 y 4 ocupan dos columnas y marcan el ritmo de la rejilla. */
+const TARJETAS_ANCHAS = new Set([0, 3]);
+
+const PASOS = [
+  ["01", "Diseña", "Prepara el archivo vectorial."],
+  ["02", "Configura", "Ajusta el trabajo al material."],
+  ["03", "Corta o graba", "La máquina ejecuta el diseño."],
+  ["04", "Termina", "Ensambla y presenta tu producto."],
+];
+
+const DATOS_HERO = [
+  { etiqueta: "Potencia óptica", valor: "30 W" },
+  { etiqueta: "Área útil en mm", valor: "500 × 500" },
+  { etiqueta: "Movimiento motorizado", valor: "X · Y · Z" },
+];
+
+const CIFRAS_MANTENIMIENTO = [
+  { numero: "6", etiqueta: "meses de cobertura" },
+  { numero: "3", etiqueta: "servicios incluidos" },
+  { numero: "2", etiqueta: "meses entre servicios" },
+];
 
 export default function Home() {
   const structuredData = {
@@ -53,12 +84,7 @@ export default function Home() {
       />
 
       <header className={styles.siteHeader}>
-        <a className={styles.brand} href="#inicio" aria-label="VELO inc, inicio">
-          <span className={styles.brandMark}>V</span>
-          <span>
-            VELO <small>inc</small>
-          </span>
-        </a>
+        <Marca aria-label="VELO inc, inicio" />
 
         <nav aria-label="Navegación principal">
           {siteConfig.navigation.map((item) => (
@@ -68,11 +94,7 @@ export default function Home() {
           ))}
         </nav>
 
-        <WhatsAppLink
-          className={styles.headerCta}
-          location="header"
-          showIcon={false}
-        >
+        <WhatsAppLink location="header" showIcon={false} variante="compacto">
           Hablemos
         </WhatsAppLink>
       </header>
@@ -92,30 +114,14 @@ export default function Home() {
               diseñada por VELO inc.
             </p>
             <div className={styles.heroActions}>
-              <WhatsAppLink
-                className={styles.primaryButton}
-                location="hero"
-              >
+              <WhatsAppLink location="hero" variante="primario">
                 Habla con nosotros
               </WhatsAppLink>
-              <a className={styles.textLink} href="#posibilidades">
-                Explorar posibilidades <span aria-hidden="true">↓</span>
-              </a>
+              <EnlaceTexto href="#posibilidades" icono="↓">
+                Explorar posibilidades
+              </EnlaceTexto>
             </div>
-            <dl className={styles.heroFacts}>
-              <div>
-                <dt>30 W</dt>
-                <dd>Potencia óptica</dd>
-              </div>
-              <div>
-                <dt>500 × 500</dt>
-                <dd>Área útil en mm</dd>
-              </div>
-              <div>
-                <dt>X · Y · Z</dt>
-                <dd>Movimiento motorizado</dd>
-              </div>
-            </dl>
+            <ListaDatos datos={DATOS_HERO} variante="destacados" />
           </div>
 
           <div className={styles.heroVisual}>
@@ -158,72 +164,52 @@ export default function Home() {
 
           <div className={styles.applicationGrid}>
             {applications.map((application, index) => (
-              <article
-                className={`${styles.applicationCard} ${
-                  index === 0 || index === 3 ? styles.applicationCardWide : ""
-                }`}
+              <TarjetaAplicacion
                 key={application.id}
                 id={application.id}
-              >
-                <Image
-                  src={application.image}
-                  alt={application.alt}
-                  fill
-                  sizes={
-                    index === 0 || index === 3
-                      ? "(max-width: 760px) 100vw, 66vw"
-                      : "(max-width: 760px) 100vw, 33vw"
-                  }
-                />
-                <div className={styles.cardShade} />
-                <div className={styles.cardContent}>
-                  <p>{application.eyebrow}</p>
-                  <h3>{application.title}</h3>
-                  <ul>
-                    {application.products.slice(0, 3).map((product) => (
-                      <li key={product}>{product}</li>
-                    ))}
-                  </ul>
-                </div>
-              </article>
+                eyebrow={application.eyebrow}
+                titulo={application.title}
+                imagen={application.image}
+                alt={application.alt}
+                etiquetas={application.products.slice(0, 3)}
+                ancha={TARJETAS_ANCHAS.has(index)}
+              />
             ))}
           </div>
         </section>
 
-        <section className={styles.materials} id="materiales">
-          <div className={styles.materialsImage}>
-            <Image
-              src="/images/aplicaciones/materiales-muestrario-16x9.png"
-              alt="Muestrario de materiales grabados y cortados"
-              fill
-              sizes="(max-width: 900px) 100vw, 52vw"
-            />
+        <SeccionPartida
+          id="materiales"
+          tono="tinta"
+          ladoImagen="izquierda"
+          alturaMinima={750}
+          imagen="/images/aplicaciones/materiales-muestrario-16x9.png"
+          alt="Muestrario de materiales grabados y cortados"
+          sizes="(max-width: 900px) 100vw, 52vw"
+        >
+          <p className="eyebrow">Materiales</p>
+          <h2>La potencia se entiende mejor cuando se convierte en opciones.</h2>
+          <p>
+            El Laser Tree K30 combina 30 W ópticos, una longitud de onda de
+            450 nm y asistencia de aire integrada para trabajar materiales
+            compatibles con precisión.
+          </p>
+          <div className={styles.materialGroups}>
+            {materialGroups.map((group) => (
+              <div key={group.title}>
+                <h3>{group.title}</h3>
+                <ul>
+                  {group.materials.map((material) => (
+                    <li key={material}>{material}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
-          <div className={styles.materialsCopy}>
-            <p className="eyebrow">Materiales</p>
-            <h2>La potencia se entiende mejor cuando se convierte en opciones.</h2>
-            <p>
-              El Laser Tree K30 combina 30 W ópticos, una longitud de onda de
-              450 nm y asistencia de aire integrada para trabajar materiales
-              compatibles con precisión.
-            </p>
-            <div className={styles.materialGroups}>
-              {materialGroups.map((group) => (
-                <div key={group.title}>
-                  <h3>{group.title}</h3>
-                  <ul>
-                    {group.materials.map((material) => (
-                      <li key={material}>{material}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-            <small>
-              No corta metal ni acrílico transparente, blanco o azul.
-            </small>
-          </div>
-        </section>
+          <small className={styles.notaMateriales}>
+            No corta metal ni acrílico transparente, blanco o azul.
+          </small>
+        </SeccionPartida>
 
         <section className={styles.process}>
           <SectionHeading
@@ -240,12 +226,7 @@ export default function Home() {
             />
           </div>
           <ol className={styles.processSteps}>
-            {[
-              ["01", "Diseña", "Prepara el archivo vectorial."],
-              ["02", "Configura", "Ajusta el trabajo al material."],
-              ["03", "Corta o graba", "La máquina ejecuta el diseño."],
-              ["04", "Termina", "Ensambla y presenta tu producto."],
-            ].map(([number, title, text]) => (
+            {PASOS.map(([number, title, text]) => (
               <li key={number}>
                 <span>{number}</span>
                 <h3>{title}</h3>
@@ -255,109 +236,81 @@ export default function Home() {
           </ol>
         </section>
 
-        <section className={styles.machine} id="maquina">
-          <div className={styles.machineCopy}>
-            <p className="eyebrow">Magia Roja v3</p>
-            <h2>La máquina detrás de las posibilidades.</h2>
-            <p>
-              Una plataforma CNC de escritorio con control abierto, movimiento
-              en tres ejes y un cabezal láser pensado para convertir diseños en
-              piezas precisas.
-            </p>
-            <dl className={styles.specGrid}>
-              {specifications.map((spec) => (
-                <div key={spec.label}>
-                  <dt>{spec.label}</dt>
-                  <dd>{spec.value}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-          <div className={styles.machineImage}>
-            <Image
-              src="/images/maquina/hero-maquina-cerrada-vertical-4x5.png"
-              alt="CNC Magia Roja v3 con su tapa roja cerrada"
-              fill
-              sizes="(max-width: 900px) 100vw, 42vw"
-            />
-          </div>
-        </section>
+        <SeccionPartida
+          id="maquina"
+          tono="crema"
+          ladoImagen="derecha"
+          imagen="/images/maquina/hero-maquina-cerrada-vertical-4x5.png"
+          alt="CNC Magia Roja v3 con su tapa roja cerrada"
+          sizes="(max-width: 900px) 100vw, 42vw"
+        >
+          <p className="eyebrow">Magia Roja v3</p>
+          <h2>La máquina detrás de las posibilidades.</h2>
+          <p>
+            Una plataforma CNC de escritorio con control abierto, movimiento en
+            tres ejes y un cabezal láser pensado para convertir diseños en
+            piezas precisas.
+          </p>
+          <ListaDatos
+            datos={specifications.map((spec) => ({
+              etiqueta: spec.label,
+              valor: spec.value,
+            }))}
+          />
+        </SeccionPartida>
 
-        <section className={styles.company}>
-          <div className={styles.companyImage}>
-            <Image
-              src="/images/proceso/velo-inc-ensamble-cnc-16x9.png"
-              alt="Verificación técnica de una CNC Magia Roja"
-              fill
-              sizes="(max-width: 900px) 100vw, 55vw"
-            />
-          </div>
-          <div className={styles.companyCopy}>
-            <p className={styles.companyLogo}>VELO <small>inc</small></p>
-            <h2>Diseñamos y fabricamos máquinas CNC.</h2>
-            <p>
-              Creamos herramientas para que empresas, talleres e instituciones
-              transformen ideas digitales en productos físicos.
-            </p>
-          </div>
-        </section>
+        <SeccionPartida
+          tono="oscuro"
+          ladoImagen="izquierda"
+          imagen="/images/proceso/velo-inc-ensamble-cnc-16x9.png"
+          alt="Verificación técnica de una CNC Magia Roja"
+          sizes="(max-width: 900px) 100vw, 55vw"
+        >
+          <p className={styles.companyLogo}>
+            VELO <small>inc</small>
+          </p>
+          <h2>Diseñamos y fabricamos máquinas CNC.</h2>
+          <p>
+            Creamos herramientas para que empresas, talleres e instituciones
+            transformen ideas digitales en productos físicos.
+          </p>
+        </SeccionPartida>
 
-        <section className={styles.maintenance} id="mantenimiento">
-          <div className={styles.maintenanceCopy}>
-            <p className="eyebrow">Mantenimiento incluido</p>
-            <h2>La relación continúa después de ponerla en marcha.</h2>
-            <p>
-              La CNC Magia Roja v3 incluye un plan de mantenimiento durante sus
-              primeros seis meses.
-            </p>
-            <div className={styles.maintenanceNumbers}>
-              <div>
-                <strong>6</strong>
-                <span>meses de cobertura</span>
-              </div>
-              <div>
-                <strong>3</strong>
-                <span>servicios incluidos</span>
-              </div>
-              <div>
-                <strong>2</strong>
-                <span>meses entre servicios</span>
-              </div>
-            </div>
-            <WhatsAppLink
-              className={styles.secondaryButton}
-              location="maintenance"
-              interest="el plan de mantenimiento"
-            >
-              Consultar el plan
-            </WhatsAppLink>
-          </div>
-          <div className={styles.maintenanceImage}>
-            <Image
-              src="/images/proceso/mantenimiento-tecnico-4x3.png"
-              alt="Servicio de mantenimiento de la CNC Magia Roja"
-              fill
-              sizes="(max-width: 900px) 100vw, 48vw"
-            />
-          </div>
-        </section>
+        <SeccionPartida
+          id="mantenimiento"
+          tono="claro"
+          ladoImagen="derecha"
+          imagen="/images/proceso/mantenimiento-tecnico-4x3.png"
+          alt="Servicio de mantenimiento de la CNC Magia Roja"
+          sizes="(max-width: 900px) 100vw, 48vw"
+        >
+          <p className="eyebrow">Mantenimiento incluido</p>
+          <h2>La relación continúa después de ponerla en marcha.</h2>
+          <p>
+            La CNC Magia Roja v3 incluye un plan de mantenimiento durante sus
+            primeros seis meses.
+          </p>
+          <Cifras cifras={CIFRAS_MANTENIMIENTO} />
+          <WhatsAppLink
+            location="maintenance"
+            interest="el plan de mantenimiento"
+            variante="secundario"
+          >
+            Consultar el plan
+          </WhatsAppLink>
+        </SeccionPartida>
 
         <section className={styles.faq}>
           <SectionHeading
             eyebrow="Preguntas frecuentes"
             title="Lo esencial, antes de conversar."
           />
-          <div className={styles.faqList}>
-            {faqItems.map((item, index) => (
-              <details key={item.question} open={index === 0}>
-                <summary>
-                  {item.question}
-                  <span aria-hidden="true">+</span>
-                </summary>
-                <p>{item.answer}</p>
-              </details>
-            ))}
-          </div>
+          <Acordeon
+            items={faqItems.map((item) => ({
+              pregunta: item.question,
+              respuesta: item.answer,
+            }))}
+          />
         </section>
 
         <section className={styles.finalCta}>
@@ -371,13 +324,8 @@ export default function Home() {
           <div className={styles.finalContent}>
             <p className="eyebrow">Hablemos de tu idea</p>
             <h2>¿Qué quieres crear con tu CNC?</h2>
-            <p>
-              Cuéntanos el tipo de producto o material que tienes en mente.
-            </p>
-            <WhatsAppLink
-              className={styles.primaryButton}
-              location="final_cta"
-            >
+            <p>Cuéntanos el tipo de producto o material que tienes en mente.</p>
+            <WhatsAppLink location="final_cta" variante="primario">
               Escribir por WhatsApp
             </WhatsAppLink>
           </div>
@@ -385,12 +333,7 @@ export default function Home() {
       </main>
 
       <footer className={styles.footer}>
-        <a className={styles.brand} href="#inicio">
-          <span className={styles.brandMark}>V</span>
-          <span>
-            VELO <small>inc</small>
-          </span>
-        </a>
+        <Marca />
         <p>CNC Magia Roja v3 · Diseñada y fabricada por VELO inc.</p>
         <a href="#inicio">Volver arriba ↑</a>
       </footer>

@@ -1,0 +1,26 @@
+.enlace {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-2);
+  color: var(--texto);
+  font-size: var(--tamano-sm);
+  font-weight: var(--peso-medio);
+  transition: color var(--transicion-rapida);
+}
+
+.enlace:hover {
+  color: var(--acento-texto);
+}
+
+/* La flecha es decorativa y va en rojo; el texto se queda en tinta para no
+ * perder contraste. */
+.icono {
+  color: var(--acento-texto);
+  font-size: var(--tamano-base);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enlace {
+    transition: none;
+  }
+}

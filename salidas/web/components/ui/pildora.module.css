@@ -1,0 +1,12 @@
+/* Píldora de vidrio esmerilado. Vive sobre fotografía, así que el fondo y el
+ * borde son blancos translúcidos y NO tokens de marca: tienen que seguir
+ * siendo neutros sobre cualquier imagen. */
+.pildora {
+  padding: var(--espacio-1) var(--espacio-3);
+  color: var(--texto-inverso-suave);
+  background: rgb(255 255 255 / 0.12);
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: var(--radio-pastilla);
+  font-size: var(--tamano-xs);
+  backdrop-filter: blur(12px);
+}

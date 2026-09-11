@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { trackWhatsAppClick } from "@/lib/analytics";
+import { clasesBoton, type VarianteBoton } from "./Boton";
 
 type WhatsAppLinkProps = {
   children: ReactNode;
@@ -11,6 +12,12 @@ type WhatsAppLinkProps = {
   interest?: string;
   message?: string;
   showIcon?: boolean;
+  /**
+   * Aplica el estilo del sistema de botones. Sin esto el enlace queda sin
+   * estilo, para los casos en que el contenedor ya lo viste (el botón
+   * flotante, por ejemplo).
+   */
+  variante?: VarianteBoton;
 };
 
 export function WhatsAppLink({
@@ -20,6 +27,7 @@ export function WhatsAppLink({
   interest = "general",
   message,
   showIcon = true,
+  variante,
 }: WhatsAppLinkProps) {
   const finalMessage =
     message ||
@@ -27,7 +35,7 @@ export function WhatsAppLink({
 
   return (
     <a
-      className={className}
+      className={variante ? clasesBoton(variante, className) : className}
       href={buildWhatsAppUrl(finalMessage)}
       target="_blank"
       rel="noreferrer"

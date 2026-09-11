@@ -1,0 +1,41 @@
+.marca {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-3);
+  color: var(--texto);
+  font-size: var(--tamano-lg);
+  font-weight: var(--peso-marca);
+  letter-spacing: var(--espaciado-letra-ajustada);
+}
+
+/* "inc" no compite con "VELO": baja de peso y suelta el espaciado negativo
+ * que el logotipo sí lleva. */
+.marca small {
+  font-size: var(--tamano-xs);
+  font-weight: var(--peso-medio);
+  letter-spacing: var(--espaciado-letra-normal);
+}
+
+.simbolo {
+  display: grid;
+  width: 35px;
+  height: 35px;
+  color: var(--texto-inverso);
+  background: var(--acento);
+  border-radius: var(--radio-sm);
+  place-items: center;
+  font-size: var(--tamano-sm);
+  box-shadow: var(--sombra-acento-sm);
+}
+
+/* Sobre fondo oscuro el logotipo se invierte y el rojo pasa a la variante
+ * clara, que es la única que alcanza contraste AA ahí. */
+.sobreOscuro {
+  color: var(--acento-sobre-oscuro);
+}
+
+.sobreOscuro .simbolo {
+  color: var(--texto-inverso);
+  background: transparent;
+  box-shadow: none;
+}

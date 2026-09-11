@@ -1,0 +1,80 @@
+/* Lista de definiciones. En ambas variantes el DOM lleva <dt> = etiqueta y
+ * <dd> = valor, que es lo que la semántica de <dl> pide. La versión del héroe
+ * los tenía invertidos (el valor en <dt>) para lograr el orden visual; acá el
+ * orden se resuelve con CSS y el marcado queda correcto. */
+
+.destacados {
+  display: flex;
+  gap: var(--espacio-8);
+  margin-top: var(--espacio-14);
+}
+
+.destacados .fila {
+  display: flex;
+  flex-direction: column-reverse; /* el valor arriba, la etiqueta debajo */
+  padding-right: var(--espacio-8);
+  border-right: 1px solid var(--borde);
+}
+
+.destacados .fila:last-child {
+  padding-right: 0;
+  border-right: 0;
+}
+
+.destacados dt {
+  margin-top: var(--espacio-1);
+  color: var(--texto-secundario);
+  font-size: var(--tamano-xs);
+  letter-spacing: var(--espaciado-letra-ancha);
+  text-transform: uppercase;
+}
+
+.destacados dd {
+  color: var(--texto);
+  font-size: var(--tamano-md);
+  font-weight: var(--peso-fuerte);
+  letter-spacing: var(--espaciado-letra-ajustada);
+}
+
+.especificaciones {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: var(--espacio-12);
+  border-top: 1px solid var(--borde);
+}
+
+.especificaciones .fila {
+  padding: var(--espacio-4) var(--espacio-4) var(--espacio-4) 0;
+  border-bottom: 1px solid var(--borde);
+}
+
+.especificaciones dt {
+  color: var(--texto-secundario);
+  font-size: var(--tamano-xs);
+  letter-spacing: var(--espaciado-letra-ancha);
+  text-transform: uppercase;
+}
+
+.especificaciones dd {
+  margin-top: var(--espacio-1);
+  color: var(--texto);
+  font-size: var(--tamano-base);
+  font-weight: var(--peso-fuerte);
+}
+
+@media (max-width: 720px) {
+  .destacados {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--espacio-5);
+  }
+
+  .destacados .fila {
+    padding: 0;
+    border: 0;
+  }
+
+  .especificaciones {
+    grid-template-columns: 1fr;
+  }
+}

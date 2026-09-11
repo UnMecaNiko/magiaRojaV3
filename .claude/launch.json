@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "landing-velo",
+      "runtimeExecutable": "C:\\Users\\nicol\\AppData\\Local\\Programs\\nodejs\\npm.cmd",
+      "runtimeArgs": ["--prefix", "salidas/web", "run", "dev"],
+      "port": 3000
+    }
+  ]
+}

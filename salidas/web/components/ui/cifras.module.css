@@ -1,0 +1,38 @@
+.cifras {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--espacio-4);
+  margin: var(--espacio-10) 0;
+}
+
+.fila {
+  display: flex;
+  flex-direction: column;
+  padding: var(--espacio-4) 0;
+  border-top: 1px solid var(--borde);
+}
+
+.numero {
+  color: var(--acento-texto);
+  font-size: var(--tamano-display-sm);
+  font-weight: var(--peso-display);
+  letter-spacing: var(--espaciado-letra-display);
+}
+
+.etiqueta {
+  max-width: 100px;
+  margin-top: var(--espacio-1);
+  color: var(--texto-secundario);
+  font-size: var(--tamano-xs);
+  line-height: var(--interlinea-ajustada);
+}
+
+@media (max-width: 720px) {
+  .cifras {
+    gap: var(--espacio-2);
+  }
+
+  .numero {
+    font-size: var(--tamano-display-sm);
+  }
+}

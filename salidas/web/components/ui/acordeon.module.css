@@ -1,0 +1,48 @@
+.acordeon {
+  border-top: 1px solid var(--borde);
+}
+
+.acordeon details {
+  border-bottom: 1px solid var(--borde);
+}
+
+.acordeon summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--espacio-5) 0;
+  font-size: var(--tamano-base);
+  font-weight: var(--peso-medio);
+  cursor: pointer;
+  list-style: none;
+}
+
+.acordeon summary::-webkit-details-marker {
+  display: none;
+}
+
+/* El "+" gira a "×" al abrir. Es decorativo: el estado real lo comunica el
+ * propio <details>, que los lectores de pantalla anuncian solos. */
+.acordeon summary span {
+  color: var(--acento-texto);
+  font-size: var(--tamano-lg);
+  font-weight: var(--peso-regular);
+  transition: transform var(--transicion-rapida);
+}
+
+.acordeon details[open] summary span {
+  transform: rotate(45deg);
+}
+
+.acordeon details p {
+  max-width: 700px;
+  padding: 0 var(--espacio-8) var(--espacio-5) 0;
+  color: var(--texto-secundario);
+  line-height: var(--interlinea-comoda);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .acordeon summary span {
+    transition: none;
+  }
+}

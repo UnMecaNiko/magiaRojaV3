@@ -1,0 +1,53 @@
+.base {
+  display: inline-flex;
+  min-height: 50px;
+  align-items: center;
+  justify-content: center;
+  gap: var(--espacio-2);
+  padding: var(--espacio-3) var(--espacio-5);
+  border-radius: var(--radio-pastilla);
+  font-size: var(--tamano-sm);
+  font-weight: var(--peso-fuerte);
+  transition:
+    transform var(--transicion-rapida),
+    box-shadow var(--transicion-rapida);
+}
+
+.primario {
+  color: var(--texto-inverso);
+  background: var(--acento);
+  box-shadow: var(--sombra-acento-md);
+}
+
+.secundario {
+  width: fit-content;
+  color: var(--texto);
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+}
+
+/* Compacto: la variante de la cabecera. Sin sombra ni altura mínima porque
+ * convive con la navegación y una píldora alta rompería la línea óptica. */
+.compacto {
+  min-height: 0;
+  padding: var(--espacio-2) var(--espacio-4);
+  color: var(--texto-inverso);
+  background: var(--fondo-seccion-oscura);
+  box-shadow: none;
+}
+
+.base:hover {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 720px) {
+  .compacto {
+    padding: var(--espacio-2) var(--espacio-3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .base {
+    transition: none;
+  }
+}

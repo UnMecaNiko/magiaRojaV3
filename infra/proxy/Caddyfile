@@ -91,7 +91,19 @@ www.{$DOMINIO_VELO} {
 	@estaticos path /_next/static/*
 	header @estaticos Cache-Control "public, max-age=31536000, immutable"
 
-	# La exportación escribe una página por ruta como `<ruta>.html`.
+	# Idioma del navegador en la raíz. 302, no 301: la respuesta depende
+	# de Accept-Language. Misma regla que velasquezlopez.com (Nicolas, 2026-09-18).
+	@home path /
+	header @home Vary Accept-Language
+
+	@home_es {
+		path /
+		header_regexp Accept-Language (?i)^\s*es\b
+	}
+	redir @home_es /es/ 302
+	redir @home /en/ 302
+
+	# La exportación escribe una página por ruta como `<ruta>/index.html`.
 	try_files {path} {path}.html {path}/index.html
 	file_server
 

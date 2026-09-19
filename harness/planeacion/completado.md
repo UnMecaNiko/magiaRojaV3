@@ -4,6 +4,9 @@
 
 ## 2026
 
+### 2026-09-18 — La landing se publica con un push a `main`
+- [D-0020](../../conocimiento/maquina/decisiones/D-0020-despliegue-landing-por-github-actions.md): GitHub Actions corre `infra/desplegar-landing.sh`. El primer run falló por el bit de ejecución de los `.sh`; el segundo publicó en 1 m 3 s. Lo que sigue (construir la imagen fuera del VPS) no está en esta lista: es infraestructura, no la fase eléctrica.
+
 ### 2026-08-24 — Actualización eléctrica e investigación de mejoras
 - Documentada la sesión física del 17 de agosto: tira LED interior a 12 V en el segundo interruptor, mazo móvil fijado, finales NC, Y−/Y+ en serie, Z+ en D12 y homing de tres ejes.
 - [D-0018](../../conocimiento/maquina/decisiones/D-0018-finales-carrera-nc-y-en-serie.md): formalizada la topología de límites y cerrado el seguimiento de la alarma por EMI.

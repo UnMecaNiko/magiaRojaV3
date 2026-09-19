@@ -59,3 +59,36 @@ no está en git. El Dockerfile fija `node:24-alpine` a un digest.
 - ⏳ Corte 2: construir la imagen fuera del VPS.
 - ⏳ Usuario sin privilegios con `sudo` y `PermitRootLogin no` (ya pendiente
   en la ficha del VPS).
+
+## Nota de ejecución (2026-09-18)
+
+Se midió el ciclo **a mano** (`./infra/desplegar-landing.sh` desde Git Bash):
+**97 s**, de ellos 77 s en el VPS. `npm ci` fueron 36 s porque el tag flotante
+`node:24-alpine` había cambiado de digest en seis semanas.
+
+Luego se encendió el workflow y se midió otra vez:
+
+| Run | Qué pasó | Tiempo |
+|---|---|---|
+| [35417890073](https://github.com/UnMecaNiko/magiaRojaV3/actions/runs/35417890073) | SSH al VPS ok. `./infra/desplegar-landing.sh` → exit 126 | 9 s |
+| [35417933299](https://github.com/UnMecaNiko/magiaRojaV3/actions/runs/35417933299) | Publicado. Pie con `data-deploy="gha"` | **1 m 3 s** |
+
+Aprendizajes, para no repetirlos:
+
+1. **Los `.sh` editados en Windows entran a git como `100644`.** En el runner
+   de Ubuntu `./script.sh` es «Permission denied». Hay que
+   `git update-index --chmod=+x` **y** invocarlos con `bash script.sh` — el
+   segundo cubre el caso si el bit se vuelve a perder. `generar-tokens.sh`
+   también: el script de deploy lo llama por ruta, no con `bash`.
+2. **WSL no es el SSH de este equipo.** El alias `velo-vps` vive en
+   `C:\Users\nicol\.ssh\config`. `bash` de WSL no resuelve el hostname; usar
+   ese config con `-F` falló con `Host key verification failed`. Git Bash sí
+   entra. Un agente que despliegue a mano tiene que usar Git Bash u OpenSSH
+   de Windows, no WSL.
+3. **`main` local tenía un commit de 8 días sin empujar** («Sincroniza la
+   librería de componentes UI»). El primer `git push` de CI se lo llevó
+   también. Antes de encender un deploy automático, `git log origin/main..HEAD`.
+4. El filtro `paths:` del workflow funciona: un push que solo tocó
+   `harness/planeacion/changelog.md` **no** redesplegó.
+5. El secret es root. `fail2ban` no bloqueó el runner en esta prueba; si lo
+   hace, el síntoma será timeout de SSH, no un error del script.

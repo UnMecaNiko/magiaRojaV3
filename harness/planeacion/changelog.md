@@ -5,6 +5,7 @@
 ## 2026-09
 
 ### 2026-09-18
+- **[infra]** La presentación estática de `/srv/theker` pasa a servirse en `presalesagent.unmecaniko.com`. `theker.velasquezlopez.com` redirige 301. `DOMINIO_THEKER` en el `.env` del proxy y el `Caddyfile` actualizados; el certificado Let's Encrypt salió en ~5 s. Motivo: el host `theker.*` colisionaba con THEKER Robotics y el trabajo es de la marca personal, no de la CNC.
 - **[infra/web]** [D-0020](../../conocimiento/maquina/decisiones/D-0020-despliegue-landing-por-github-actions.md): un push a `main` publica la landing. El script `desplegar-landing.sh` sigue siendo la fuente de la verdad; GitHub Actions solo le da SSH. Fijado el digest de `node:24-alpine` y añadido `.dockerignore` para que el `.env` de producción no entre al contexto de build. Motivo: el ciclo manual del mismo día tardó 97 s y dependía de esta laptop.
 - **[infra]** Primera prueba: el workflow falló en 9 s (exit 126) porque los `.sh` no tenían bit de ejecución en git. Corregido a `100755` y `bash infra/desplegar-landing.sh`; el segundo run publicó en 1 m 3 s. Los cinco aprendizajes (bit +x, WSL ≠ SSH de Windows, no empujar commits ajenos al deploy, el filtro `paths:`, fail2ban) quedaron en la nota de ejecución de D-0020.
 

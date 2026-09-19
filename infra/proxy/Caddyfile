@@ -43,6 +43,7 @@ www.{$DOMINIO_VELO} {
 # Exportación estática de un Next.js (`output: "export"`), servida como
 # archivos: no hay proceso Node detrás. El contenido se sube a
 # /opt/proxy/sitios/theker — ver la sección "Sitios estáticos" del README.
+# Dirección canónica desde 2026-09-18: presalesagent.unmecaniko.com
 {$DOMINIO_THEKER} {
 	import comunes
 
@@ -60,6 +61,11 @@ www.{$DOMINIO_VELO} {
 		rewrite * /404.html
 		file_server
 	}
+}
+
+# Dominio anterior (2026-07-30). El 301 conserva los enlaces ya publicados.
+theker.velasquezlopez.com {
+	redir https://{$DOMINIO_THEKER}{uri} permanent
 }
 
 # ── Tercer sitio ───────────────────────────────────────────────

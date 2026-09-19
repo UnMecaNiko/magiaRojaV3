@@ -140,10 +140,10 @@ CTA abren WhatsApp sin destinatario y el visitante tiene que elegir el contacto.
 
 ### Sitios estáticos
 
-`theker.velasquezlopez.com` sirve la presentación **«Sistema operativo de IA»**,
-cuyo código vive en otro repositorio (`presales-customers-context`, en
-`web/sistema-operativo-ia/`). Es un Next.js configurado con `output: "export"`:
-en producción no hay proceso Node, solo archivos.
+`presalesagent.unmecaniko.com` sirve la presentación **«Sistema operativo de IA»**.
+`theker.velasquezlopez.com` redirige 301 a esa dirección. El código vive en
+otro repositorio. Es un Next.js configurado con `output: "export"`: en
+producción no hay proceso Node, solo archivos.
 
 Para publicar una versión nueva, desde el repositorio de la presentación:
 

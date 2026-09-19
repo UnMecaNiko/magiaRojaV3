@@ -1,0 +1,24 @@
+# El contexto de build es /opt/web-velo en el VPS. Sin esto, Docker empaqueta
+# el directorio entero — incluido el .env de producción, que Next.js leería
+# y copiaría a una capa de la imagen. Las NEXT_PUBLIC_* entran por ARG en el
+# Dockerfile; el .env del servidor se queda fuera del contexto.
+
+node_modules
+.next
+out
+.git
+.gitignore
+.gitattributes
+.env
+.env.*
+!.env.example
+
+README.md
+AGENTS.md
+CLAUDE.md
+eslint.config.mjs
+.design-sync
+ds-bundle
+.ds-sync
+coverage
+*.md

@@ -97,14 +97,21 @@ docker compose -f /opt/proxy/compose.yaml logs --tail 50 caddy
 | Ver estado de todo | `docker ps` |
 | Logs de un servicio | `docker compose logs -f --tail 100 <servicio>` |
 | Añadir o cambiar un dominio | Editar `Caddyfile` y `.env`, luego `docker compose restart caddy` |
-| Actualizar la landing tras un cambio | `./infra/desplegar-landing.sh` desde el repo (ver [Publicar la landing](#publicar-la-landing)) |
+| Actualizar la landing tras un cambio | `git push` a `main` (ver [Publicar la landing](#publicar-la-landing)). El script a mano sigue valiendo. |
 | Publicar una versión nueva de un sitio estático | ver [Sitios estáticos](#sitios-estáticos) |
 | Actualizar n8n | `cd /opt/n8n && docker compose pull && docker compose up -d` |
 | Liberar espacio | `docker image prune -f` |
 
 ### Publicar la landing
 
-Desde el repositorio, con un solo comando:
+**Camino normal:** `git push` a `main`. Si el cambio toca `salidas/web/**` (o
+los tokens, o este script), GitHub Actions corre el script. Disparo manual:
+
+```bash
+gh workflow run "Desplegar landing" --repo UnMecaNiko/magiaRojaV3
+```
+
+**Camino de emergencia**, desde el repositorio en el equipo de trabajo:
 
 ```bash
 ./infra/desplegar-landing.sh
@@ -116,6 +123,10 @@ local), los sincroniza en `/opt/web-velo` con `rsync --delete` excluyendo el
 `.env` del servidor, reconstruye la imagen y comprueba que
 `https://velasquezlopez.com` responda 200 y que los CTA lleven número de
 WhatsApp. Es idempotente.
+
+La llave con la que Actions entra al VPS **no está en git**: es el secret
+`VELO_VPS_SSH_KEY`. Rotarla es generar otra ed25519, poner la pública en
+`/root/.ssh/authorized_keys` y actualizar el secret. Ver [D-0020](../conocimiento/maquina/decisiones/D-0020-despliegue-landing-por-github-actions.md).
 
 Se puede apuntar a otro host, ruta o dominio con las variables `VELO_VPS_HOST`,
 `VELO_VPS_RUTA` y `VELO_DOMINIO`.

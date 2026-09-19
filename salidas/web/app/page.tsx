@@ -330,7 +330,7 @@ export default function Home() {
 
       <footer className={styles.footer}>
         <Marca />
-        <p>CNC Magia Roja v3 · Diseñada y fabricada por VELO inc.</p>
+        <p data-deploy="gha">CNC Magia Roja v3 · Diseñada y fabricada por VELO inc. · 2026</p>
         <a href="#inicio">Volver arriba ↑</a>
       </footer>
 

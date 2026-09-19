@@ -1,0 +1,56 @@
+# Publica salidas/web en el VPS cuando main cambia.
+# El script es la fuente de la verdad: este workflow solo le da SSH.
+# No corre en pull_request a propósito — el secret es una llave root.
+# Ver D-0020.
+
+name: Desplegar landing
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "salidas/web/**"
+      - "comercial/identidad/tokens.yaml"
+      - "harness/scripts/generar-tokens.sh"
+      - "infra/desplegar-landing.sh"
+      - ".github/workflows/deploy-landing.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-landing
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configurar SSH al VPS
+        env:
+          VELO_VPS_SSH_KEY: ${{ secrets.VELO_VPS_SSH_KEY }}
+        run: |
+          test -n "$VELO_VPS_SSH_KEY" || {
+            echo "Falta el secret VELO_VPS_SSH_KEY" >&2
+            exit 1
+          }
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$VELO_VPS_SSH_KEY" > ~/.ssh/velo_vps
+          chmod 600 ~/.ssh/velo_vps
+          ssh-keyscan -H 2.24.106.64 >> ~/.ssh/known_hosts
+          printf '%s\n' \
+            'Host velo-vps' \
+            '    HostName 2.24.106.64' \
+            '    User root' \
+            '    IdentityFile ~/.ssh/velo_vps' \
+            '    IdentitiesOnly yes' \
+            '    ServerAliveInterval 30' \
+            > ~/.ssh/config
+          chmod 600 ~/.ssh/config
+          ssh -o BatchMode=yes -o ConnectTimeout=10 velo-vps 'hostname'
+
+      - name: Publicar la landing
+        run: ./infra/desplegar-landing.sh

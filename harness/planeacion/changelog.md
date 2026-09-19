@@ -2,6 +2,11 @@
 
 > Bitácora cronológica de cambios: en la máquina, en decisiones, en el repo. Grano más fino que [completado.md](completado.md) (que registra hitos). Formato: fecha + qué + por qué.
 
+## 2026-09
+
+### 2026-09-18
+- **[infra/web]** [D-0020](../../conocimiento/maquina/decisiones/D-0020-despliegue-landing-por-github-actions.md): un push a `main` publica la landing. El script `desplegar-landing.sh` sigue siendo la fuente de la verdad; GitHub Actions solo le da SSH. Fijado el digest de `node:24-alpine` y añadido `.dockerignore` para que el `.env` de producción no entre al contexto de build. Motivo: el ciclo manual del mismo día tardó 97 s y dependía de esta laptop.
+
 ## 2026-08
 
 ### 2026-08-24

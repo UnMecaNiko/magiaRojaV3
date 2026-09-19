@@ -1,9 +1,15 @@
-FROM node:24-alpine AS dependencies
+# Digest verificado el 2026-09-18 al reconstruir web-velo en el VPS.
+# Un tag flotante (node:24-alpine) invalida npm ci cada vez que Docker Hub
+# publica un digest nuevo; por eso va fijado. Para actualizar: reconstruir
+# una vez con el tag, copiar el sha256 del log y cambiar esta línea.
+ARG NODE_IMAGE=node:24-alpine@sha256:ebfe2f90462722a7a4de65e91990e97fe0d401c70e0e762c5b53302f905ec1c1
+
+FROM ${NODE_IMAGE} AS dependencies
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 
-FROM node:24-alpine AS builder
+FROM ${NODE_IMAGE} AS builder
 WORKDIR /app
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
@@ -20,7 +26,7 @@ ENV NEXT_PUBLIC_META_PIXEL_ID=$NEXT_PUBLIC_META_PIXEL_ID
 
 RUN npm run build
 
-FROM node:24-alpine AS runner
+FROM ${NODE_IMAGE} AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3000

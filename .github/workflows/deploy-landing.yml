@@ -53,4 +53,4 @@ jobs:
           ssh -o BatchMode=yes -o ConnectTimeout=10 velo-vps 'hostname'
 
       - name: Publicar la landing
-        run: ./infra/desplegar-landing.sh
+        run: bash infra/desplegar-landing.sh

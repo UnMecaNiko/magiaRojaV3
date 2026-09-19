@@ -121,8 +121,8 @@ El script hace todo el trayecto y lo verifica: empaqueta **solo los archivos
 versionados** de `salidas/web` (nunca `node_modules`, `.next` ni el `.env`
 local), los sincroniza en `/opt/web-velo` con `rsync --delete` excluyendo el
 `.env` del servidor, reconstruye la imagen y comprueba que
-`https://velasquezlopez.com` responda 200 y que los CTA lleven número de
-WhatsApp. Es idempotente.
+`https://cnc.velasquezlopez.com` responda 200 y que los CTA lleven número de
+WhatsApp. Es idempotente. El apex `velasquezlopez.com` ya no es esta landing.
 
 La llave con la que Actions entra al VPS **no está en git**: es el secret
 `VELO_VPS_SSH_KEY`. Rotarla es generar otra ed25519, poner la pública en

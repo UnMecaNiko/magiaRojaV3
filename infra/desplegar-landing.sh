@@ -14,7 +14,8 @@
 #      sobrevive.
 #   3. Reconstruye la imagen. Las variables NEXT_PUBLIC_* se incrustan en
 #      tiempo de compilación: reiniciar el contenedor no basta.
-#   4. Verifica que el dominio responda y que los CTA lleven número de WhatsApp.
+#   4. Verifica que https://cnc.velasquezlopez.com responda 200 y que
+#      los CTA lleven número de WhatsApp. El apex ya no es esta landing.
 #
 # Es idempotente: correrlo dos veces seguidas deja el mismo resultado.
 #
@@ -37,7 +38,7 @@ done
 
 HOST="${VELO_VPS_HOST:-velo-vps}"
 DESTINO="${VELO_VPS_RUTA:-/opt/web-velo}"
-DOMINIO="${VELO_DOMINIO:-velasquezlopez.com}"
+DOMINIO="${VELO_DOMINIO:-cnc.velasquezlopez.com}"
 STAGING="/tmp/web-velo-nuevo"
 
 RAIZ="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

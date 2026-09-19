@@ -10,8 +10,9 @@ type WhatsAppLinkProps = {
   className?: string;
   location: string;
   interest?: string;
-  message?: string;
+  message: string;
   showIcon?: boolean;
+  "aria-label"?: string;
   /**
    * Aplica el estilo del sistema de botones. Sin esto el enlace queda sin
    * estilo, para los casos en que el contenedor ya lo viste (el botón
@@ -28,19 +29,16 @@ export function WhatsAppLink({
   message,
   showIcon = true,
   variante,
+  "aria-label": ariaLabel,
 }: WhatsAppLinkProps) {
-  const finalMessage =
-    message ||
-    `Hola, quiero conocer más sobre la CNC Magia Roja v3 para ${interest}.`;
-
   return (
     <a
       className={variante ? clasesBoton(variante, className) : className}
-      href={buildWhatsAppUrl(finalMessage)}
+      href={buildWhatsAppUrl(message)}
       target="_blank"
       rel="noreferrer"
       onClick={() => trackWhatsAppClick(location, interest)}
-      aria-label={`${String(children)} por WhatsApp`}
+      aria-label={ariaLabel ?? String(children)}
     >
       {showIcon && (
         <svg

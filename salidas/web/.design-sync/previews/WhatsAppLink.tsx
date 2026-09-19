@@ -2,7 +2,7 @@ import { WhatsAppLink } from "web";
 
 export function Primario() {
   return (
-    <WhatsAppLink location="hero" variante="primario">
+    <WhatsAppLink location="hero" variante="primario" message="Hola">
       Habla con nosotros
     </WhatsAppLink>
   );
@@ -10,7 +10,7 @@ export function Primario() {
 
 export function CompactoSinIcono() {
   return (
-    <WhatsAppLink location="header" showIcon={false} variante="compacto">
+    <WhatsAppLink location="header" showIcon={false} variante="compacto" message="Hola">
       Hablemos
     </WhatsAppLink>
   );
@@ -22,6 +22,7 @@ export function Secundario() {
       location="maintenance"
       interest="el plan de mantenimiento"
       variante="secundario"
+      message="Hola"
     >
       Consultar el plan
     </WhatsAppLink>

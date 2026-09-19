@@ -5,6 +5,13 @@
 ## 2026-09
 
 ### 2026-09-18
+- **[web]** La landing de `cnc.velasquezlopez.com` queda en español (`/es`) e
+  inglés (`/en`). La raíz redirige 302 según `Accept-Language`: primera etiqueta
+  `es` → español; cualquier otro navegador → inglés. Misma regla que pidió
+  Nicolas el 2026-09-18 para velasquezlopez.com. El texto vive en
+  `salidas/web/content/copy.ts`; la fuente no se traduce ([D-0001](../../conocimiento/maquina/decisiones/D-0001-idioma-espanol.md),
+  [D-0021](../../conocimiento/maquina/decisiones/D-0021-landing-bilingue.md)).
+  `desplegar-landing.sh` verifica `/es` y `/en` (la raíz ya no es 200).
 - **[infra]** Aplicado el cambio de apex: `velasquezlopez.com` sirve la portada estática; la landing Next.js queda en `cnc.velasquezlopez.com`. Certificado Let's Encrypt de `cnc` emitido al aplicar. `NEXT_PUBLIC_SITE_URL` en `/opt/web-velo/.env` pasa a `https://cnc.velasquezlopez.com` y se reconstruye la imagen. `VELO_DOMINIO` por defecto en `desplegar-landing.sh` apunta al subdominio: si siguiera el apex, el script pediría HTTP 200 a una 302 y el despliegue fallaría. El `Caddyfile` se copió a mano; `deploy-landing.yml` no cubre `infra/proxy/**`.
 - **[infra]** La presentación estática de `/srv/theker` pasa a servirse en `presalesagent.unmecaniko.com`. `theker.velasquezlopez.com` redirige 301. `DOMINIO_THEKER` en el `.env` del proxy y el `Caddyfile` actualizados; el certificado Let's Encrypt salió en ~5 s. Motivo: el host `theker.*` colisionaba con THEKER Robotics y el trabajo es de la marca personal, no de la CNC.
 - **[infra/web]** [D-0020](../../conocimiento/maquina/decisiones/D-0020-despliegue-landing-por-github-actions.md): un push a `main` publica la landing. El script `desplegar-landing.sh` sigue siendo la fuente de la verdad; GitHub Actions solo le da SSH. Fijado el digest de `node:24-alpine` y añadido `.dockerignore` para que el `.env` de producción no entre al contexto de build. Motivo: el ciclo manual del mismo día tardó 97 s y dependía de esta laptop.

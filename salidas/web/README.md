@@ -7,6 +7,22 @@ Landing de VELO inc construida con Next.js, App Router y TypeScript. El contenid
 - Node.js 24 LTS
 - npm
 
+## Idioma
+
+Hay versión en [español](https://cnc.velasquezlopez.com/es) y en
+[inglés](https://cnc.velasquezlopez.com/en). La raíz (`/`) mira la cabecera
+`Accept-Language` en `proxy.ts`:
+
+- si la **primera** etiqueta empieza por `es` → `/es`
+- en cualquier otro caso → `/en`
+
+Eso es el idioma del navegador, sin JavaScript. La regla es la misma que
+confirmó Nicolas el 2026-09-18 para velasquezlopez.com. Hay un conmutador
+ES · EN por si alguien quiere el otro idioma. El texto vive en
+[`content/copy.ts`](content/copy.ts); la fuente en `conocimiento/` sigue en
+español ([D-0001](../../conocimiento/maquina/decisiones/D-0001-idioma-espanol.md),
+[D-0021](../../conocimiento/maquina/decisiones/D-0021-landing-bilingue.md)).
+
 ## Desarrollo local
 
 ```bash
@@ -15,7 +31,8 @@ npm install
 npm run dev
 ```
 
-Abrir `http://localhost:3000`.
+Abrir `http://localhost:3000`. En desarrollo la raíz también redirige según
+`Accept-Language`. Para forzar un idioma, abre `/es` o `/en` directo.
 
 Variables:
 

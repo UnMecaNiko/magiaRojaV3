@@ -1,8 +1,8 @@
 import Image from "next/image";
-import { applications } from "@/content/applications";
-import { faqItems } from "@/content/faq";
-import { materialGroups, specifications } from "@/content/specifications";
+import { notFound } from "next/navigation";
+import { copy } from "@/content/copy";
 import { siteConfig } from "@/content/site";
+import { isLocale } from "@/lib/locale";
 import {
   Acordeon,
   Cifras,
@@ -14,31 +14,17 @@ import {
   TarjetaAplicacion,
   WhatsAppLink,
 } from "@/components/ui";
-import styles from "./page.module.css";
+import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
+import styles from "../page.module.css";
 
 /** Las tarjetas 1 y 4 ocupan dos columnas y marcan el ritmo de la rejilla. */
 const TARJETAS_ANCHAS = new Set([0, 3]);
 
-const PASOS = [
-  ["01", "Diseña", "Prepara el archivo vectorial."],
-  ["02", "Configura", "Ajusta el trabajo al material."],
-  ["03", "Corta o graba", "La máquina ejecuta el diseño."],
-  ["04", "Termina", "Ensambla y presenta tu producto."],
-];
+export default async function Home({ params }: PageProps<"/[lang]">) {
+  const { lang } = await params;
+  if (!isLocale(lang)) notFound();
 
-const DATOS_HERO = [
-  { etiqueta: "Potencia óptica", valor: "30 W" },
-  { etiqueta: "Área útil en mm", valor: "500 × 500" },
-  { etiqueta: "Movimiento motorizado", valor: "X · Y · Z" },
-];
-
-const CIFRAS_MANTENIMIENTO = [
-  { numero: "6", etiqueta: "meses de cobertura" },
-  { numero: "3", etiqueta: "servicios incluidos" },
-  { numero: "2", etiqueta: "meses entre servicios" },
-];
-
-export default function Home() {
+  const t = copy[lang];
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
@@ -46,13 +32,13 @@ export default function Home() {
         "@type": "Organization",
         name: siteConfig.company,
         url: siteConfig.url,
-        description: "Compañía dedicada a diseñar y fabricar máquinas CNC.",
+        description: t.meta.organizationDescription,
       },
       {
         "@type": "Product",
         name: siteConfig.product,
         brand: { "@type": "Brand", name: siteConfig.company },
-        description: siteConfig.description,
+        description: t.meta.description,
         image: `${siteConfig.url}/images/detalles/og-social-1200x630.png`,
         width: {
           "@type": "QuantitativeValue",
@@ -67,7 +53,7 @@ export default function Home() {
       },
       {
         "@type": "FAQPage",
-        mainEntity: faqItems.map((item) => ({
+        mainEntity: t.faq.items.map((item) => ({
           "@type": "Question",
           name: item.question,
           acceptedAnswer: { "@type": "Answer", text: item.answer },
@@ -84,51 +70,61 @@ export default function Home() {
       />
 
       <header className={styles.siteHeader}>
-        <Marca aria-label="VELO inc, inicio" />
+        <Marca aria-label={t.homeAria} />
 
-        <nav aria-label="Navegación principal">
-          {siteConfig.navigation.map((item) => (
+        <nav aria-label={t.navAria}>
+          {t.navigation.map((item) => (
             <a key={item.href} href={item.href}>
               {item.label}
             </a>
           ))}
         </nav>
 
-        <WhatsAppLink location="header" showIcon={false} variante="compacto">
-          Hablemos
-        </WhatsAppLink>
+        <div className={styles.headerActions}>
+          <LanguageSwitcher locale={lang} />
+          <WhatsAppLink
+            location="header"
+            showIcon={false}
+            variante="compacto"
+            message={t.whatsapp.generic}
+            aria-label={`${t.headerCta} ${t.whatsapp.ariaSuffix}`}
+          >
+            {t.headerCta}
+          </WhatsAppLink>
+        </div>
       </header>
 
       <main>
         <section className={styles.hero} id="inicio">
           <div className={styles.heroCopy}>
-            <p className="eyebrow">Corte + grabado CNC</p>
+            <p className="eyebrow">{t.hero.eyebrow}</p>
             <h1>
-              De una idea
+              {t.hero.titleBefore}
               <br />
-              a un <em>producto real.</em>
+              {t.hero.titleMid} <em>{t.hero.titleAccent}</em>
             </h1>
-            <p className={styles.heroLead}>
-              Explora nuevas formas de crear decoración, señalización,
-              invitaciones, accesorios y material educativo con una máquina
-              diseñada por VELO inc.
-            </p>
+            <p className={styles.heroLead}>{t.hero.lead}</p>
             <div className={styles.heroActions}>
-              <WhatsAppLink location="hero" variante="primario">
-                Habla con nosotros
+              <WhatsAppLink
+                location="hero"
+                variante="primario"
+                message={t.whatsapp.generic}
+                aria-label={`${t.hero.primaryCta} ${t.whatsapp.ariaSuffix}`}
+              >
+                {t.hero.primaryCta}
               </WhatsAppLink>
               <EnlaceTexto href="#posibilidades" icono="↓">
-                Explorar posibilidades
+                {t.hero.secondaryCta}
               </EnlaceTexto>
             </div>
-            <ListaDatos datos={DATOS_HERO} variante="destacados" />
+            <ListaDatos datos={t.hero.stats} variante="destacados" />
           </div>
 
           <div className={styles.heroVisual}>
             <div className={styles.heroGlow} />
             <Image
               src="/images/maquina/hero-maquina-abierta-4x3.png"
-              alt="CNC Magia Roja v3 de VELO inc con tapa roja abierta"
+              alt={t.hero.imageAlt}
               width={1024}
               height={768}
               priority
@@ -137,33 +133,31 @@ export default function Home() {
             <div className={styles.heroLabel}>
               <span />
               <p>
-                <strong>Magia Roja v3</strong>
-                <small>Diseñada por VELO inc</small>
+                <strong>{t.hero.labelTitle}</strong>
+                <small>{t.hero.labelCaption}</small>
               </p>
             </div>
           </div>
         </section>
 
         <section className={styles.introStrip}>
-          <p>Una sola plataforma.</p>
+          <p>{t.intro.title}</p>
           <div>
-            <span>Madera</span>
-            <span>Cuero</span>
-            <span>Papel</span>
-            <span>Acrílico oscuro</span>
-            <span>Metal marcado</span>
+            {t.intro.materials.map((material) => (
+              <span key={material}>{material}</span>
+            ))}
           </div>
         </section>
 
         <section className={styles.possibilities} id="posibilidades">
           <SectionHeading
-            eyebrow="Posibilidades"
-            title="Una máquina. Muchos caminos."
-            description="No empieces por la especificación técnica. Empieza por el producto que quieres poner en manos de tus clientes."
+            eyebrow={t.possibilities.eyebrow}
+            title={t.possibilities.title}
+            description={t.possibilities.description}
           />
 
           <div className={styles.applicationGrid}>
-            {applications.map((application, index) => (
+            {t.applications.map((application, index) => (
               <TarjetaAplicacion
                 key={application.id}
                 id={application.id}
@@ -171,7 +165,7 @@ export default function Home() {
                 titulo={application.title}
                 imagen={application.image}
                 alt={application.alt}
-                etiquetas={application.products.slice(0, 3)}
+                etiquetas={application.products}
                 ancha={TARJETAS_ANCHAS.has(index)}
               />
             ))}
@@ -184,48 +178,42 @@ export default function Home() {
           ladoImagen="izquierda"
           alturaMinima={750}
           imagen="/images/aplicaciones/materiales-muestrario-16x9.png"
-          alt="Muestrario de materiales grabados y cortados"
+          alt={t.materials.imageAlt}
         >
-          <p className="eyebrow">Materiales</p>
-          <h2>La potencia se entiende mejor cuando se convierte en opciones.</h2>
-          <p>
-            El Laser Tree K30 combina 30 W ópticos, una longitud de onda de
-            450 nm y asistencia de aire integrada para trabajar materiales
-            compatibles con precisión.
-          </p>
+          <p className="eyebrow">{t.materials.eyebrow}</p>
+          <h2>{t.materials.title}</h2>
+          <p>{t.materials.lead}</p>
           <div className={styles.materialGroups}>
-            {materialGroups.map((group) => (
+            {t.materials.groups.map((group) => (
               <div key={group.title}>
                 <h3>{group.title}</h3>
                 <ul>
-                  {group.materials.map((material) => (
+                  {group.items.map((material) => (
                     <li key={material}>{material}</li>
                   ))}
                 </ul>
               </div>
             ))}
           </div>
-          <small className={styles.notaMateriales}>
-            No corta metal ni acrílico transparente, blanco o azul.
-          </small>
+          <small className={styles.notaMateriales}>{t.materials.note}</small>
         </SeccionPartida>
 
         <section className={styles.process}>
           <SectionHeading
-            eyebrow="Del diseño al producto"
-            title="Tu archivo digital se convierte en algo que se puede tocar."
+            eyebrow={t.process.eyebrow}
+            title={t.process.title}
             align="center"
           />
           <div className={styles.processVisual}>
             <Image
               src="/images/proceso/flujo-diseno-producto-16x9.png"
-              alt="Flujo desde un diseño vectorial hasta un producto cortado"
+              alt={t.process.imageAlt}
               fill
               sizes="(max-width: 1100px) 100vw, 1100px"
             />
           </div>
           <ol className={styles.processSteps}>
-            {PASOS.map(([number, title, text]) => (
+            {t.process.steps.map(([number, title, text]) => (
               <li key={number}>
                 <span>{number}</span>
                 <h3>{title}</h3>
@@ -240,37 +228,25 @@ export default function Home() {
           tono="crema"
           ladoImagen="derecha"
           imagen="/images/maquina/hero-maquina-cerrada-vertical-4x5.png"
-          alt="CNC Magia Roja v3 con su tapa roja cerrada"
+          alt={t.machine.imageAlt}
         >
-          <p className="eyebrow">Magia Roja v3</p>
-          <h2>La máquina detrás de las posibilidades.</h2>
-          <p>
-            Una plataforma CNC de escritorio con control abierto, movimiento en
-            tres ejes y un cabezal láser pensado para convertir diseños en
-            piezas precisas.
-          </p>
-          <ListaDatos
-            datos={specifications.map((spec) => ({
-              etiqueta: spec.label,
-              valor: spec.value,
-            }))}
-          />
+          <p className="eyebrow">{t.machine.eyebrow}</p>
+          <h2>{t.machine.title}</h2>
+          <p>{t.machine.lead}</p>
+          <ListaDatos datos={t.machine.specs} />
         </SeccionPartida>
 
         <SeccionPartida
           tono="oscuro"
           ladoImagen="izquierda"
           imagen="/images/proceso/velo-inc-ensamble-cnc-16x9.png"
-          alt="Verificación técnica de una CNC Magia Roja"
+          alt={t.company.imageAlt}
         >
           <p className={styles.companyLogo}>
             VELO <small>inc</small>
           </p>
-          <h2>Diseñamos y fabricamos máquinas CNC.</h2>
-          <p>
-            Creamos herramientas para que empresas, talleres e instituciones
-            transformen ideas digitales en productos físicos.
-          </p>
+          <h2>{t.company.title}</h2>
+          <p>{t.company.lead}</p>
         </SeccionPartida>
 
         <SeccionPartida
@@ -278,31 +254,30 @@ export default function Home() {
           tono="claro"
           ladoImagen="derecha"
           imagen="/images/proceso/mantenimiento-tecnico-4x3.png"
-          alt="Servicio de mantenimiento de la CNC Magia Roja"
+          alt={t.maintenance.imageAlt}
         >
-          <p className="eyebrow">Mantenimiento incluido</p>
-          <h2>La relación continúa después de ponerla en marcha.</h2>
-          <p>
-            La CNC Magia Roja v3 incluye un plan de mantenimiento durante sus
-            primeros seis meses.
-          </p>
-          <Cifras cifras={CIFRAS_MANTENIMIENTO} />
+          <p className="eyebrow">{t.maintenance.eyebrow}</p>
+          <h2>{t.maintenance.title}</h2>
+          <p>{t.maintenance.lead}</p>
+          <Cifras cifras={t.maintenance.stats} />
           <WhatsAppLink
             location="maintenance"
             interest="el plan de mantenimiento"
             variante="secundario"
+            message={t.whatsapp.maintenance}
+            aria-label={`${t.maintenance.cta} ${t.whatsapp.ariaSuffix}`}
           >
-            Consultar el plan
+            {t.maintenance.cta}
           </WhatsAppLink>
         </SeccionPartida>
 
         <section className={styles.faq}>
           <SectionHeading
-            eyebrow="Preguntas frecuentes"
-            title="Lo esencial, antes de conversar."
+            eyebrow={t.faq.eyebrow}
+            title={t.faq.title}
           />
           <Acordeon
-            items={faqItems.map((item) => ({
+            items={t.faq.items.map((item) => ({
               pregunta: item.question,
               respuesta: item.answer,
             }))}
@@ -318,11 +293,15 @@ export default function Home() {
           />
           <div className={styles.finalShade} />
           <div className={styles.finalContent}>
-            <p className="eyebrow">Hablemos de tu idea</p>
-            <h2>¿Qué quieres crear con tu CNC?</h2>
-            <p>Cuéntanos el tipo de producto o material que tienes en mente.</p>
-            <WhatsAppLink location="final_cta" variante="primario">
-              Escribir por WhatsApp
+            <p className="eyebrow">{t.finalCta.eyebrow}</p>
+            <h2>{t.finalCta.title}</h2>
+            <p>{t.finalCta.lead}</p>
+            <WhatsAppLink
+              location="final_cta"
+              variante="primario"
+              message={t.whatsapp.generic}
+            >
+              {t.finalCta.cta}
             </WhatsAppLink>
           </div>
         </section>
@@ -330,16 +309,17 @@ export default function Home() {
 
       <footer className={styles.footer}>
         <Marca />
-        <p data-deploy="gha">CNC Magia Roja v3 · Diseñada y fabricada por VELO inc. · 2026</p>
-        <a href="#inicio">Volver arriba ↑</a>
+        <p data-deploy="gha">{t.footer.text}</p>
+        <a href="#inicio">{t.footer.back}</a>
       </footer>
 
       <WhatsAppLink
         className={styles.floatingWhatsapp}
         location="floating"
         interest="la CNC Magia Roja v3"
+        message={t.whatsapp.floating}
       >
-        WhatsApp
+        {t.whatsapp.floatingLabel}
       </WhatsAppLink>
     </>
   );

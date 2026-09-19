@@ -32,3 +32,4 @@ Cada decisión relevante — técnica de la máquina o estructural del repositor
 | [D-0018](D-0018-finales-carrera-nc-y-en-serie.md) | Finales NC; Y− y Y+ en serie sobre la entrada compartida D10 | Máquina | ✅ Vigente e implementada |
 | [D-0019](D-0019-sistema-de-diseno-con-tokens.md) | Sistema de diseño con tokens en `comercial/identidad/`; paleta corregida a WCAG 2.2 AA | Repositorio / Comercial | ✅ Vigente |
 | [D-0020](D-0020-despliegue-landing-por-github-actions.md) | La landing se publica con un push a `main`, no a mano | Repositorio / Infraestructura | ✅ Vigente |
+| [D-0021](D-0021-landing-bilingue.md) | Landing en español e inglés según Accept-Language | Repositorio / Comercial | ✅ Vigente |

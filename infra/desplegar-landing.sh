@@ -14,8 +14,9 @@
 #      sobrevive.
 #   3. Reconstruye la imagen. Las variables NEXT_PUBLIC_* se incrustan en
 #      tiempo de compilación: reiniciar el contenedor no basta.
-#   4. Verifica que https://cnc.velasquezlopez.com responda 200 y que
-#      los CTA lleven número de WhatsApp. El apex ya no es esta landing.
+#   4. Verifica que https://cnc.velasquezlopez.com/es y /en respondan 200,
+#      que la raíz redirija 302 según Accept-Language, y que los CTA lleven
+#      número de WhatsApp. El apex ya no es esta landing.
 #
 # Es idempotente: correrlo dos veces seguidas deja el mismo resultado.
 #
@@ -117,19 +118,44 @@ ssh "$HOST" "cd '$DESTINO' && docker compose up -d --build"
 paso "Verificando https://$DOMINIO"
 CODIGO=000
 for _ in $(seq 1 20); do
-  CODIGO="$(curl -s -o /dev/null -w '%{http_code}' "https://$DOMINIO" || true)"
+  CODIGO="$(curl -s -o /dev/null -w '%{http_code}' "https://$DOMINIO/es" || true)"
   if [ "$CODIGO" = "200" ]; then
     break
   fi
   sleep 3
 done
-printf '    HTTP %s\n' "$CODIGO"
+printf '    /es HTTP %s\n' "$CODIGO"
 if [ "$CODIGO" != "200" ]; then
-  error "el sitio no responde 200. Revisar: ssh $HOST 'cd $DESTINO && docker compose logs --tail 50'"
+  error "el sitio no responde 200 en /es. Revisar: ssh $HOST 'cd $DESTINO && docker compose logs --tail 50'"
   exit 1
 fi
 
-NUMERO="$(curl -s "https://$DOMINIO" | grep -o 'wa\.me/[0-9]\+' | sort -u | head -1 || true)"
+CODIGO_EN="$(curl -s -o /dev/null -w '%{http_code}' "https://$DOMINIO/en" || true)"
+printf '    /en HTTP %s\n' "$CODIGO_EN"
+if [ "$CODIGO_EN" != "200" ]; then
+  error "el sitio no responde 200 en /en"
+  exit 1
+fi
+
+redirige() {
+  local idioma="$1"
+  local esperado="$2"
+  local destino
+  destino="$(curl -sI -H "Accept-Language: $idioma" "https://$DOMINIO/" | awk 'tolower($1)=="location:" {print $2}' | tr -d '\r')"
+  printf '    Accept-Language %s -> %s\n' "$idioma" "$destino"
+  case "$destino" in
+    *"$esperado"*) ;;
+    *)
+      error "la raíz con Accept-Language $idioma no redirigió a $esperado"
+      exit 1
+      ;;
+  esac
+}
+
+redirige "es-CO" "/es"
+redirige "en-US" "/en"
+
+NUMERO="$(curl -s "https://$DOMINIO/es" | grep -o 'wa\.me/[0-9]\+' | sort -u | head -1 || true)"
 if [ -n "$NUMERO" ]; then
   printf '    CTA de WhatsApp -> %s\n' "$NUMERO"
 else

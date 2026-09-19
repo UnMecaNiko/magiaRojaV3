@@ -7,7 +7,19 @@ import styles from "./analytics-consent.module.css";
 
 const CONSENT_KEY = "velo_analytics_consent";
 
-export function AnalyticsConsent() {
+type AnalyticsConsentProps = {
+  ariaLabel: string;
+  text: string;
+  rejectLabel: string;
+  acceptLabel: string;
+};
+
+export function AnalyticsConsent({
+  ariaLabel,
+  text,
+  rejectLabel,
+  acceptLabel,
+}: AnalyticsConsentProps) {
   const [consent, setConsent] = useState<"accepted" | "rejected" | null>(null);
   const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
   const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID;
@@ -64,21 +76,18 @@ export function AnalyticsConsent() {
       )}
 
       {consent === null && (gaId || pixelId) && (
-        <aside className={styles.banner} aria-label="Preferencias de analítica">
-          <p>
-            Usamos analítica para saber qué contenidos llevan a una consulta por
-            WhatsApp. No vemos el contenido de la conversación.
-          </p>
+        <aside className={styles.banner} aria-label={ariaLabel}>
+          <p>{text}</p>
           <div className={styles.actions}>
             <button type="button" onClick={() => choose("rejected")}>
-              Solo esenciales
+              {rejectLabel}
             </button>
             <button
               className={styles.accept}
               type="button"
               onClick={() => choose("accepted")}
             >
-              Aceptar analítica
+              {acceptLabel}
             </button>
           </div>
         </aside>

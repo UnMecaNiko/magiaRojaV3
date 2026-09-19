@@ -1,0 +1,26 @@
+.langSwitch {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--espacio-2);
+  color: var(--texto-secundario);
+  font-size: var(--tamano-xs);
+  font-weight: var(--peso-fuerte);
+  letter-spacing: var(--espaciado-letra-versales);
+}
+
+.langSwitch a {
+  color: inherit;
+  transition: color var(--transicion-rapida);
+}
+
+.langSwitch a:hover,
+.langSwitch a[aria-current="page"] {
+  color: var(--texto-fuerte);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .langSwitch a {
+    transition: none;
+  }
+}

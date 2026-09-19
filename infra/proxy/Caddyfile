@@ -17,8 +17,51 @@
 	}
 }
 
-# ── Landing de VELO inc (Next.js) ──────────────────────────────
+# ── Portada de VELO inc (estática) ─────────────────────────────
+# Desde el 2026-09-18 el apex es la portada, no la landing de la CNC.
+# El contenido se sube a /opt/proxy/sitios/velasquezlopez — ver la sección
+# "Sitios estáticos" del README. No hay proceso Node detrás.
 {$DOMINIO_VELO} {
+	import comunes
+
+	root * /srv/velasquezlopez
+
+	# La raíz elige idioma por la cabecera del navegador. 302, no 301: la
+	# respuesta depende de Accept-Language y no puede cachearse como fija.
+	# El Vary evita que un proxy le sirva /en/ a un navegador en español.
+	@home path /
+	header @home Vary Accept-Language
+
+	@home_es {
+		path /
+		header_regexp Accept-Language (?i)^\s*es\b
+	}
+	redir @home_es /es/ 302
+	redir @home /en/ 302
+
+	# Las fuentes propias llevan el nombre del peso: son inmutables.
+	@fuentes path /media/fonts/*
+	header @fuentes Cache-Control "public, max-age=31536000, immutable"
+
+	try_files {path} {path}.html {path}/index.html
+	file_server
+
+	handle_errors 404 {
+		rewrite * /404.html
+		file_server
+	}
+}
+
+# www redirige al apex, para no dividir el SEO entre dos direcciones.
+www.{$DOMINIO_VELO} {
+	redir https://{$DOMINIO_VELO}{uri} permanent
+}
+
+# ── Landing de la CNC (Next.js) ────────────────────────────────
+# Vivía en el apex hasta el 2026-09-18. Al mudarla hay que cambiar
+# NEXT_PUBLIC_SITE_URL en el .env de la landing y reconstruirla, o seguirá
+# anunciando el apex como su dirección canónica.
+{$DOMINIO_CNC} {
 	import comunes
 
 	# Los assets con hash de Next son inmutables: cache larga.
@@ -26,11 +69,6 @@
 	header @estaticos Cache-Control "public, max-age=31536000, immutable"
 
 	reverse_proxy web-velo:3000
-}
-
-# www redirige al apex, para no dividir el SEO entre dos direcciones.
-www.{$DOMINIO_VELO} {
-	redir https://{$DOMINIO_VELO}{uri} permanent
 }
 
 # ── n8n ────────────────────────────────────────────────────────

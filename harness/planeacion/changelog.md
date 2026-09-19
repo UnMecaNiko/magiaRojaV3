@@ -6,6 +6,7 @@
 
 ### 2026-09-18
 - **[infra/web]** [D-0020](../../conocimiento/maquina/decisiones/D-0020-despliegue-landing-por-github-actions.md): un push a `main` publica la landing. El script `desplegar-landing.sh` sigue siendo la fuente de la verdad; GitHub Actions solo le da SSH. Fijado el digest de `node:24-alpine` y añadido `.dockerignore` para que el `.env` de producción no entre al contexto de build. Motivo: el ciclo manual del mismo día tardó 97 s y dependía de esta laptop.
+- **[infra]** Primera prueba: el workflow falló en 9 s (exit 126) porque los `.sh` no tenían bit de ejecución en git. Corregido a `100755` y `bash infra/desplegar-landing.sh`; el segundo run publicó en 1 m 3 s.
 
 ## 2026-08
 
